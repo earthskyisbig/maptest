@@ -1,0 +1,1 @@
+{"type": "FeatureCollection", "meta": {"layer": "zone_industrial", "source": "미확보/해당없음", "collected_at": "2026-07-10T10:29:23+09:00", "base_date": "2026-07-10", "count": 0, "region": "성남시 분당구 (bbox 127.06-127.16, 37.31-37.42)", "note": "분당구 bbox 내 지정 국가/일반/도시첨단/농공 산업단지 없음(도시지역). 성남 산업단지(성남하이테크밸리)는 중원구로 분당 bbox 밖. 산단 레이어 없이 진행."}, "features": []}

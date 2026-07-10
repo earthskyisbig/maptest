@@ -1,0 +1,6474 @@
+{
+ "type": "FeatureCollection",
+ "meta": {
+  "layer": "infra",
+  "source": "OpenStreetMap Overpass API",
+  "collected_at": "2026-07-10T10:23:22.569815+09:00",
+  "region": "성남시 분당구",
+  "bbox": {
+   "south": 37.31,
+   "west": 127.06,
+   "north": 37.42,
+   "east": 127.16
+  },
+  "count": 379,
+  "category_counts": {
+   "school": 154,
+   "hospital": 108,
+   "mart": 97,
+   "subway": 20
+  }
+ },
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.08884,
+     37.316866
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-n368625647",
+    "name": "풍덕고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.088627,
+     37.320708
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-n368934819",
+    "name": "정평초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.11837,
+     37.327767
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-n368934841",
+    "name": "용인대일초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.088033,
+     37.31779
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-n1994672687",
+    "name": "정평중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.096814,
+     37.314818
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-n4574680634",
+    "name": "이현중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.077991,
+     37.319314
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-n4634796883",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.129591,
+     37.368307
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-n4666750099",
+    "name": "샛별중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.085732,
+     37.316757
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-n4803128087",
+    "name": "수지초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.152941,
+     37.403484
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-n5132027122",
+    "name": "야탑고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.131753,
+     37.392157
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-n5135422722",
+    "name": "송림중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.076385,
+     37.321224
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-n8457437687",
+    "name": "홍천중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.076448,
+     37.319826
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-n8457441404",
+    "name": "성복중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.116001,
+     37.393969
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w154829838",
+    "name": "보평중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.117734,
+     37.395665
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w154830158",
+    "name": "보평초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.095949,
+     37.316025
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w181400127",
+    "name": "풍천초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.125747,
+     37.336496
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w232374964",
+    "name": "용인대덕초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.127312,
+     37.336485
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w232374966",
+    "name": "용인대덕중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.110397,
+     37.333525
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w232374970",
+    "name": "죽전초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.154289,
+     37.416694
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w289065433",
+    "name": "도촌중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.158013,
+     37.414395
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w289066725",
+    "name": "도촌초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.116071,
+     37.38988
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w315572328",
+    "name": "화랑초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.115654,
+     37.361598
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w333420287",
+    "name": "탄천초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.064142,
+     37.31504
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w343111630",
+    "name": "성서중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.063101,
+     37.327963
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w347522918",
+    "name": "신봉고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.087643,
+     37.334836
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w360328682",
+    "name": "용인한빛초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.084813,
+     37.337114
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w360331556",
+    "name": "용인한빛중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.095144,
+     37.336664
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w362612938",
+    "name": "손곡초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.094401,
+     37.334671
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w362613063",
+    "name": "손곡중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.092199,
+     37.33102
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w362976419",
+    "name": "수지고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.095494,
+     37.329839
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w363535208",
+    "name": "풍덕초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.09173,
+     37.324908
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w363536646",
+    "name": "토월초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.088012,
+     37.317826
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w365694524",
+    "name": "정평중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.085779,
+     37.316896
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w365699458",
+    "name": "수지초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.088837,
+     37.316896
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w365700433",
+    "name": "풍덕고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.092921,
+     37.320669
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w365932725",
+    "name": "신월초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.088624,
+     37.320761
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w366065307",
+    "name": "정평초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.068084,
+     37.329621
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w366238475",
+    "name": "용인신봉초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.064247,
+     37.327324
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w366238677",
+    "name": "신봉중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.076463,
+     37.319515
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w366609275",
+    "name": "성복중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.077995,
+     37.319338
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w366609276",
+    "name": "성복초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.076565,
+     37.320815
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w366609277",
+    "name": "홍천중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.077533,
+     37.328966
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w366609292",
+    "name": "신일초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.07973,
+     37.32654
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w366609958",
+    "name": "홍천초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.080782,
+     37.322163
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w366614315",
+    "name": "신리초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.082229,
+     37.321964
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w366614354",
+    "name": "홍천고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.061135,
+     37.323296
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w366837924",
+    "name": "성복고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.06752,
+     37.31718
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w366838394",
+    "name": "효자초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.073206,
+     37.310012
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w367628097",
+    "name": "매봉초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.11594,
+     37.400433
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w382384986",
+    "name": "삼평중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.114806,
+     37.405305
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w382384987",
+    "name": "판교고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.094286,
+     37.332587
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w387557720",
+    "name": "수지중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.099276,
+     37.323086
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w389636150",
+    "name": "문정중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.124597,
+     37.32896
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w422646322",
+    "name": "현암초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.122482,
+     37.325052
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w423062277",
+    "name": "대지고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.121992,
+     37.329659
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w423062287",
+    "name": "현암중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.109604,
+     37.313791
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w423124512",
+    "name": "보정고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.145484,
+     37.405909
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w426431064",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.137347,
+     37.408791
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w426856893",
+    "name": "하탑중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.130118,
+     37.409
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w426886742",
+    "name": "돌마초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.139446,
+     37.413671
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w427858217",
+    "name": "중탑초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.138098,
+     37.413852
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w427858220",
+    "name": "아람고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.126135,
+     37.407179
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w428082031",
+    "name": "하탑초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.110258,
+     37.38591
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w428455672",
+    "name": "신백현중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.117743,
+     37.393947
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w428742421",
+    "name": "보평고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.131554,
+     37.416253
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w428920296",
+    "name": "야탑중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.1259,
+     37.416245
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w429371474",
+    "name": "야탑초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.116414,
+     37.405185
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w430266829",
+    "name": "성남송현초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.12288,
+     37.401638
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w432047542",
+    "name": "성남매송초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.126088,
+     37.401553
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w432330495",
+    "name": "이매중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.105165,
+     37.373165
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w433023244",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.105166,
+     37.374169
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w433023246",
+    "name": "성남정자초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.105193,
+     37.358024
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w435659198",
+    "name": "늘푸른초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.105191,
+     37.357186
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w435659199",
+    "name": "늘푸른중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.126076,
+     37.396706
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w435879594",
+    "name": "이매초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.122839,
+     37.396783
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w435950144",
+    "name": "매송중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.125578,
+     37.392813
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w436081905",
+    "name": "안말초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.121593,
+     37.392254
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w436114438",
+    "name": "이매고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.123842,
+     37.381499
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w438960487",
+    "name": "서현고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.12842,
+     37.382441
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w442697955",
+    "name": "서현초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.112003,
+     37.387239
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w457628925",
+    "name": "신백현초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.146546,
+     37.371248
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w465845038",
+    "name": "장안중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.124322,
+     37.36756
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w467202204",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.129283,
+     37.365905
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w467202207",
+    "name": "수내고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.096492,
+     37.399079
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w468618309",
+    "name": "낙원중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.099029,
+     37.394092
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w468618519",
+    "name": "낙생초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.119182,
+     37.340723
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w468650007",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.119479,
+     37.370358
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w468668907",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.110912,
+     37.355755
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w468672886",
+    "name": "청솔중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.109593,
+     37.355768
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w468672892",
+    "name": "분당경영고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.119225,
+     37.347963
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w468672896",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.119983,
+     37.361656
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w468725836",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.113573,
+     37.315913
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w468728939",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.1163,
+     37.318572
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w468732994",
+    "name": "독정초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.113804,
+     37.323032
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w468740857",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.073684,
+     37.392467
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w468749773",
+    "name": "운중고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.073624,
+     37.390989
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w468749964",
+    "name": "운중중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.07895,
+     37.38947
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w468750123",
+    "name": "산운초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.110651,
+     37.360531
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w468752730",
+    "name": "분당중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.14053,
+     37.373611
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w468758168",
+    "name": "양영디지털고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.139427,
+     37.374461
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w468758170",
+    "name": "양영초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.090787,
+     37.352478
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w469037297",
+    "name": "이우학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.107539,
+     37.332622
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w469080331",
+    "name": "죽전중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.138224,
+     37.369307
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w469085448",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.117891,
+     37.376684
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w469094547",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.115318,
+     37.34701
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w469279245",
+    "name": "미금초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.115359,
+     37.343877
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w469417174",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.106869,
+     37.333537
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w469421419",
+    "name": "대현초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.131537,
+     37.416116
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w469928241",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.106196,
+     37.332752
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w470223157",
+    "name": "죽전고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.123998,
+     37.36038
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w471999372",
+    "name": "분당중앙고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.097658,
+     37.377449
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w472258113",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.09734,
+     37.37849
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w472258114",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.129632,
+     37.368285
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w472478229",
+    "name": "샛별중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.133194,
+     37.419365
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w472683575",
+    "name": "성남여수초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.118338,
+     37.337458
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w473258098",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.116184,
+     37.375113
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w473349332",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.129892,
+     37.403286
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w473499362",
+    "name": "태원고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.09375,
+     37.344237
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w474111378",
+    "name": "동천초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.134728,
+     37.374516
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w476459043",
+    "name": "서당초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.122041,
+     37.372878
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w476884852",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.129802,
+     37.378597
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w476918937",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.126233,
+     37.370457
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w476925346",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.119219,
+     37.347038
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w478179820",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.131348,
+     37.373568
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w478610800",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.136026,
+     37.376497
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w482180659",
+    "name": "양영중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.144053,
+     37.372228
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w486109988",
+    "name": "성남장안초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.115726,
+     37.366638
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w487688001",
+    "name": "한솔고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.118048,
+     37.36664
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w487688900",
+    "name": "한솔초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.111379,
+     37.371953
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w487706331",
+    "name": "백현초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.068732,
+     37.392239
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w493934521",
+    "name": "운중초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.100992,
+     37.386611
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w564197533",
+    "name": "낙생고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.11607,
+     37.358941
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w705534308",
+    "name": "계원예술고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.066132,
+     37.358852
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w708200331",
+    "name": "고기초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.123649,
+     37.345976
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w744781691",
+    "name": "구미중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.13857,
+     37.405609
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w752980649",
+    "name": "분당영덕여자고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.091504,
+     37.387002
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w788045089",
+    "name": "판교초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.110501,
+     37.366701
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w788045090",
+    "name": "성남신기초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.131909,
+     37.328759
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w834357357",
+    "name": "현암고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.151035,
+     37.357766
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w835672817",
+    "name": "신현중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.128809,
+     37.334022
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w836913765",
+    "name": "대청초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.147289,
+     37.35691
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w860106472",
+    "name": "신현초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.118667,
+     37.327701
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w903611855",
+    "name": "대일초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.131702,
+     37.393324
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w986105786",
+    "name": "돌마고등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.130696,
+     37.39224
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w986105788",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.069801,
+     37.368408
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w1085280533",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.069655,
+     37.368522
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w1085475694",
+    "name": "판교대장중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.069382,
+     37.369026
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w1085475696",
+    "name": "판교대장초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.115931,
+     37.329763
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w1206335962",
+    "name": "대지초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.116308,
+     37.330869
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w1206335963",
+    "name": "대지중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.110516,
+     37.365541
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w1221864046",
+    "name": "정자중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.087491,
+     37.387054
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w1278076862",
+    "name": "판교중학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.114162,
+     37.354043
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w1316366910",
+    "name": "청솔초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.093025,
+     37.310079
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w1322057216",
+    "name": "이현초등학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.06517,
+     37.320117
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "school-w1370431148",
+    "name": "학교",
+    "category": "school",
+    "color": "#f39c12"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.115628,
+     37.328865
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368814915",
+    "name": "자연미의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.12384,
+     37.331953
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368814949",
+    "name": "죽전키즈앤미즈한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.112859,
+     37.327185
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368814984",
+    "name": "경태영내과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.125442,
+     37.332001
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368814999",
+    "name": "핑크한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.113758,
+     37.328427
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368815046",
+    "name": "소리청 삼명한의원 분당점",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.098025,
+     37.320107
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368815091",
+    "name": "서울경희한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.113736,
+     37.328418
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368815128",
+    "name": "영소아과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.113883,
+     37.320216
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368815138",
+    "name": "연세웰비뇨기과피부과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.127631,
+     37.332044
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368815152",
+    "name": "희망찬한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.113345,
+     37.327072
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368815178",
+    "name": "죽전한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.096111,
+     37.321992
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368815246",
+    "name": "밝은누리안과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.112859,
+     37.327185
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368815253",
+    "name": "하이탑피부비뇨기과의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.120586,
+     37.331956
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368815301",
+    "name": "수연당한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.108692,
+     37.335351
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368815316",
+    "name": "경희태동한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.114481,
+     37.328351
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368815347",
+    "name": "연세가정의학과 의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.095699,
+     37.322505
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368815368",
+    "name": "맑은신경과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.098675,
+     37.327024
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368815432",
+    "name": "와이즈병원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.110587,
+     37.331642
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368815452",
+    "name": "태영한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.12358,
+     37.331987
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368815465",
+    "name": "연세키즈소아과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.100924,
+     37.332511
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368815503",
+    "name": "알콜정신전문병원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.098675,
+     37.327024
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368815810",
+    "name": "종아리퇴축비만클리닉",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.087624,
+     37.317063
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368815851",
+    "name": "수지재활의학과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.078315,
+     37.31298
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816261",
+    "name": "신통재활의학과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.114207,
+     37.328646
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816294",
+    "name": "온가족한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.098675,
+     37.327024
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816330",
+    "name": "수지서울정형외과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.087624,
+     37.317063
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816340",
+    "name": "한내과의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.098675,
+     37.327024
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816430",
+    "name": "연세내과의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.099031,
+     37.340716
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816436",
+    "name": "연세웰내과의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.112251,
+     37.327012
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816461",
+    "name": "유영일내과의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.098675,
+     37.327024
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816528",
+    "name": "미라클의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.114185,
+     37.328628
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816545",
+    "name": "서울고운의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.087624,
+     37.317063
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816565",
+    "name": "박안과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.087624,
+     37.317063
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816575",
+    "name": "한마음안과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.097486,
+     37.324591
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816577",
+    "name": "김안과의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.097713,
+     37.32236
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816596",
+    "name": "수지정신보건실",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.088751,
+     37.337247
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816632",
+    "name": "염광피부과의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.087624,
+     37.317063
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816653",
+    "name": "정소희피부과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.087624,
+     37.317063
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816717",
+    "name": "연세소아과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.114185,
+     37.328628
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816730",
+    "name": "우리들이비인후과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.112191,
+     37.326986
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816782",
+    "name": "장이비인후과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.114252,
+     37.328611
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816849",
+    "name": "메이준소아과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.095558,
+     37.323477
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816885",
+    "name": "차호인정형외과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.087624,
+     37.317063
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816926",
+    "name": "메디서울이비인후과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.093279,
+     37.335715
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816957",
+    "name": "동천서울이비인후과의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.094096,
+     37.32176
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368816979",
+    "name": "수지신경외과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.094738,
+     37.322209
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817005",
+    "name": "길이비인후과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.117478,
+     37.331654
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817012",
+    "name": "죽전정형외과의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.108442,
+     37.330451
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817043",
+    "name": "라온소아청소년과의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.097486,
+     37.324591
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817066",
+    "name": "용한외과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.087624,
+     37.317063
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817107",
+    "name": "김태철이비인후과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.095844,
+     37.322172
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817147",
+    "name": "이안소아과의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.097486,
+     37.324591
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817195",
+    "name": "연세산부인과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.095944,
+     37.321913
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817252",
+    "name": "로하스정신과의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.076713,
+     37.324467
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817306",
+    "name": "참가정의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.092983,
+     37.33593
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817355",
+    "name": "동천한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.101217,
+     37.318451
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817364",
+    "name": "(의료법인)녹십자의료재단",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.078898,
+     37.313485
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817402",
+    "name": "수지경희한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.096076,
+     37.321924
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817497",
+    "name": "수강한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.094663,
+     37.320974
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817600",
+    "name": "수지아동발달센터",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.115022,
+     37.320731
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817604",
+    "name": "맥한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.095746,
+     37.323344
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817607",
+    "name": "이상봉마취통증의학과의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.098675,
+     37.327024
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817611",
+    "name": "성모마취통증의학과의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.087624,
+     37.317063
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817622",
+    "name": "강경태한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.087624,
+     37.317063
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817652",
+    "name": "서울원경희한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.097009,
+     37.334311
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817664",
+    "name": "영재한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.096468,
+     37.32571
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817666",
+    "name": "수지한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.094738,
+     37.322209
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817717",
+    "name": "경희본한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.087624,
+     37.317063
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817736",
+    "name": "명문경희한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.094162,
+     37.321774
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817786",
+    "name": "소망한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.095544,
+     37.322556
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817848",
+    "name": "카톨릭경희한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.089173,
+     37.348101
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n368817967",
+    "name": "주성차병원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.109583,
+     37.349662
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n2621074176",
+    "name": "한양내과, 류마티스클리닉-Hanyang Clinic",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.115476,
+     37.388472
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n4357349349",
+    "name": "맑은이빈인후과의원 판교점",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.115425,
+     37.388452
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n4357349350",
+    "name": "도제한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.115401,
+     37.388521
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n4357349351",
+    "name": "튼튼가정의학과의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.115095,
+     37.388418
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n4357349352",
+    "name": "판교연세피부과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.115093,
+     37.38835
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n4357349353",
+    "name": "맑은샘경희한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.115114,
+     37.388308
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n4357349354",
+    "name": "퍼스트소아청소년과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.114679,
+     37.388231
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n4357349355",
+    "name": "선현주한의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.123465,
+     37.387306
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n4599398433",
+    "name": "좋은이웃요양병원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.121771,
+     37.386902
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n4599735456",
+    "name": "분당제일여성병원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.120151,
+     37.383979
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n4603353959",
+    "name": "서울나우병원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.11658,
+     37.337084
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n4638883854",
+    "name": "병원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.115931,
+     37.336975
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n4638883865",
+    "name": "병원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.116371,
+     37.337692
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n4638883876",
+    "name": "병원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.100328,
+     37.358214
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n4662118847",
+    "name": "더헤리티지 너싱홈",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.128025,
+     37.367277
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n4666782189",
+    "name": "동국대학교 분당한방병원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.112598,
+     37.397695
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n4979721523",
+    "name": "메디피움병원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.124686,
+     37.411037
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n5135381021",
+    "name": "분당구보건소",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.120876,
+     37.354177
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n5542484321",
+    "name": "헬스케어혁신파크",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.073102,
+     37.327895
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n8449340741",
+    "name": "올가스킨케어",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.124232,
+     37.316006
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n10310190164",
+    "name": "크래들산후조리원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.110257,
+     37.402242
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n12508918425",
+    "name": "판교제일이비인후과 내과 피부과",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.129878,
+     37.412194
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n12627829101",
+    "name": "분당베스트병원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.092337,
+     37.329855
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n13329956231",
+    "name": "솔빛내과의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.129799,
+     37.411539
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-n13924611681",
+    "name": "본척척재활의학과의원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.124174,
+     37.349305
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-w232198027",
+    "name": "분당서울대학교병원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.106628,
+     37.350294
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-w316566057",
+    "name": "메디파크빌딩",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.125441,
+     37.410295
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-w428082081",
+    "name": "분당차병원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.12637,
+     37.410951
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-w428082091",
+    "name": "분당차여성병원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.119769,
+     37.38523
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-w465367872",
+    "name": "필립메디컬센터",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.119934,
+     37.385385
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-w465389880",
+    "name": "필립메디컬센터 별관",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.119899,
+     37.385644
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-w465413270",
+    "name": "자생한방병원 분당점",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.098349,
+     37.355945
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-w472033206",
+    "name": "보바스기념병원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.084798,
+     37.316815
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-w487924777",
+    "name": "수지요양병원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.149019,
+     37.39364
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-w784633255",
+    "name": "국군수도병원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.08665,
+     37.31571
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-w805840740",
+    "name": "러스크수지병원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.121588,
+     37.388078
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "hospital-w1019931528",
+    "name": "분당제생병원",
+    "category": "hospital",
+    "color": "#e74c3c"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.113332,
+     37.328162
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n368688172",
+    "name": "콜할인마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.096442,
+     37.336263
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n368688181",
+    "name": "은성할인마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.096006,
+     37.323796
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n368688188",
+    "name": "홈마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.098675,
+     37.327024
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n368688333",
+    "name": "신정마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.077461,
+     37.313496
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n368688399",
+    "name": "강남마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.09772,
+     37.323872
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n368688495",
+    "name": "하나마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.087624,
+     37.317063
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n368688606",
+    "name": "태영마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.095412,
+     37.339486
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n368688624",
+    "name": "EC돌 마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.091696,
+     37.311543
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n368688703",
+    "name": "(주)영마트 (Yeong Mart)",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.092428,
+     37.337962
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n368688715",
+    "name": "올마켓",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.108442,
+     37.330451
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n368688724",
+    "name": "E-푸른마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.13896,
+     37.330163
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n368688769",
+    "name": "우미럭키마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.098675,
+     37.327024
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n368688810",
+    "name": "신정제일마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.10279,
+     37.321675
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n368688864",
+    "name": "홈훼밀리마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.0973,
+     37.333547
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n368688950",
+    "name": "럭키마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.127354,
+     37.413161
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n1801300484",
+    "name": "홈플러스 야탑점",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.112162,
+     37.33169
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n3269911977",
+    "name": "노스마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.113339,
+     37.395486
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n4318273933",
+    "name": "롯데마트 판교점 (Lottemart)",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.09938,
+     37.34151
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n4320499433",
+    "name": "하모니마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.114935,
+     37.387833
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n4460090590",
+    "name": "에스마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.115019,
+     37.388433
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n4460145990",
+    "name": "홈플러스",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.120593,
+     37.385932
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n4603061080",
+    "name": "롯데마트 서현점",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.115075,
+     37.365432
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n4631578424",
+    "name": "홈플러스 익스프레스",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.114508,
+     37.365281
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n4631578425",
+    "name": "정동마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.114575,
+     37.362416
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n4631578428",
+    "name": "롯데슈퍼 분당정자점",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.086994,
+     37.313374
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n4632106189",
+    "name": "동보마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.113305,
+     37.351661
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n4635071858",
+    "name": "대원 상가",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.115638,
+     37.337821
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n4638883856",
+    "name": "마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.11636,
+     37.337587
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n4638883869",
+    "name": "마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.144977,
+     37.354028
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n4639811347",
+    "name": "365편의점",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.145756,
+     37.356282
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n4639818430",
+    "name": "오포 e마트 에브리데이",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.121472,
+     37.327408
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n4688348344",
+    "name": "마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.10906,
+     37.395441
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n5068287430",
+    "name": "No Brand",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.12113,
+     37.405136
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n5080798924",
+    "name": "싱싱마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.121589,
+     37.383906
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n5091320329",
+    "name": "다이소(지하1층)",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.120469,
+     37.372613
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n5091767721",
+    "name": "정동마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.111781,
+     37.386257
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n5097423129",
+    "name": "한살림",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.121233,
+     37.405206
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n5130207357",
+    "name": "싱싱마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.121999,
+     37.405202
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n5130225121",
+    "name": "Home plus Express",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.116391,
+     37.403693
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n5141435623",
+    "name": "청호마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.067874,
+     37.328461
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n5614543822",
+    "name": "GS슈퍼마켓",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.112098,
+     37.330938
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n6221270767",
+    "name": "이마트 에브리데이",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.06175,
+     37.316604
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n6842625415",
+    "name": "롯데슈퍼",
+    "category": "mart",
+    "color": "#16a085",
+    "brand": "롯데슈퍼"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.073613,
+     37.325155
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n8443947222",
+    "name": "한살림",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.072981,
+     37.328098
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n8449340717",
+    "name": "오아시스마켓",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.068246,
+     37.327552
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n8482767847",
+    "name": "노브랜드",
+    "category": "mart",
+    "color": "#16a085",
+    "brand": "이마트"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.076712,
+     37.323005
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n8645686018",
+    "name": "맘스마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.114428,
+     37.377474
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n8827711875",
+    "name": "하모니마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.09251,
+     37.314478
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n9294169418",
+    "name": "롯데슈퍼",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.092814,
+     37.311087
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n9294169419",
+    "name": "K마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.108426,
+     37.350859
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n9399633926",
+    "name": "도깨비마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.112657,
+     37.345681
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n9399678143",
+    "name": "gs더프레시",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.106706,
+     37.338845
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n9399695277",
+    "name": "하나로마트",
+    "category": "mart",
+    "color": "#16a085",
+    "brand": "하나로마트"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.10648,
+     37.349243
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n9399729985",
+    "name": "킴스클럽",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.111197,
+     37.349788
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n9407174052",
+    "name": "낙생농협마트 미금지점",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.111774,
+     37.350279
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n9407213756",
+    "name": "주민두레생협 미금점",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.111754,
+     37.347573
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n9407228607",
+    "name": "이마트24",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.109719,
+     37.340381
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n9407449108",
+    "name": "이마트24",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.108403,
+     37.335382
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n9407467906",
+    "name": "하모니마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.110011,
+     37.325235
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n9407478340",
+    "name": "E-Mart",
+    "category": "mart",
+    "color": "#16a085",
+    "brand": "E-Mart"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.076574,
+     37.39143
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n9407512446",
+    "name": "홈플러스익스프레스 판교운중점",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.07657,
+     37.391082
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n9407512447",
+    "name": "초록마을 분당운중점",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.076362,
+     37.392032
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n9407524310",
+    "name": "gs프레시 판교운중점",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.081713,
+     37.39114
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n9407531918",
+    "name": "노브랜드 판교운중점",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.105588,
+     37.355805
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n9436272009",
+    "name": "홈플러스익스프레스",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.122329,
+     37.399385
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n9567703041",
+    "name": "노브랜드",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.129408,
+     37.377896
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n10648688243",
+    "name": "현대슈퍼",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.132233,
+     37.37811
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n10648688246",
+    "name": "롯데슈퍼",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.13352,
+     37.379828
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n10648713227",
+    "name": "형제슈퍼",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.118256,
+     37.374649
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n11017152479",
+    "name": "Homeplus Express",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.117951,
+     37.374884
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n11017152485",
+    "name": "Mono Mart",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.093335,
+     37.332464
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n12065694299",
+    "name": "GS더프레시 수지동천점",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.069478,
+     37.371968
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n12473797595",
+    "name": "삼평마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.068299,
+     37.366724
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n12473807762",
+    "name": "대농식자재마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.069594,
+     37.372256
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n12473888705",
+    "name": "초록마을 판교대장점",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.067752,
+     37.358654
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n12473913982",
+    "name": "고기홈마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.091581,
+     37.33733
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n12492000041",
+    "name": "No Brands",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.098306,
+     37.389859
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n12557694671",
+    "name": "하나로마트",
+    "category": "mart",
+    "color": "#16a085",
+    "brand": "하나로마트"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.107187,
+     37.359571
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n12914129079",
+    "name": "이마트24 분당미켈란점",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.09246,
+     37.33003
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n13320479623",
+    "name": "이마트 에브리데이",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.082172,
+     37.31215
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n13542917341",
+    "name": "롯데마트",
+    "category": "mart",
+    "color": "#16a085",
+    "brand": "롯데마트"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.076947,
+     37.324573
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-n13545166121",
+    "name": "우리농산물마켓",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.083394,
+     37.31978
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-w366091870",
+    "name": "E-Mart",
+    "category": "mart",
+    "color": "#16a085",
+    "brand": "E-Mart"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.068297,
+     37.327631
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-w366611226",
+    "name": "노브랜드",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.07408,
+     37.315682
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-w367927671",
+    "name": "하이웨이마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.113657,
+     37.345717
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-w471317743",
+    "name": "하얀마을6단지 상가",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.113616,
+     37.345265
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-w471318538",
+    "name": "상가동",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.10627,
+     37.371792
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-w472266456",
+    "name": "이마트에브리데이 분당정자점",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.119708,
+     37.358761
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-w566555771",
+    "name": "이마트 분당점",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.081697,
+     37.312731
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-w657496607",
+    "name": "롯데몰성복점",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.073528,
+     37.325501
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-w909436360",
+    "name": "상가동",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.06913,
+     37.32861
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-w912201513",
+    "name": "상가동",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.117125,
+     37.34676
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-w1022255928",
+    "name": "상가동",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.115663,
+     37.349094
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-w1022512192",
+    "name": "상가",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.109205,
+     37.328187
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-w1028906797",
+    "name": "동성마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.097492,
+     37.327136
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-w1280789261",
+    "name": "소나무마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.069619,
+     37.316319
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "mart-w1370560343",
+    "name": "세계로마트",
+    "category": "mart",
+    "color": "#16a085"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.108891,
+     37.349978
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "subway-n5881397260",
+    "name": "미금",
+    "category": "subway",
+    "color": "#2980b9"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.108437,
+     37.366652
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "subway-n5881432712",
+    "name": "정자",
+    "category": "subway",
+    "color": "#2980b9"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.1284,
+     37.39464
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "subway-n5882162364",
+    "name": "이매",
+    "category": "subway",
+    "color": "#2980b9"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.107407,
+     37.324567
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "subway-n5924431379",
+    "name": "죽전",
+    "category": "subway",
+    "color": "#2980b9"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.10916,
+     37.349428
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "subway-n5927446185",
+    "name": "미금",
+    "category": "subway",
+    "color": "#2980b9"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.111189,
+     37.39473
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "subway-n5927786493",
+    "name": "판교",
+    "category": "subway",
+    "color": "#2980b9"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.080377,
+     37.3135
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "subway-n6269662492",
+    "name": "성복",
+    "category": "subway",
+    "color": "#2980b9"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.094755,
+     37.322537
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "subway-n6269743766",
+    "name": "수지구청",
+    "category": "subway",
+    "color": "#2980b9"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.102828,
+     37.338098
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "subway-n6271708692",
+    "name": "동천",
+    "category": "subway",
+    "color": "#2980b9"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.10891,
+     37.33994
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "subway-n6312484223",
+    "name": "오리",
+    "category": "subway",
+    "color": "#2980b9"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.114245,
+     37.378406
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "subway-n6312484224",
+    "name": "수내",
+    "category": "subway",
+    "color": "#2980b9"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.123333,
+     37.38491
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "subway-n6312484225",
+    "name": "서현",
+    "category": "subway",
+    "color": "#2980b9"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.128714,
+     37.411298
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "subway-n6312484226",
+    "name": "야탑",
+    "category": "subway",
+    "color": "#2980b9"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.108344,
+     37.312596
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "subway-n6641198799",
+    "name": "보정",
+    "category": "subway",
+    "color": "#2980b9"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.12824,
+     37.395302
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "subway-n7908597459",
+    "name": "이매",
+    "category": "subway",
+    "color": "#2980b9"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.108114,
+     37.366234
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "subway-n7908597461",
+    "name": "정자",
+    "category": "subway",
+    "color": "#2980b9"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.108998,
+     37.350023
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "subway-n7908597462",
+    "name": "미금",
+    "category": "subway",
+    "color": "#2980b9"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.111531,
+     37.394724
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "subway-n8308318738",
+    "name": "판교",
+    "category": "subway",
+    "color": "#2980b9"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.120584,
+     37.393689
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "subway-n10787176950",
+    "name": "성남",
+    "category": "subway",
+    "color": "#2980b9"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.119412,
+     37.394691
+    ]
+   },
+   "properties": {
+    "layer": "infra",
+    "id": "subway-n10787176951",
+    "name": "성남",
+    "category": "subway",
+    "color": "#2980b9"
+   }
+  }
+ ]
+}
