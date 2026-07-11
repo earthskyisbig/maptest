@@ -1,0 +1,511 @@
+<title>부동산 맵서비스 — 강의 슬라이드</title>
+<style>
+  :root{
+    --ink:#141821;--ink-soft:#414a59;--ink-faint:#6b7688;
+    --bg:#f4f6f8;--stage:#ffffff;--line:#e4e8ee;--line-soft:#eef1f5;
+    --mint:#0ca678;--mint-b:#12b981;--mint-wash:#e6f7f1;
+    --violet:#7c3aed;--violet-b:#8b5cf6;--violet-wash:#f0eafe;
+    --amber:#d97b2e;
+    --term:#12161d;--term-ink:#dfe6ef;--term-mint:#3fe0b0;
+    --f-sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR","Malgun Gothic",sans-serif;
+    --f-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,"Cascadia Mono","Noto Sans KR",monospace;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --ink:#e9eef4;--ink-soft:#b0bac8;--ink-faint:#7d8899;
+    --bg:#090b0f;--stage:#12161d;--line:#28303c;--line-soft:#1c222b;
+    --mint:#3fe0b0;--mint-b:#2bcfa0;--mint-wash:#122a24;
+    --violet:#a78bfa;--violet-b:#9a7cf5;--violet-wash:#231b3a;--amber:#e8a35c;
+    --term:#080a0e;--term-ink:#dfe6ef;--term-mint:#3fe0b0;
+  }}
+  :root[data-theme="light"]{--ink:#141821;--ink-soft:#414a59;--ink-faint:#6b7688;--bg:#f4f6f8;--stage:#fff;--line:#e4e8ee;--line-soft:#eef1f5;--mint:#0ca678;--mint-b:#12b981;--mint-wash:#e6f7f1;--violet:#7c3aed;--violet-b:#8b5cf6;--violet-wash:#f0eafe;--amber:#d97b2e;--term:#12161d;--term-ink:#dfe6ef;--term-mint:#3fe0b0;}
+  :root[data-theme="dark"]{--ink:#e9eef4;--ink-soft:#b0bac8;--ink-faint:#7d8899;--bg:#090b0f;--stage:#12161d;--line:#28303c;--line-soft:#1c222b;--mint:#3fe0b0;--mint-b:#2bcfa0;--mint-wash:#122a24;--violet:#a78bfa;--violet-b:#9a7cf5;--violet-wash:#231b3a;--amber:#e8a35c;--term:#080a0e;--term-ink:#dfe6ef;--term-mint:#3fe0b0;}
+
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden}
+  body{background:var(--bg);color:var(--ink);font-family:var(--f-sans);-webkit-font-smoothing:antialiased}
+  code{font-family:var(--f-mono)}
+
+  .deck{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+  .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+    padding:min(8vh,72px) clamp(28px,7vw,110px);opacity:0;visibility:hidden;
+    transform:translateY(14px) scale(.995);transition:opacity .5s ease,transform .5s ease;
+    max-width:1280px;margin:0 auto}
+  .slide.active{opacity:1;visibility:visible;transform:none}
+  .slide-inner{width:100%}
+
+  .kicker{font-family:var(--f-mono);font-size:clamp(11px,1.3vw,13px);letter-spacing:.16em;text-transform:uppercase;
+    color:var(--mint);font-weight:600;display:flex;align-items:center;gap:11px;margin-bottom:18px}
+  .kicker::before{content:"";width:30px;height:2px;background:var(--mint)}
+  .kicker.v{color:var(--violet)}.kicker.v::before{background:var(--violet)}
+  .kicker.a{color:var(--amber)}.kicker.a::before{background:var(--amber)}
+
+  h1.big{font-size:clamp(2.3rem,6.4vw,5rem);line-height:1.03;letter-spacing:-.03em;font-weight:850;margin:0;text-wrap:balance}
+  h2{font-size:clamp(1.7rem,4.2vw,3.1rem);line-height:1.08;letter-spacing:-.025em;font-weight:800;margin:0 0 .5em;text-wrap:balance}
+  .sub{font-size:clamp(1.05rem,2.3vw,1.5rem);color:var(--ink-soft);max-width:44ch;margin:.9em 0 0;line-height:1.5;text-wrap:pretty}
+  .sub b{color:var(--ink)}
+  p{color:var(--ink-soft);line-height:1.6}
+  .lead{font-size:clamp(1.05rem,2vw,1.35rem);color:var(--ink);max-width:40ch}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,44px);align-items:center;margin-top:8px}
+  .cols.tri{grid-template-columns:1fr 1fr 1fr}
+  ul.pts{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:14px}
+  ul.pts li{position:relative;padding-left:30px;font-size:clamp(1rem,1.9vw,1.35rem);color:var(--ink-soft);line-height:1.45}
+  ul.pts li b{color:var(--ink);font-weight:700}
+  ul.pts li::before{content:"";position:absolute;left:0;top:.5em;width:12px;height:12px;border-radius:4px;
+    background:var(--mint-wash);border:2px solid var(--mint)}
+  ul.pts.v li::before{background:var(--violet-wash);border-color:var(--violet)}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);
+    border-radius:16px;overflow:hidden;margin-top:40px}
+  .stat{background:var(--stage);padding:clamp(18px,3vw,30px)}
+  .stat .n{font-size:clamp(1.9rem,4.6vw,3.2rem);font-weight:850;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1}
+  .stat.m .n{color:var(--mint)}.stat.v .n{color:var(--violet)}
+  .stat .l{font-family:var(--f-mono);font-size:clamp(11px,1.3vw,13px);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-faint);margin-top:8px}
+
+  .card{background:var(--stage);border:1px solid var(--line);border-radius:16px;padding:clamp(18px,2.6vw,30px);box-shadow:0 10px 30px rgba(20,24,33,.05)}
+  .card h3{margin:0 0 6px;font-size:clamp(1.05rem,2vw,1.4rem);letter-spacing:-.01em}
+  .card p{margin:0;font-size:clamp(.92rem,1.6vw,1.1rem)}
+  .tag{display:inline-block;font-family:var(--f-mono);font-size:12px;padding:4px 10px;border-radius:100px;border:1px solid var(--line);color:var(--ink-soft);margin-bottom:12px}
+  .tag.m{color:var(--mint);border-color:var(--mint)}.tag.v{color:var(--violet);border-color:var(--violet)}
+
+  table.t{width:100%;border-collapse:collapse;font-size:clamp(.9rem,1.7vw,1.15rem);margin-top:14px}
+  table.t th,table.t td{text-align:left;padding:11px 16px;border-bottom:1px solid var(--line-soft)}
+  table.t th{font-family:var(--f-mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-faint);font-weight:600}
+  table.t td{color:var(--ink-soft)}table.t td b{color:var(--ink)}
+  table.t tr:last-child td{border-bottom:0}
+  table.t .ok{color:var(--mint);font-weight:700}table.t .no{color:#e05a5a;font-weight:700}
+
+  pre{background:var(--term);color:var(--term-ink);border-radius:14px;padding:clamp(16px,2.4vw,26px);margin:0;
+    font-family:var(--f-mono);font-size:clamp(.8rem,1.5vw,1.05rem);line-height:1.6;overflow:auto}
+  pre .c{color:#8b95a6}pre .g{color:var(--term-mint)}pre .w{color:#fff}
+
+  .flow{display:flex;align-items:stretch;gap:14px;margin-top:26px;flex-wrap:wrap}
+  .node{flex:1;min-width:150px;background:var(--stage);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .node .h{font-family:var(--f-mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+  .node.m .h{color:var(--mint)}.node.v .h{color:var(--violet)}.node.k .h{color:var(--amber)}
+  .node .b{font-size:clamp(.9rem,1.6vw,1.08rem);color:var(--ink-soft);line-height:1.4}
+  .node .b b{color:var(--ink)}
+  .arrow{align-self:center;color:var(--ink-faint);font-size:26px;font-weight:300}
+
+  .note{border-left:4px solid var(--amber);background:var(--stage);border-radius:0 14px 14px 0;padding:16px 22px;margin-top:24px;
+    font-size:clamp(.95rem,1.8vw,1.25rem);color:var(--ink)}
+  .note .h{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:4px;font-weight:600}
+  .note.m{border-color:var(--mint)}.note.m .h{color:var(--mint)}
+  .note.v{border-color:var(--violet)}.note.v .h{color:var(--violet)}
+
+  .big-num{font-family:var(--f-mono);font-size:clamp(3rem,10vw,7rem);font-weight:800;color:var(--line);line-height:1;letter-spacing:-.04em}
+
+  /* chrome */
+  .bar{position:fixed;left:0;top:0;height:3px;background:var(--mint);z-index:40;transition:width .4s ease}
+  .ctrl{position:fixed;bottom:20px;right:24px;z-index:40;display:flex;align-items:center;gap:6px}
+  .ctrl button{width:42px;height:42px;border-radius:11px;border:1px solid var(--line);background:var(--stage);color:var(--ink);
+    font-size:19px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(20,24,33,.08)}
+  .ctrl button:hover{border-color:var(--mint);color:var(--mint)}
+  .ctrl .count{font-family:var(--f-mono);font-size:13px;color:var(--ink-faint);padding:0 12px;font-variant-numeric:tabular-nums}
+  .ctrl .count b{color:var(--ink)}
+  .brand{position:fixed;bottom:22px;left:24px;z-index:40;font-family:var(--f-mono);font-size:12px;color:var(--ink-faint);letter-spacing:.04em}
+  .brand b{color:var(--mint)}
+  .tt{position:fixed;top:16px;right:24px;z-index:40;font-family:var(--f-mono);font-size:12px;border:1px solid var(--line);
+    background:var(--stage);color:var(--ink-soft);border-radius:100px;padding:7px 13px;cursor:pointer}
+  .tt:hover{color:var(--ink)}
+  .hint{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:40;font-family:var(--f-mono);font-size:11.5px;color:var(--ink-faint);opacity:.9}
+  .hint kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 6px;color:var(--ink-soft);background:var(--stage)}
+  :focus-visible{outline:2px solid var(--mint);outline-offset:3px}
+
+  @media (max-width:760px){
+    .cols,.cols.tri{grid-template-columns:1fr;gap:16px}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .flow{flex-direction:column}.arrow{transform:rotate(90deg)}
+    .hint{display:none}.slide{padding:64px 24px}
+  }
+  @media (prefers-reduced-motion:reduce){.slide{transition:none}.bar{transition:none}}
+</style>
+
+<div class="bar" id="bar"></div>
+<button class="tt" id="tt">◐ theme</button>
+
+<div class="deck" id="deck">
+
+  <!-- 1 title -->
+  <section class="slide active">
+    <div class="slide-inner">
+      <div class="kicker">패스트캠퍼스 · 실습 강의</div>
+      <h1 class="big">부동산 멀티레이어<br>맵서비스 만들기</h1>
+      <p class="sub">법원경매 <b>9,759건</b>과 서울 정비구역 <b>2,585건</b>을 카카오맵 한 장에. — 데이터·좌표계·지도 API의 <b>실제 작동</b>을 배웁니다.</p>
+    </div>
+  </section>
+
+  <!-- 2 result -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="kicker">우리가 만들 것</div>
+      <h2>최종 결과물</h2>
+      <p class="lead">카카오맵 위에 두 개의 레이어. 지역 선택으로 필터하고, 마커를 누르면 물건 정보가 뜬다.</p>
+      <div class="stats">
+        <div class="stat m"><div class="n">9,759</div><div class="l">경매물건 · 점</div></div>
+        <div class="stat v"><div class="n">2,585</div><div class="l">정비구역 · 면</div></div>
+        <div class="stat"><div class="n">3</div><div class="l">데이터 소스</div></div>
+        <div class="stat"><div class="n">1</div><div class="l">HTML 파일</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 pivot: harness is a tool -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="kicker a">이 강의의 관점</div>
+      <h2>하네스(에이전트)는 <span style="color:var(--amber)">도구</span>일 뿐</h2>
+      <div class="cols">
+        <div>
+          <p class="lead">AI 에이전트가 수집·변환·렌더를 자동화해 줍니다. 하지만 여러분이 진짜 알아야 할 것은 —</p>
+          <ul class="pts">
+            <li><b>데이터</b>가 어디서 오고 어떤 형식인가</li>
+            <li><b>좌표계</b>를 어떻게 맞추는가</li>
+            <li><b>지도 API</b>에 레이어를 어떻게 얹는가</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag a">핵심</span>
+          <h3>도메인 지식이 먼저</h3>
+          <p>도구는 바뀌어도 이 원리는 남습니다. 좌표계·데이터 형식·지도 오버레이는 어떤 지도 프로젝트에도 그대로 적용됩니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 pipeline -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="kicker">전체 그림</div>
+      <h2>데이터 파이프라인 한 장</h2>
+      <p class="lead">세 소스를 모두 <b>WGS84 GeoJSON</b>으로 통일한 뒤, 카카오맵에 레이어로 얹는다.</p>
+      <div class="flow">
+        <div class="node m"><div class="h">① 경매 · 점</div><div class="b">법원경매 크롤 → <b>TM128 좌표 재투영</b></div></div>
+        <div class="arrow">→</div>
+        <div class="node v"><div class="h">② 정비구역 · 면</div><div class="b">공공 GIS <b>SHP</b> → 좌표계 변환</div></div>
+        <div class="arrow">→</div>
+        <div class="node k"><div class="h">③ 카카오맵</div><div class="b">JS API에 <b>Marker · Polygon</b> 오버레이</div></div>
+      </div>
+      <div class="note m"><span class="h">한 문장 요약</span>모든 데이터를 위경도(WGS84)로 맞추고, 점은 마커로 면은 폴리곤으로 카카오맵에 얹는다.</div>
+    </div>
+  </section>
+
+  <!-- 5 auction data -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="kicker">① 경매물건 · 점 레이어</div>
+      <h2>좌표는 이미 데이터 안에 있다</h2>
+      <div class="cols">
+        <div>
+          <p class="lead">법원경매 원본에 좌표가 <b>두 종류</b> 들어 있다. 어느 걸 쓰느냐가 관건.</p>
+          <table class="t">
+            <tr><th>컬럼</th><th>좌표계</th><th>사용</th></tr>
+            <tr><td><code>xCordi/yCordi</code></td><td>TM128(KATEC)</td><td class="ok">✔ 정밀</td></tr>
+            <tr><td><code>wgs84Xcordi</code></td><td>WGS84</td><td class="no">✘ 정수반올림</td></tr>
+          </table>
+        </div>
+        <div>
+          <pre><span class="c"># TM128(Bessel) → WGS84 재투영</span>
+from pyproj import Transformer
+tf = Transformer.from_crs(
+     <span class="g">"EPSG:5178"</span>, <span class="g">"EPSG:4326"</span>,
+     always_xy=<span class="w">True</span>)
+lon, lat = tf.transform(xCordi, yCordi)</pre>
+        </div>
+      </div>
+      <div class="note m"><span class="h">기억 교정</span>표출 좌표는 <code>wgs84</code> 컬럼(반올림돼 못 씀)이 아니라 <b>xCordi/yCordi(TM128)를 재투영</b>한 값이다.</div>
+    </div>
+  </section>
+
+  <!-- 6 geocoding vworld -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="kicker">① 경매 · 보조 지오코딩</div>
+      <h2>지오코딩은 <span style="color:var(--mint)">VWorld</span> — 카카오가 아니다</h2>
+      <div class="cols">
+        <ul class="pts">
+          <li>좌표가 없는 물건은 <b>주소 → 좌표</b> 변환이 필요</li>
+          <li><code>geocoding.py</code> → <b>VWorld 주소 API</b><br><code>api.vworld.kr/req/address</code></li>
+          <li>카카오 키는 <b>지도 표출</b>, VWorld 키는 <b>주소 변환</b> — <b>두 키는 별개</b></li>
+        </ul>
+        <div class="card">
+          <span class="tag m">API 키 2개</span>
+          <h3>역할이 다르다</h3>
+          <p style="margin-bottom:14px"><b style="color:var(--mint)">VWorld 키</b> — 주소를 위경도로 (지오코딩)</p>
+          <p><b style="color:var(--amber)">카카오 JS 키</b> — 지도 타일·마커 표출</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 QGIS -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="kicker a">기억 교정</div>
+      <h2>QGIS는 <span style="color:var(--amber)">검증 도구</span>다</h2>
+      <div class="cols">
+        <div>
+          <p class="lead"><code>qgis_export.py</code>가 지오코딩 결과를 WGS84 GeoJSON으로 변환 → QGIS에서 <b>좌표가 엉뚱한 데 찍히지 않는지 눈으로 확인.</b></p>
+          <ul class="pts">
+            <li>데이터 <b>생성</b> 도구가 아님</li>
+            <li>최종 웹지도(카카오맵)엔 <b>미관여</b></li>
+            <li>없어도 결과는 나온다 — 중간 점검용</li>
+          </ul>
+        </div>
+        <div class="big-num">QGIS<br>= 점검</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 zone polygon -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="kicker v">② 정비구역 · 면 레이어</div>
+      <h2>왜 <span style="color:var(--violet)">폴리곤</span>인가</h2>
+      <div class="cols">
+        <div>
+          <p class="lead">경매물건은 <b>점</b>(위경도 하나). 정비구역은 <b>영역</b> — "이 블록 전체가 재건축 구역".</p>
+          <ul class="pts v">
+            <li>경계를 표현하려면 <b>Polygon / MultiPolygon</b></li>
+            <li>그래서 <b>소스도 형식도 다르다</b></li>
+            <li>서울 25개 자치구 <b>2,585건</b><br>(재건축1,014·재개발740…)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag v">공간데이터</span>
+          <h3>출처 (재현 경로)</h3>
+          <p style="margin-bottom:10px"><b>NSDI</b> 국가공간정보포털 · <b>서울 열린데이터광장</b> · <b>VWorld</b> 계열에서 <b>SHP</b> 다운로드</p>
+          <p style="color:var(--ink-faint);font-size:.95rem">폴리곤이라 SHP가 필요하다</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 shp to geojson -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="kicker v">② 정비구역 · 변환</div>
+      <h2>SHP → WGS84 GeoJSON</h2>
+      <p class="lead">공공 SHP는 대개 <b>EPSG:5186 / 5179</b>(미터). 카카오맵에 올리려면 <b>4326(위경도)</b>으로 변환해야 한다.</p>
+      <div class="cols">
+        <div>
+          <div class="tag v">방법 A · geopandas</div>
+          <pre>import geopandas as gpd
+g = gpd.read_file(<span class="g">"정비구역.shp"</span>)
+g = g.to_crs(epsg=<span class="w">4326</span>)   <span class="c"># WGS84</span>
+g.to_file(<span class="g">"정비구역.geojson"</span>,
+          driver=<span class="g">"GeoJSON"</span>)</pre>
+        </div>
+        <div>
+          <div class="tag v">방법 B · QGIS</div>
+          <ul class="pts v" style="margin-top:6px">
+            <li>SHP를 레이어로 추가</li>
+            <li>Export → Save Features As</li>
+            <li>GeoJSON + <b>CRS: EPSG:4326</b></li>
+          </ul>
+        </div>
+      </div>
+      <div class="note v"><span class="h">데이터 함정</span><code>signgu_nm</code>(자치구명)이 코드와 어긋남(11680=강남인데 "서초구") → <b>법정동코드로 재매핑</b>. 속성 맹신 금지.</div>
+    </div>
+  </section>
+
+  <!-- 10 kakao -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="kicker a">③ 카카오맵 연동</div>
+      <h2>JS API로 지도 띄우기</h2>
+      <div class="cols">
+        <div>
+          <ul class="pts">
+            <li>개발자센터 → <b>JavaScript 키</b> 발급(무료)</li>
+            <li>플랫폼 → Web에 <b>도메인 등록</b><br>(<code>http://localhost:8000</code>)</li>
+            <li>키는 HTML 하드코딩 금지 → <b>localStorage</b></li>
+          </ul>
+        </div>
+        <div>
+          <pre><span class="c">// SDK 동적 로드</span>
+s.src=<span class="g">"//dapi.kakao.com/v2/maps/sdk.js"</span>
+   +<span class="g">"?appkey="</span>+KEY
+   +<span class="g">"&autoload=false&libraries=clusterer"</span>;
+s.onload=()=>kakao.maps.load(initMap);</pre>
+        </div>
+      </div>
+      <div class="note"><span class="h">로컬 실행</span><code>python -m http.server 8000</code> → <code>http://localhost:8000/estate_map.html</code> (file:// 은 도메인 거부될 수 있음)</div>
+    </div>
+  </section>
+
+  <!-- 11 latlng order bug -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="kicker a">③ 카카오맵 · 최다 버그</div>
+      <h2>좌표 <span style="color:var(--amber)">순서</span>가 반대다</h2>
+      <div class="cols">
+        <div>
+          <p class="lead">GeoJSON은 <code>[경도, 위도]</code>, 카카오 <code>LatLng</code>는 <code>(위도, 경도)</code>. 안 바꾸면 폴리곤이 <b>바다에 그려진다.</b></p>
+          <table class="t">
+            <tr><th>레이어</th><th>카카오 객체</th></tr>
+            <tr><td>경매 · 점</td><td><code>Marker</code> + <code>MarkerClusterer</code></td></tr>
+            <tr><td>정비 · 면</td><td><code>Polygon</code></td></tr>
+          </table>
+        </div>
+        <div>
+          <pre><span class="c">// GeoJSON [lng,lat] → LatLng(lat,lng)</span>
+var path = ring.map(c =&gt;
+   new kakao.maps.LatLng(
+       c[<span class="w">1</span>],  <span class="c">// 위도 (lat)</span>
+       c[<span class="w">0</span>]   <span class="c">// 경도 (lng)</span>
+   ));
+new kakao.maps.Polygon({path}).setMap(map);</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 CRS summary -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="kicker">핵심 도메인 지식</div>
+      <h2>좌표계 총정리</h2>
+      <p class="lead">지도 버그의 절반은 좌표계에서 온다.</p>
+      <table class="t">
+        <tr><th>좌표계</th><th>EPSG</th><th>쓰임</th></tr>
+        <tr><td><b>WGS84</b></td><td>4326</td><td class="ok">국제표준 · 웹지도 표출 (위경도)</td></tr>
+        <tr><td>TM128 / KATEC</td><td>5178</td><td>법원경매 · 네이버 레거시 (미터)</td></tr>
+        <tr><td>중부원점 TM</td><td>5186</td><td>공공 GIS SHP (미터)</td></tr>
+        <tr><td>UTM-K</td><td>5179</td><td>국가기본도 (미터)</td></tr>
+      </table>
+      <div class="note"><span class="h">3원칙</span>① 최종은 무조건 4326 · ② 공공 SHP·법원 좌표는 미터라 반드시 재투영 · ③ GeoJSON <code>[경도,위도]</code> ↔ 카카오 <code>(위도,경도)</code> 순서 확인</div>
+    </div>
+  </section>
+
+  <!-- 13 QA bug -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="kicker m">품질 검증 · 실전</div>
+      <h2>지도가 텅 비었다</h2>
+      <div class="cols">
+        <div>
+          <p class="lead">마커·폴리곤이 하나도 안 보였다. 원인은 <b>좌표 없는 물건 2건.</b></p>
+          <ul class="pts">
+            <li>경매 64건 중 2건이 <code>geometry:null</code>("자동차")</li>
+            <li>렌더 루프가 방어 못해 <b>스크립트 전체 중단</b></li>
+            <li>→ 아무것도 안 보임</li>
+          </ul>
+        </div>
+        <div>
+          <pre>features.forEach(f =&gt; {
+  <span class="g">if(!f.geometry) return;</span> <span class="c">// 방어 가드</span>
+  var c = f.geometry.coordinates;
+  <span class="c">// ... 마커 생성</span>
+});</pre>
+          <div class="note m" style="margin-top:16px"><span class="h">교훈</span>계약에 "좌표 필수"가 있어도 렌더러는 <b>방어적으로</b>. 독립 QA가 이걸 잡는다.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 iterate -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="kicker">반복 개선</div>
+      <h2>피드백을 주면 진화한다</h2>
+      <div class="cols tri">
+        <div class="card"><span class="tag m">색상</span><h3>대비 튜닝</h3><p>경매=민트, 정비=바이올렛. 보색으로 서로·배경과 구분.</p></div>
+        <div class="card"><span class="tag v">확장</span><h3>수도권 + 지역선택</h3><p>데이터에 <b>시도·시군구 태그</b> 부착 → 드롭다운 필터. 데이터 먼저, UI 나중.</p></div>
+        <div class="card"><span class="tag a">정직함</span><h3>없을 땐 사유 기록</h3><p>정비구역 미확보 → 억지로 안 만들고 "경계 미확보 ⓘ"로 근거 표시.</p></div>
+      </div>
+      <div class="note"><span class="h">감각</span>UI 기능(지역 선택)은 <b>데이터에 태그가 있어야</b> 가능하다 → "수집 먼저, 렌더 나중".</div>
+    </div>
+  </section>
+
+  <!-- 15 checklist -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="kicker m">따라하기</div>
+      <h2>재현 체크리스트</h2>
+      <div class="cols tri">
+        <div>
+          <div class="tag">준비</div>
+          <ul class="pts" style="margin-top:8px">
+            <li>VWorld 키</li>
+            <li>카카오 JS 키</li>
+            <li><code>pandas geopandas pyproj</code></li>
+          </ul>
+        </div>
+        <div>
+          <div class="tag m">① 경매 · 점</div>
+          <ul class="pts" style="margin-top:8px">
+            <li>법원 API 수집</li>
+            <li>TM128→4326 재투영</li>
+            <li>지역태그 · 실패분 제외</li>
+          </ul>
+        </div>
+        <div>
+          <div class="tag v">② 정비 · 면</div>
+          <ul class="pts v" style="margin-top:8px">
+            <li>포털 SHP 다운</li>
+            <li>4326 GeoJSON 변환</li>
+            <li>자치구 재매핑</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note m"><span class="h">완성 기준</span>카카오맵에 민트 마커 + 바이올렛 폴리곤이 함께 보이고, 지역 필터·유찰/주소/최저가 팝업이 동작하면 성공.</div>
+    </div>
+  </section>
+
+  <!-- 16 close -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="kicker">마무리</div>
+      <h1 class="big">지도는<br>시작일 뿐</h1>
+      <p class="sub">좌표계 · 데이터 형식 · 지도 오버레이 — 이 도메인 지식은 <b>어떤 지도 프로젝트에도</b> 그대로 옮겨집니다. 다음은 실거래가 레이어를 <b>표준 계약만 지켜</b> 붙여 보세요.</p>
+      <p style="margin-top:26px;font-family:var(--f-mono);font-size:14px;color:var(--mint)">github.com/earthskyisbig/maptest ↗</p>
+    </div>
+  </section>
+
+</div>
+
+<div class="brand"><b>◆</b> 부동산 맵서비스 · 실습 강의</div>
+<div class="hint"><kbd>←</kbd> <kbd>→</kbd> 방향키 · <kbd>F</kbd> 전체화면</div>
+<div class="ctrl">
+  <button id="prev" aria-label="이전">‹</button>
+  <span class="count"><b id="cur">1</b> / <span id="total">16</span></span>
+  <button id="next" aria-label="다음">›</button>
+</div>
+
+<script>
+  (function(){
+    var slides=[].slice.call(document.querySelectorAll('.slide'));
+    var i=0, n=slides.length;
+    var bar=document.getElementById('bar'), cur=document.getElementById('cur');
+    document.getElementById('total').textContent=n;
+    function go(x){
+      i=Math.max(0,Math.min(n-1,x));
+      slides.forEach(function(s,k){s.classList.toggle('active',k===i);});
+      bar.style.width=((i+1)/n*100)+'%';
+      cur.textContent=i+1;
+    }
+    document.getElementById('next').onclick=function(){go(i+1);};
+    document.getElementById('prev').onclick=function(){go(i-1);};
+    document.addEventListener('keydown',function(e){
+      if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();go(i+1);}
+      else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(i-1);}
+      else if(e.key==='Home'){go(0);} else if(e.key==='End'){go(n-1);}
+      else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement){document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();} else {document.exitFullscreen&&document.exitFullscreen();} }
+    });
+    // touch swipe
+    var x0=null;
+    document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+    document.addEventListener('touchend',function(e){
+      if(x0===null)return; var dx=e.changedTouches[0].clientX-x0;
+      if(Math.abs(dx)>50){ go(i+(dx<0?1:-1)); } x0=null;
+    },{passive:true});
+    // theme
+    var root=document.documentElement, tt=document.getElementById('tt');
+    tt.onclick=function(){
+      var c=root.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
+      root.setAttribute('data-theme',c==='dark'?'light':'dark');
+    };
+    go(0);
+  })();
+</script>

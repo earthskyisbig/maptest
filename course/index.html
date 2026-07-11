@@ -1,0 +1,412 @@
+<title>Claude Code로 만드는 AI 에이전트 팀 — 실습 강의</title>
+<style>
+  :root{
+    --ink:#141821; --ink-soft:#414a59; --ink-faint:#6b7688;
+    --paper:#f7f8fa; --card:#ffffff; --line:#e4e8ee; --line-soft:#eef1f5;
+    --mint:#0ca678; --mint-soft:#12b981; --mint-wash:#e6f7f1;
+    --violet:#7c3aed; --violet-soft:#8b5cf6; --violet-wash:#f0eafe;
+    --term-bg:#12161d; --term-ink:#dfe6ef; --term-mint:#3fe0b0;
+    --shadow:0 1px 2px rgba(20,24,33,.04),0 8px 28px rgba(20,24,33,.06);
+    --maxw:1140px;
+    --f-sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR","Malgun Gothic",sans-serif;
+    --f-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,"Cascadia Mono","Noto Sans KR",monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#e7ecf3; --ink-soft:#aeb8c6; --ink-faint:#7d8899;
+      --paper:#0e1116; --card:#161b22; --line:#252c37; --line-soft:#1d232c;
+      --mint:#3fe0b0; --mint-soft:#2bcfa0; --mint-wash:#122a24;
+      --violet:#a78bfa; --violet-soft:#9a7cf5; --violet-wash:#231b3a;
+      --term-bg:#0a0d12; --term-ink:#dfe6ef; --term-mint:#3fe0b0;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="light"]{
+    --ink:#141821; --ink-soft:#414a59; --ink-faint:#6b7688;
+    --paper:#f7f8fa; --card:#ffffff; --line:#e4e8ee; --line-soft:#eef1f5;
+    --mint:#0ca678; --mint-soft:#12b981; --mint-wash:#e6f7f1;
+    --violet:#7c3aed; --violet-soft:#8b5cf6; --violet-wash:#f0eafe;
+    --term-bg:#12161d; --term-ink:#dfe6ef; --term-mint:#3fe0b0;
+    --shadow:0 1px 2px rgba(20,24,33,.04),0 8px 28px rgba(20,24,33,.06);
+  }
+  :root[data-theme="dark"]{
+    --ink:#e7ecf3; --ink-soft:#aeb8c6; --ink-faint:#7d8899;
+    --paper:#0e1116; --card:#161b22; --line:#252c37; --line-soft:#1d232c;
+    --mint:#3fe0b0; --mint-soft:#2bcfa0; --mint-wash:#122a24;
+    --violet:#a78bfa; --violet-soft:#9a7cf5; --violet-wash:#231b3a;
+    --term-bg:#0a0d12; --term-ink:#dfe6ef; --term-mint:#3fe0b0;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-sans);
+    line-height:1.65;-webkit-font-smoothing:antialiased;font-size:16.5px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  a{color:inherit}
+  code{font-family:var(--f-mono);font-size:.88em}
+
+  /* ---- hero ---- */
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero-grid{position:absolute;inset:0;opacity:.5;
+    background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+    background-size:34px 34px;-webkit-mask-image:radial-gradient(ellipse 80% 70% at 70% 0%,#000 30%,transparent 75%);
+            mask-image:radial-gradient(ellipse 80% 70% at 70% 0%,#000 30%,transparent 75%)}
+  .hero-inner{position:relative;padding:74px 0 60px}
+  .eyebrow{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mint);font-weight:600;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:26px;height:1.5px;background:var(--mint)}
+  h1{font-size:clamp(2.1rem,5.2vw,3.5rem);line-height:1.08;letter-spacing:-.025em;font-weight:800;
+    text-wrap:balance;margin:.5em 0 .3em;max-width:16ch}
+  .lede{font-size:clamp(1.05rem,2.2vw,1.3rem);color:var(--ink-soft);max-width:52ch;margin:0 0 1.6em;text-wrap:pretty}
+  .lede b{color:var(--ink);font-weight:700}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:8px 10px}
+  .chip{font-family:var(--f-mono);font-size:12.5px;padding:6px 12px;border:1px solid var(--line);
+    border-radius:100px;background:var(--card);color:var(--ink-soft)}
+  .chip b{color:var(--ink)}
+
+  /* ---- stat strip ---- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
+    border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:38px 0 0}
+  .stat{background:var(--card);padding:20px 22px}
+  .stat .n{font-size:1.85rem;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .stat.m .n{color:var(--mint)} .stat.v .n{color:var(--violet)}
+  .stat .l{font-size:12.5px;color:var(--ink-faint);font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+
+  /* ---- layout ---- */
+  .shell{display:grid;grid-template-columns:230px 1fr;gap:56px;padding:56px 0 90px;align-items:start}
+  nav.toc{position:sticky;top:24px;font-size:14.5px}
+  nav.toc .t{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 12px;padding-left:12px}
+  nav.toc a{display:flex;gap:10px;padding:7px 12px;border-radius:8px;text-decoration:none;color:var(--ink-soft);border-left:2px solid transparent}
+  nav.toc a:hover{background:var(--card);color:var(--ink)}
+  nav.toc a .pn{font-family:var(--f-mono);color:var(--mint);font-weight:600;min-width:16px}
+  main{min-width:0}
+
+  /* ---- sections ---- */
+  section{scroll-margin-top:24px;padding-top:8px}
+  section+section{margin-top:60px;padding-top:52px;border-top:1px solid var(--line)}
+  .part-tag{display:inline-flex;align-items:baseline;gap:12px;margin-bottom:6px}
+  .part-tag .num{font-family:var(--f-mono);font-size:13px;font-weight:700;color:var(--mint);
+    border:1px solid var(--mint);border-radius:7px;padding:3px 9px;letter-spacing:.02em}
+  h2{font-size:clamp(1.5rem,3.2vw,2.05rem);letter-spacing:-.02em;font-weight:800;margin:.15em 0 .35em;text-wrap:balance}
+  h3{font-size:1.16rem;letter-spacing:-.01em;font-weight:700;margin:1.9em 0 .5em}
+  p{margin:.7em 0;color:var(--ink-soft)}
+  p strong,li strong{color:var(--ink);font-weight:700}
+  .intro-lede{font-size:1.12rem;color:var(--ink);max-width:60ch}
+  ul{padding-left:1.15em;color:var(--ink-soft)} li{margin:.35em 0}
+
+  /* ---- pedagogy flow ---- */
+  .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:26px 0}
+  .flow .step{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--card)}
+  .flow .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin-bottom:4px}
+  .flow .s1 .k{color:var(--mint)} .flow .s2 .k{color:var(--violet)} .flow .s3 .k{color:#e8834a} .flow .s4 .k{color:var(--ink)}
+  .flow .d{font-size:13.5px;color:var(--ink-soft);line-height:1.5}
+
+  /* ---- prompt / terminal ---- */
+  .prompt{background:var(--term-bg);border-radius:12px;padding:15px 18px;margin:16px 0;box-shadow:var(--shadow);
+    font-family:var(--f-mono);font-size:13.6px;line-height:1.6;color:var(--term-ink);overflow-x:auto}
+  .prompt .lbl{display:flex;align-items:center;gap:7px;color:#8b95a6;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:9px}
+  .prompt .lbl::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--term-mint);box-shadow:0 0 0 3px rgba(63,224,176,.16)}
+  .prompt .c{color:var(--term-mint)}
+  .prompt b{color:#fff;font-weight:600}
+
+  /* ---- callout ---- */
+  .note{border-left:3px solid var(--mint);background:var(--mint-wash);border-radius:0 10px 10px 0;
+    padding:13px 17px;margin:16px 0;font-size:14.6px;color:var(--ink)}
+  .note.v{border-color:var(--violet);background:var(--violet-wash)}
+  .note .h{font-weight:700;display:block;margin-bottom:2px}
+
+  /* ---- result table ---- */
+  .tbl{width:100%;border-collapse:collapse;margin:16px 0;font-size:14.5px;overflow:hidden;border-radius:10px;border:1px solid var(--line)}
+  .tbl th,.tbl td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line-soft)}
+  .tbl th{background:var(--card);font-family:var(--f-mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);font-weight:600}
+  .tbl td{color:var(--ink-soft)} .tbl tr:last-child td{border-bottom:0}
+  .tbl td b{color:var(--ink)}
+  .tbl-wrap{overflow-x:auto}
+
+  /* ---- details ---- */
+  details{border:1px solid var(--line);border-radius:11px;margin:16px 0;background:var(--card);overflow:hidden}
+  details summary{cursor:pointer;padding:13px 17px;font-size:14px;font-weight:600;color:var(--ink);
+    font-family:var(--f-mono);list-style:none;display:flex;align-items:center;gap:9px}
+  details summary::-webkit-details-marker{display:none}
+  details summary::before{content:"›";font-size:18px;color:var(--mint);transition:transform .2s;display:inline-block}
+  details[open] summary::before{transform:rotate(90deg)}
+  details summary:hover{color:var(--mint)}
+  details .body{padding:2px 17px 16px;font-size:14px}
+  details pre{background:var(--term-bg);color:var(--term-ink);padding:14px 16px;border-radius:9px;overflow-x:auto;
+    font-family:var(--f-mono);font-size:12.8px;line-height:1.55}
+  details pre .c{color:#8b95a6}
+
+  /* ---- checklist ---- */
+  .check{list-style:none;padding:0;margin:16px 0;display:grid;gap:8px}
+  .check li{display:flex;gap:11px;align-items:flex-start;padding:11px 15px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink-soft);font-size:14.5px}
+  .check li::before{content:"";flex:0 0 18px;height:18px;margin-top:2px;border-radius:5px;border:1.5px solid var(--mint);
+    background:var(--mint-wash)}
+
+  /* ---- footer ---- */
+  footer{border-top:1px solid var(--line);background:var(--card)}
+  .foot-inner{padding:46px 0 60px;display:flex;flex-wrap:wrap;gap:30px;justify-content:space-between;align-items:flex-start}
+  footer h4{margin:0 0 8px;font-size:1.15rem;letter-spacing:-.01em}
+  footer p{margin:0;max-width:44ch;font-size:14.5px}
+  .repo{font-family:var(--f-mono);font-size:13px;color:var(--mint);text-decoration:none;border:1px solid var(--line);
+    padding:9px 15px;border-radius:9px;display:inline-block;margin-top:12px}
+  .repo:hover{border-color:var(--mint)}
+
+  .theme-toggle{position:fixed;top:16px;right:16px;z-index:20;font-family:var(--f-mono);font-size:12px;
+    border:1px solid var(--line);background:var(--card);color:var(--ink-soft);border-radius:100px;padding:7px 13px;cursor:pointer}
+  .theme-toggle:hover{color:var(--ink)}
+  :focus-visible{outline:2px solid var(--mint);outline-offset:2px;border-radius:4px}
+
+  @media (max-width:860px){
+    .shell{grid-template-columns:1fr;gap:0;padding-top:36px}
+    nav.toc{display:none}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .flow{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:520px){ .flow{grid-template-columns:1fr} .stats{grid-template-columns:1fr 1fr} }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<button class="theme-toggle" id="tt" aria-label="테마 전환">◐ theme</button>
+
+<header class="hero">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow">패스트캠퍼스 · 실습 강의</div>
+    <h1>Claude Code로 만드는 AI 에이전트 팀</h1>
+    <p class="lede">AI 에이전트 여러 대를 <b>팀</b>으로 묶어, 서울·수도권 경매물건과 정비구역을 한 지도에 얹는 실전 서비스를 만듭니다. 지도는 예제일 뿐 — 진짜 배우는 것은 <b>도메인을 에이전트로 분해하는 설계 능력</b>입니다.</p>
+    <div class="hero-meta">
+      <span class="chip"><b>난이도</b> 입문–중급</span>
+      <span class="chip"><b>도구</b> Claude Code</span>
+      <span class="chip"><b>결과물</b> 인터랙티브 부동산 맵</span>
+      <span class="chip"><b>코딩</b> 최소 (에이전트가 처리)</span>
+    </div>
+    <div class="stats">
+      <div class="stat m"><div class="n">9,759</div><div class="l">경매물건</div></div>
+      <div class="stat v"><div class="n">2,585</div><div class="l">정비구역</div></div>
+      <div class="stat"><div class="n">5</div><div class="l">전문 에이전트</div></div>
+      <div class="stat"><div class="n">6</div><div class="l">강의 파트</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap shell">
+  <nav class="toc" aria-label="목차">
+    <p class="t">커리큘럼</p>
+    <a href="#p0"><span class="pn">00</span> 오리엔테이션</a>
+    <a href="#p1"><span class="pn">01</span> 기본 원리</a>
+    <a href="#p2"><span class="pn">02</span> 하네스 구축</a>
+    <a href="#p3"><span class="pn">03</span> 팀 가동</a>
+    <a href="#p4"><span class="pn">04</span> 반복 개선</a>
+    <a href="#p5"><span class="pn">05</span> 마무리</a>
+  </nav>
+
+  <main>
+    <!-- how to read -->
+    <section id="how" style="border-top:0;margin-top:0">
+      <div class="part-tag"><span class="num">읽는 법</span></div>
+      <h2>수강생 관점으로 씌었습니다</h2>
+      <p class="intro-lede">데이터 수집·좌표 변환·렌더링 코드는 <strong>에이전트가 알아서 처리</strong>합니다. 여러분이 직접 짤 필요가 없습니다. 그래서 각 단계는 이 흐름을 따릅니다:</p>
+      <div class="flow">
+        <div class="step s1"><div class="k">⌨ 입력</div><div class="d">여러분이 Claude Code에 입력하는 한 문장</div></div>
+        <div class="step s2"><div class="k">🤖 에이전트</div><div class="d">팀이 자동으로 하는 일 (요약만)</div></div>
+        <div class="step s3"><div class="k">👁 결과</div><div class="d">화면·파일로 보게 되는 산출물</div></div>
+        <div class="step s4"><div class="k">🧠 판단</div><div class="d">여러분이 내리는 결정·검토</div></div>
+      </div>
+      <p>구현 코드(파이썬·JS·git)는 <code>› 심화</code> 접이식 상자에 넣어 뒀습니다. <strong>궁금한 사람만 펼쳐 보면 되고, 안 봐도 실습에 지장 없습니다.</strong></p>
+    </section>
+
+    <!-- part 0 -->
+    <section id="p0">
+      <div class="part-tag"><span class="num">Part 00</span></div>
+      <h2>오리엔테이션 — 왜 "한 대"가 아니라 "팀"인가</h2>
+      <p>초보자는 보통 이렇게 시작합니다: <em>"경매물건이랑 정비구역이랑 다 모아서 지도 만들어줘."</em> 이 한 방 방식은 곧 무너집니다.</p>
+      <table class="tbl"><thead><tr><th>한 대에게 다 시키면</th><th>에이전트 팀으로 나누면</th></tr></thead>
+      <tbody>
+        <tr><td>컨텍스트 폭발 — 크롤·GIS·렌더가 뒤섞여 길을 잃음</td><td>전문가별로 분리돼 각자 집중</td></tr>
+        <tr><td>순차 진행 — 하나 끝나야 다음</td><td><b>병렬 수집</b>으로 빠름</td></tr>
+        <tr><td>재사용 불가 — 매번 처음부터 설명</td><td>파일로 정의돼 <b>다음에도 재사용</b></td></tr>
+        <tr><td>검증 부재 — 누가 결과를 검사?</td><td><b>독립 QA</b>가 교차검증</td></tr>
+      </tbody></table>
+      <p>이 "에이전트 팀 + 스킬 + 오케스트레이터" 묶음을 <strong>하네스(Harness)</strong>라 부릅니다. 이 강의의 뼈대입니다.</p>
+    </section>
+
+    <!-- part 1 -->
+    <section id="p1">
+      <div class="part-tag"><span class="num">Part 01</span></div>
+      <h2>기본 원리 — 5가지 개념</h2>
+      <p class="intro-lede">코드를 외울 필요는 없습니다. 이 개념만 잡으면 이후 모든 선택이 "왜 그런지" 납득됩니다.</p>
+
+      <h3>1 · 에이전트(누가) ↔ 스킬(어떻게)</h3>
+      <p><strong>에이전트</strong>는 "누가 하는가"(경매 수집가), <strong>스킬</strong>은 "어떻게 하는가"(경매를 수집하는 법). 직원과 업무 매뉴얼처럼 분리하면 각각 재사용·개선됩니다.</p>
+
+      <h3>2 · 에이전트 팀 vs 서브에이전트</h3>
+      <p>팀원끼리 조율이 필요하면 <strong>팀</strong>, 각자 독립적으로 일하고 결과만 모으면 <strong>서브에이전트(병렬)</strong>. 우리는 수집 3인을 병렬로 흩뿌립니다.</p>
+
+      <h3>3 · 스킬 트리거는 description이 전부</h3>
+      <p>스킬은 description 하나로 발동됩니다. <strong>"경매 레이어 만들어줘" 같은 실제 사용자 표현</strong>을 넣어야 트리거됩니다. 그리고 규칙보다 <strong>"왜"</strong>를 설명해야 엣지 케이스에서도 옳게 판단합니다.</p>
+
+      <h3>4 · 표준 데이터 계약 — 확장성의 열쇠</h3>
+      <p>5종 레이어가 제각각 형식이면 렌더러를 매번 고쳐야 합니다. <strong>모든 레이어가 따르는 표준 GeoJSON 규격</strong>을 하나 정하면, 렌더러는 <code>category</code>·<code>color</code>만 믿으면 되고 <strong>새 레이어를 코드 수정 없이 추가</strong>할 수 있습니다.</p>
+      <div class="note"><span class="h">규칙 3가지만 기억</span> ① 좌표계 WGS84 고정 · ② 필수 5필드(layer/id/name/category/color) · ③ 빈 레이어도 허용(수집 실패가 전체를 막지 않게)</div>
+      <details><summary>› 심화 — 실제 표준 GeoJSON 형태</summary><div class="body">
+        <pre>{
+  "type": "FeatureCollection",
+  "meta": { "layer": "auction", "count": 9759 },
+  "features": [{
+    "geometry": { "type": "Point", "coordinates": [127.1, 37.4] },
+    "properties": {
+      "layer": "auction", "id": "...", "name": "...",
+      "category": "...", "color": "#20c997"
+    }
+  }]
+}</pre>
+        <p style="margin-bottom:0">이 규격은 <code>/harness</code>가 <code>references/geojson-schema.md</code>에 자동 생성합니다.</p>
+      </div></details>
+
+      <h3>5 · 오케스트레이터 — 팬아웃·팬인</h3>
+      <p>독립 작업을 병렬로 흩뿌리고(<strong>팬아웃</strong>), 결과를 통합 담당 한 곳으로 모읍니다(<strong>팬인</strong>). 통합→검증은 순서 의존 파이프라인. 여러분은 이 흐름을 코딩하지 않고, 오케스트레이터 하나를 트리거합니다.</p>
+    </section>
+
+    <!-- part 2 -->
+    <section id="p2">
+      <div class="part-tag"><span class="num">Part 02</span></div>
+      <h2>하네스 구축 — 설계하고, 생성시키고, 검토한다</h2>
+      <p>파일을 손으로 짜지 않습니다. <code>/harness</code>를 트리거하고 도메인을 설명하면 Claude가 에이전트 5종·스킬 5종·데이터 계약을 생성합니다. 여러분의 일은 <strong>어떻게 나눌지 설계 + 생성물 검토</strong>입니다.</p>
+
+      <h3>여러분의 핵심 판단 — 5레이어를 몇 명에게?</h3>
+      <p>레이어가 5개라고 5명을 만들면 과합니다. <strong>데이터 소스 성격</strong>으로 묶습니다.</p>
+      <div class="tbl-wrap"><table class="tbl"><thead><tr><th>레이어</th><th>소스 성격</th><th>담당 에이전트</th></tr></thead><tbody>
+        <tr><td>경매물건</td><td>법원경매 크롤 + 지오코딩</td><td><code>auction-collector</code></td></tr>
+        <tr><td>정비·공공주택·산단</td><td><b>GIS 경계 — 기법 동일</b></td><td><code>zone-layer-specialist</code></td></tr>
+        <tr><td>생활인프라</td><td>Overpass POI</td><td><code>poi-collector</code></td></tr>
+        <tr><td>통합·렌더</td><td>표준 병합 → 지도</td><td><code>map-integrator</code></td></tr>
+        <tr><td>검증</td><td>좌표·스키마·정합</td><td><code>qa-validator</code></td></tr>
+      </tbody></table></div>
+      <div class="note"><span class="h">핵심 통찰</span> 정비·공공주택·산단은 셋 다 "면 경계를 공공 GIS에서 가져온다"는 점이 같습니다. 기법이 같으면 한 명으로 묶어 조율 비용을 줄입니다 → "5레이어 → 4수집단위".</div>
+
+      <div class="prompt"><div class="lbl">입력</div><span class="c">/harness</span> 부동산 전용 맵서비스를 만들 거야. 경매물건, 정비구역, 공공주택, 산업단지, 생활인프라를 한 지도에 레이어로 보여주고 싶어.</div>
+      <p><strong>🤖 에이전트가 하는 일:</strong> 기존 하네스 감사 → 에이전트 분리안 제시 → 확인 후 <code>.claude/agents/</code> 5종, <code>.claude/skills/</code> 5종, 데이터 계약, <code>CLAUDE.md</code>를 자동 생성.</p>
+      <p><strong>🧠 여러분의 판단:</strong> 분리안에 동의하거나("그대로 진행"), 조정을 요청("정비구역은 따로 빼줘").</p>
+
+      <h3>생성된 것 검토 체크</h3>
+      <ul class="check">
+        <li>에이전트 정의에 <b>핵심 역할·작업 원칙("왜" 포함)·팀 통신</b>이 있는가</li>
+        <li>스킬 description에 <b>실제 사용자 표현</b>("만들어줘/수집/갱신")이 있는가</li>
+        <li>오케스트레이터에 <b>후속 키워드</b>("다시/재실행/추가")가 있는가 — 없으면 후속 요청이 트리거 안 됨</li>
+        <li><code>.claude/commands/</code>는 <b>비어있는가</b> (커맨드는 만들지 않음)</li>
+      </ul>
+      <details><summary>› 심화 — 실제 에이전트 정의 파일 골격</summary><div class="body">
+        <pre><span class="c">---</span>
+name: auction-collector
+model: opus
+<span class="c">---</span>
+## 핵심 역할
+법원경매 물건을 수집·지오코딩하여 표준 GeoJSON으로 산출.
+
+## 작업 원칙
+- 목록수집은 API 직접 페이징 (UI 클릭은 대량 누락)
+- 좌표가 데이터의 생명 — 실패 물건은 버리지 말고 실패율 리포트
+
+## 팀 통신
+- 발신: map-integrator에게 파일 경로, qa-validator에게 실패율</pre>
+      </div></details>
+    </section>
+
+    <!-- part 3 -->
+    <section id="p3">
+      <div class="part-tag"><span class="num">Part 03</span></div>
+      <h2>팀 가동 — 한 문장이면 된다</h2>
+      <div class="prompt"><div class="lbl">입력</div>분당구 경매물건 + 정비구역 + 지하철 지도 <b>만들어줘</b></div>
+      <p><strong>🤖 에이전트:</strong> 오케스트레이터가 수집 3인을 <strong>병렬로</strong> 흩뿌립니다. 셋이 동시에 일하므로 빠릅니다.</p>
+      <div class="tbl-wrap"><table class="tbl"><thead><tr><th>에이전트</th><th>결과 (실제 기록)</th><th>특이점</th></tr></thead><tbody>
+        <tr><td>인프라 수집</td><td><b>379 POI</b> (학교154·병원108·마트97·지하철20)</td><td>서버 혼잡 → 대체 서버로 성공</td></tr>
+        <tr><td>경매 수집</td><td><b>64건</b> (62 지도 표시)</td><td>좌표 형식 문제를 스스로 발견·해결</td></tr>
+        <tr><td>구역 수집</td><td>공공주택 13, 정비구역 0, 산단 0</td><td>빈 레이어를 <b>사유와 함께</b> 정직하게 반환</td></tr>
+      </tbody></table></div>
+      <div class="note"><span class="h">🧠 여러분의 판단</span> 결과 숫자가 상식적인가? 실패·빈 레이어의 <b>사유가 납득되는가?</b> — 좋은 에이전트는 억지로 지어내지 않고 사유를 남깁니다.</div>
+
+      <h3>QA 검증 — 결과가 "정말" 맞는지 <span style="color:var(--mint)">★</span></h3>
+      <p>이 강의의 하이라이트. 지도를 열었더니 <strong>베이스 지도만 보이고 마커·폴리곤이 하나도 안 나왔습니다.</strong></p>
+      <p><strong>QA 에이전트가 한 일:</strong> "파일이 있나"가 아니라 <strong>데이터가 제공하는 것과 렌더러가 기대하는 것을 대조</strong>했습니다. 근본 원인: 경매 64건 중 <strong>2건이 좌표 없는 물건</strong>인데 렌더러가 방어하지 못해 <strong>스크립트 전체가 중단</strong> → 아무것도 안 보인 것. 에이전트가 데이터에서 2건을 빼고(64→62) 방어 가드를 추가해 해결.</p>
+      <div class="note v"><span class="h">수강생 교훈</span> 에이전트가 결과를 내도 <b>독립 QA</b>를 두면 치명적 버그를 잡습니다. "그럴듯한 결과"를 그냥 믿지 마세요.</div>
+      <details><summary>› 심화 — 실제 버그와 수정 코드</summary><div class="body">
+        <pre>(AUCTION.features||[]).forEach(function(f){
+  <span class="c">// geometry가 null이면 예외 → 스크립트 전체 중단</span>
+  <span class="c">if(!f.geometry||!f.geometry.coordinates) return;  // ← 방어 가드</span>
+  var c = f.geometry.coordinates;
+});</pre>
+        <p style="margin-bottom:0">교훈: 데이터 계약에 "좌표 필수"가 있어도 렌더러는 방어적으로 짜야 하고, QA는 각 모듈 완성 직후 <b>점진적으로</b> 돌려야 일찍 잡습니다.</p>
+      </div></details>
+    </section>
+
+    <!-- part 4 -->
+    <section id="p4">
+      <div class="part-tag"><span class="num">Part 04</span></div>
+      <h2>반복 개선 — 피드백을 주면 진화한다</h2>
+      <p>하네스는 한 번 만들고 끝이 아닙니다. 여러분이 짧게 요청하면 에이전트가 고칩니다. 여기서 배우는 건 <strong>"무엇을 어떻게 요청하는가"</strong>입니다.</p>
+
+      <h3>부분 개선 — 담당만 재작업</h3>
+      <div class="prompt"><div class="lbl">입력</div>카카오맵으로 보여주고, 마커 색이 지도 배경과 구분이 잘 안돼</div>
+      <p>전체를 다시 안 돌리고 <strong>렌더 담당만</strong> 재작업 → 카카오맵 전환 + 핀형 흰 외곽선 마커. <em>부분 요청이 빠릅니다.</em></p>
+
+      <h3>확장 — 데이터 먼저, 화면 나중</h3>
+      <div class="prompt"><div class="lbl">입력</div>분당구만 했는데 서울 포함 수도권이 나오게 하고, 지역을 선택할 수 있게 해줘</div>
+      <p>① 경매 수집가가 서울+수도권 전체로 확장 + 지역 태그(시도·시군구) 부착 → <strong>9,759건</strong>. ② 렌더 담당이 그 태그로 지역 드롭다운을 생성.</p>
+      <div class="note"><span class="h">핵심 감각</span> 지역 선택 같은 UI는 <b>데이터에 태그가 있어야</b> 가능합니다. "UI 먼저"가 아니라 <b>"수집(데이터) 먼저, 렌더(화면) 나중"</b>.</div>
+
+      <h3>데이터가 없을 때 — 정직하게 <span style="color:var(--violet)">★</span></h3>
+      <p>처음 분당구 정비구역은 공개 데이터에 없었습니다. 에이전트는 <strong>억지로 지어내지 않고</strong> <code>0건</code>으로 두되, 왜 없는지(2026.4 지정됐으나 미반영)와 시도한 4개 소스의 실패 사유를 기록했습니다. 지도엔 "데이터 없음"이 아니라 <strong>"경계 미확보 ⓘ"</strong>로 표시.</p>
+      <p><strong>반전:</strong> 서울로 확장하자 "서울 전용이라 못 쓰던" 데이터가 유효해져 → 서울 25개 자치구 <strong>2,585건</strong> 확보.</p>
+      <div class="note v"><span class="h">세 가지 교훈</span> ① 없으면 억지로 만들지 말고 사유 기록(환각 방지) · ② "없음"과 "미확보"는 다르다 · ③ 스코프가 바뀌면 못 쓰던 데이터가 유효해진다</div>
+
+      <h3>저장 — 안전은 에이전트가 점검</h3>
+      <div class="prompt"><div class="lbl">입력</div>github 내 저장소로 커밋하고 푸시해줘</div>
+      <p>실제로 홈 폴더 전체가 저장소여서 <code>.ssh</code>·<code>.env</code> 같은 <strong>민감정보가 유출될 뻔했습니다.</strong> 에이전트가 이를 발견하고 프로젝트 폴더만 분리해 안전하게 올렸습니다. git을 몰라도 "안전하게 올려줘"면 이런 위험을 점검합니다.</p>
+    </section>
+
+    <!-- part 5 -->
+    <section id="p5">
+      <div class="part-tag"><span class="num">Part 05</span></div>
+      <h2>마무리 — 지도는 시작일 뿐</h2>
+      <p class="intro-lede">이 강의에서 만든 건 지도지만, 진짜 자산은 <strong>재사용 가능한 사고 프레임</strong>입니다. 같은 구조로 도메인만 바꾸면 됩니다.</p>
+      <div class="tbl-wrap"><table class="tbl"><thead><tr><th>도메인</th><th>수집(팬아웃)</th><th>통합·검증</th></tr></thead><tbody>
+        <tr><td>논문 리서치</td><td>arxiv · citation · dataset</td><td>synthesizer + fact-checker</td></tr>
+        <tr><td>이커머스 분석</td><td>price · review · spec</td><td>comparator + data-qa</td></tr>
+        <tr><td><b>부동산 맵</b>(본 강의)</td><td>auction · zone · poi</td><td>integrator + qa</td></tr>
+      </tbody></table></div>
+      <h3>응용 체크리스트</h3>
+      <ul class="check">
+        <li>이 도메인의 <b>데이터 소스</b>는 몇 종류? → 성격으로 수집가를 묶어라</li>
+        <li>모든 산출물이 따를 <b>표준 계약(스키마)</b>은 무엇인가?</li>
+        <li>무엇을 <b>QA로 교차검증</b>해야 하는가?</li>
+        <li>어떤 <b>후속 요청</b>이 올까? → 오케스트레이터 description에 반영</li>
+      </ul>
+      <div class="note"><span class="h">다음 도전</span> 실거래가 레이어를 새로 추가해 보세요 — <b>표준 계약만 지키면 렌더러 수정 없이</b> 지도에 붙습니다. 그것이 좋은 설계의 힘입니다.</div>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div>
+      <h4>실습 저장소</h4>
+      <p>이 강의의 모든 예시 — 숫자·버그·해결 과정은 실제 프로젝트 기록입니다.</p>
+      <a class="repo" href="https://github.com/earthskyisbig/maptest">github.com/earthskyisbig/maptest ↗</a>
+    </div>
+    <div>
+      <h4>핵심 원리 회고</h4>
+      <p style="color:var(--ink-faint)">에이전트↔스킬 분리 · 소스 성격으로 묶기 · 표준 데이터 계약 · 팬아웃/팬인/QA · 정직한 엔지니어링</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var root=document.documentElement, btn=document.getElementById('tt');
+    btn.addEventListener('click',function(){
+      var cur=root.getAttribute('data-theme');
+      if(!cur){ cur=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'; }
+      root.setAttribute('data-theme', cur==='dark'?'light':'dark');
+    });
+    // smooth active link handled by native anchor; enhance focus
+  })();
+</script>
