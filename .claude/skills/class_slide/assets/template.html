@@ -112,17 +112,28 @@
   @media (max-width:760px){.cols,.cols.tri{grid-template-columns:1fr;gap:16px}.stats{grid-template-columns:repeat(2,1fr)}.flow{flex-direction:column}.arrow{transform:rotate(90deg)}.hint{display:none}.slide{padding:64px 24px}}
   @media (prefers-reduced-motion:reduce){.slide{transition:none}.bar{transition:none}}
 
-  /* 발표자 노트 (슬라이드마다 data-note="..." 를 달면 자동 표시) */
+  /* 발표자 노트: 왼쪽=핵심 메시지(data-keys), 오른쪽=발표 스크립트(data-note) */
   .snote{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--stage);border-top:1px solid var(--line);
-    box-shadow:0 -10px 30px rgba(20,24,33,.10);padding:16px clamp(24px,6vw,80px) 18px;
-    transform:translateY(101%);transition:transform .3s ease;max-height:34vh;overflow:auto}
+    box-shadow:0 -10px 30px rgba(20,24,33,.12);padding:15px clamp(20px,5vw,60px) 16px;
+    transform:translateY(101%);transition:transform .3s ease;max-height:40vh;
+    display:grid;grid-template-columns:2fr 3fr;gap:clamp(20px,4vw,52px)}
   body.notes-on .snote{transform:none}
-  body.notes-on .deck{padding-bottom:34vh}
-  .snote .nh{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);
-    font-weight:600;display:flex;align-items:center;gap:8px;margin-bottom:7px}
-  .snote .nh .pg{color:var(--ink-faint)}
-  .snote .nb{font-size:clamp(.95rem,1.7vw,1.2rem);line-height:1.55;color:var(--ink);max-width:80ch}
+  body.notes-on .deck{padding-bottom:40vh}
+  body.notes-on .brand{opacity:0}
+  .snote .col{overflow:auto;max-height:33vh;min-width:0}
+  .snote .col.script{padding-right:175px}
+  .snote .nh{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    font-weight:600;display:flex;align-items:center;gap:8px;margin-bottom:9px}
+  .snote .col.note .nh{color:var(--accent)}
+  .snote .col.script .nh{color:var(--accent2)}
+  .snote .nh .pg{color:var(--ink-faint);font-weight:400}
+  .snote ul.keys{margin:0;padding:0;list-style:none;display:grid;gap:9px}
+  .snote ul.keys li{position:relative;padding-left:20px;font-size:clamp(.95rem,1.6vw,1.2rem);line-height:1.38;color:var(--ink);font-weight:650}
+  .snote ul.keys li::before{content:"";position:absolute;left:0;top:.48em;width:9px;height:9px;border-radius:3px;background:var(--accent)}
+  .snote .script-body{font-size:clamp(.9rem,1.5vw,1.08rem);line-height:1.6;color:var(--ink-soft);max-width:64ch}
+  .ctrl{z-index:60}
   .ctrl button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-wash)}
+  @media (max-width:760px){.snote{grid-template-columns:1fr;gap:14px;max-height:46vh}body.notes-on .deck{padding-bottom:46vh}.snote .col.script{padding-right:0}}
   @media (prefers-reduced-motion:reduce){.snote{transition:none}}
 </style>
 
@@ -134,8 +145,8 @@
   <!-- ===== 슬라이드 타입 예시 (필요한 것만 골라 복제·수정) ===== -->
 
   <!-- TYPE: title (첫 장) -->
-  <!-- 각 슬라이드에 data-note="발표 대사..." 를 달면 N 키로 여는 발표자 노트에 표시된다 -->
-  <section class="slide active" data-note="{{이 슬라이드에서 발표자가 말할 대사 — 요점만이 아니라 어떻게 말하고 어디서 강조·멈출지까지}}">
+  <!-- 발표자 노트: data-keys="핵심메시지|핵심|핵심"(왼쪽·불릿) + data-note="전체 발표 대사"(오른쪽). N 키로 토글 -->
+  <section class="slide active" data-keys="{{핵심 메시지1}}|{{핵심 메시지2}}|{{핵심 메시지3}}" data-note="{{전체 발표 대사 — 어떻게 말하고 어디서 강조·멈출지까지}}">
     <div class="slide-inner">
       <div class="kicker">{{과정명 · 부제}}</div>
       <h1 class="big">{{강의 제목}}</h1>
@@ -144,7 +155,7 @@
   </section>
 
   <!-- TYPE: stat (수치로 결과·규모 제시) -->
-  <section class="slide" data-note="{{발표 대사}}">
+  <section class="slide" data-keys="{{핵심 메시지1}}|{{핵심 메시지2}}" data-note="{{전체 발표 대사}}">
     <div class="slide-inner">
       <div class="kicker">{{섹션 라벨}}</div>
       <h2>{{한 줄 헤드라인}}</h2>
@@ -247,8 +258,8 @@ code_line(<span class="g">"문자열"</span>, <span class="w">42</span>)</pre>
 </div>
 
 <aside class="snote" id="snote" aria-live="polite">
-  <div class="nh">발표자 노트 <span class="pg" id="npg"></span></div>
-  <div class="nb" id="nbody"></div>
+  <div class="col note"><div class="nh">핵심 메시지 <span class="pg" id="npg"></span></div><ul class="keys" id="nkeys"></ul></div>
+  <div class="col script"><div class="nh">발표 스크립트</div><div class="script-body" id="nscript"></div></div>
 </aside>
 
 <script>
@@ -256,9 +267,12 @@ code_line(<span class="g">"문자열"</span>, <span class="w">42</span>)</pre>
     var slides=[].slice.call(document.querySelectorAll('.slide'));
     var i=0,n=slides.length;
     var bar=document.getElementById('bar'),cur=document.getElementById('cur');
-    var nbody=document.getElementById('nbody'),npg=document.getElementById('npg');
+    var nkeys=document.getElementById('nkeys'),nscript=document.getElementById('nscript'),npg=document.getElementById('npg');
     document.getElementById('total').textContent=n;
-    function go(x){i=Math.max(0,Math.min(n-1,x));slides.forEach(function(s,k){s.classList.toggle('active',k===i);});bar.style.width=((i+1)/n*100)+'%';cur.textContent=i+1;nbody.textContent=slides[i].getAttribute('data-note')||'(이 슬라이드엔 노트가 없습니다)';npg.textContent=(i+1)+' / '+n;}
+    function go(x){i=Math.max(0,Math.min(n-1,x));slides.forEach(function(s,k){s.classList.toggle('active',k===i);});bar.style.width=((i+1)/n*100)+'%';cur.textContent=i+1;
+      var keys=(slides[i].getAttribute('data-keys')||'').split('|').map(function(s){return s.trim();}).filter(Boolean);
+      nkeys.innerHTML='';keys.forEach(function(k){var li=document.createElement('li');li.textContent=k;nkeys.appendChild(li);});
+      nscript.textContent=slides[i].getAttribute('data-note')||'(스크립트 없음)';npg.textContent=(i+1)+' / '+n;}
     var notesBtn=document.getElementById('notes');
     function toggleNotes(){var on=document.body.classList.toggle('notes-on');notesBtn.classList.toggle('on',on);}
     notesBtn.onclick=toggleNotes;
