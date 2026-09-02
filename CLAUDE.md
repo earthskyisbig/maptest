@@ -22,3 +22,6 @@
 | 2026-09-02 | VWorld D029 정비구역(2,231)·D314 재정비촉진지구(243) 변환, 멀티레이어 빌드 (shp_to_geojson 프로필화, build_shp_map 다중 입력, vworld_zone_map.html) | scripts·_workspace | 최신(2026-08-06) 정비구역을 기준 데이터로 채택 |
 | 2026-09-02 | 서울 아파트 경매물건 수집→DuckDB→지도 (collect_auction_seoul.py·load_auction_duckdb.py·build_auction_map.py, data/estate.duckdb, seoul_auction_map.html: 카카오/브이월드 선택·클러스터·스카이뷰·로드뷰·민트 마커) | scripts·data·course/07 | 서울플랜+ 기준 지도 위 경매물건 서비스 실습 |
 | 2026-09-02 | 경매 지도 고도화 (면적·감정가·최저가·매각기일 필터, 호버 툴팁, 관심물건 저장·금색 마커, API키 접기, 팝업 항목 정리) + 프롬프트 로그 course/08 | scripts/auction_map_template.html·course | 강의용 따라하기 기록 |
+| 2026-09-02 | 경매 지도 도구 확장: 파란 마커, 주소·장소 검색, 장소 저장(별표 6색), 주변 시설 검색(12카테고리), 거리·면적·반경 측정 | scripts/auction_map_template.html·course/07·08 | 카카오맵 표준 도구 이식 |
+| 2026-09-02 | 경매 팝업 210px로 축소+스크롤, 거리·면적 측정을 드래그 그리기+더블클릭 마무리로 변경 (DOM mousemove→coordsFromContainerPoint) | scripts/auction_map_template.html | 사용성 개선 |
+| 2026-09-02 | 구역 폴리곤 클릭 팝업 수정(지도 click 전파 차단) + 호버 툴팁 + 구역 내 경매물건 목록 | scripts/auction_map_template.html | 구역 정보 확인 요청 |
