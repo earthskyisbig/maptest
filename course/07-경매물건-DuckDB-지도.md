@@ -138,8 +138,13 @@ DATA = { auction: GeoJSON(115), zones: GeoJSON(2585) }   ← HTML 안에 인라�
 | 로드뷰 | 카카오 전용. 버튼 또는 팝업의 "이 위치 로드뷰" → 우측 45% 패널, 지도 클릭으로 이동 |
 | 클러스터링 | 카카오 `MarkerClusterer`(gridSize 70) / Leaflet `markerClusterGroup` — 둘 다 민트 원형 |
 | 민트 마커 | `#1abc9c` SVG 원, 앵커를 정중앙(13,13)으로 지정 |
-| 필터 | 구 · 유찰 ≥ N · 최저가 ≤ N억 · 정비구역 내만 |
+| 필터 | 구 · 유찰 범위 · 면적㎡ 범위 · 감정가억 범위 · 최저가억 범위 · 매각기일 from~to · 정비구역 내만 · 관심물건만 ("⚙ 필터"로 접기) |
+| 마커 호버 | 카카오 마커 확대(26→36px)+툴팁(사건번호·면적·최저가·유찰·매각기일), Leaflet CSS scale+툴팁 |
+| 관심물건 | 팝업 ☆ 저장 → localStorage, 마커 금색(#f59e0b), 상단 ★ 패널(목록·이동·삭제·TSV 복사) |
+| API 키 | 저장하면 패널 자동 접힘, 🔑 버튼으로 열기. 키 없을 때만 자동 표시 |
 | 배경 레이어 | 서울플랜+ 구역 토글 (6개 대분류 색) |
+
+팝업에서 제외한 항목: 용도(전부 아파트), 경매계 전화번호, 좌표출처.
 
 ### 카카오 SDK 함정 (kakao-map-js 스킬)
 - 팝업 안 버튼이 안 눌리면 → `CustomOverlay` 내용을 **DOM 요소**로 만들고 `stopPropagation()` + `kakao.maps.event.preventMap()`.

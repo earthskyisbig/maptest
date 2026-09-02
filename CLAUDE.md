@@ -21,3 +21,4 @@
 | 2026-09-02 | 서울플랜+ UQ120 변환기 추가 (scripts/seoulplan_to_geojson.py, layer_zone_redev_seoulplan.geojson, seoul_redev_map.html) | scripts·_workspace | 정비구역 원본 SHP 재현·코드표 매핑 실습 |
 | 2026-09-02 | VWorld D029 정비구역(2,231)·D314 재정비촉진지구(243) 변환, 멀티레이어 빌드 (shp_to_geojson 프로필화, build_shp_map 다중 입력, vworld_zone_map.html) | scripts·_workspace | 최신(2026-08-06) 정비구역을 기준 데이터로 채택 |
 | 2026-09-02 | 서울 아파트 경매물건 수집→DuckDB→지도 (collect_auction_seoul.py·load_auction_duckdb.py·build_auction_map.py, data/estate.duckdb, seoul_auction_map.html: 카카오/브이월드 선택·클러스터·스카이뷰·로드뷰·민트 마커) | scripts·data·course/07 | 서울플랜+ 기준 지도 위 경매물건 서비스 실습 |
+| 2026-09-02 | 경매 지도 고도화 (면적·감정가·최저가·매각기일 필터, 호버 툴팁, 관심물건 저장·금색 마커, API키 접기, 팝업 항목 정리) + 프롬프트 로그 course/08 | scripts/auction_map_template.html·course | 강의용 따라하기 기록 |
