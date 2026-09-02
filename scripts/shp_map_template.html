@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TITLE__</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+  #map { width: 100%; height: 100%; background: #e9eef2; }
+
+  .panel { position: absolute; z-index: 10; background: rgba(255,255,255,.96); border-radius: 12px;
+           box-shadow: 0 4px 18px rgba(0,0,0,.15); padding: 14px 16px; font-size: 13px; color: #222; }
+  #legend { top: 16px; left: 16px; min-width: 230px; max-width: 340px; }
+  #legend h1 { font-size: 15px; margin: 0 0 4px; }
+  #legend .meta { color: #666; font-size: 11.5px; margin-bottom: 10px; line-height: 1.5; word-break: break-all; }
+  .row { display: flex; align-items: center; gap: 8px; padding: 5px 0; cursor: pointer; user-select: none; }
+  .row input { margin: 0; }
+  .sw { width: 22px; height: 14px; border-radius: 3px; border: 2px solid; opacity: .85; }
+  .grp { margin: 8px 0 2px; font-weight: 600; color: #555; font-size: 12px; border-top: 1px solid #eee; padding-top: 8px; }
+  .row .cnt { margin-left: auto; color: #777; font-variant-numeric: tabular-nums; }
+  .hint { margin-top: 10px; color: #888; font-size: 11px; line-height: 1.5; }
+
+  #keybox { top: 16px; right: 16px; width: 300px; }
+  #keybox input { width: 100%; padding: 7px 9px; border: 1px solid #ccc; border-radius: 7px; font-size: 13px; }
+  #keybox button { margin-top: 8px; width: 100%; padding: 8px; border: 0; border-radius: 7px; background: #111; color: #fff; cursor: pointer; }
+  #keybox .small { color: #777; font-size: 11px; margin-top: 6px; line-height: 1.5; }
+
+  #info { bottom: 18px; left: 16px; max-width: 360px; display: none; }
+  #info b { font-size: 14px; }
+  #info table { border-collapse: collapse; margin-top: 6px; }
+  #info td { padding: 2px 8px 2px 0; vertical-align: top; color: #444; }
+  #info td:first-child { color: #888; white-space: nowrap; }
+
+  #nomap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+           color: #555; font-size: 15px; text-align: center; line-height: 1.7; pointer-events: none; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<div id="nomap">카카오 JavaScript 앱키를 우측 상단에 입력하면<br>지도가 나타납니다.</div>
+
+<div id="legend" class="panel">
+  <h1>__TITLE__</h1>
+  <div class="meta" id="meta"></div>
+  <div id="rows"></div>
+  <div class="hint">체크박스로 구역을 켜고 끕니다.<br>폴리곤을 클릭하면 상세 정보가 좌하단에 나옵니다.</div>
+</div>
+
+<div id="keybox" class="panel">
+  <div style="font-weight:600;margin-bottom:6px">카카오 JavaScript 앱키</div>
+  <input type="password" id="key" placeholder="developers.kakao.com → 앱 키 → JavaScript 키" autocomplete="off">
+  <button onclick="saveKey()">저장 &amp; 지도 열기</button>
+  <div class="small">키는 이 브라우저의 localStorage에만 저장됩니다. 플랫폼 &gt; Web 사이트 도메인에 <code>http://localhost</code> 또는 파일을 여는 도메인을 등록해야 합니다.</div>
+</div>
+
+<div id="info" class="panel"></div>
+
+<script>
+// ───────── 데이터 (빌드 스크립트가 주입) : {layers:[{id,title,source,base_date,category_counts,features}]} ─────────
+var DATA = __GEOJSON__;
+
+// ───────── 카카오 키 관리 ─────────
+var KEY = localStorage.getItem('kakao_app_key') || '';
+function saveKey(){
+  var v = document.getElementById('key').value.trim();
+  if(!v) return;
+  localStorage.setItem('kakao_app_key', v);
+  location.reload();
+}
+if(KEY){
+  document.getElementById('key').placeholder = '저장됨 (재입력 시 교체)';
+  var s = document.createElement('script');
+  s.src = 'https://dapi.kakao.com/v2/maps/sdk.js?appkey=' + KEY + '&autoload=false';
+  s.onload = function(){ kakao.maps.load(initMap); };
+  s.onerror = function(){ document.getElementById('nomap').innerHTML = 'SDK 로드 실패. 앱키와 등록 도메인을 확인하세요.'; };
+  document.head.appendChild(s);
+}
+
+// ───────── 지도 ─────────
+var map, polys = {}, selected = null;   // polys[layerId + '|' + category] = [Polygon...]
+
+function initMap(){
+  document.getElementById('nomap').style.display = 'none';
+  map = new kakao.maps.Map(document.getElementById('map'), {
+    center: new kakao.maps.LatLng(37.55, 126.99), level: 9
+  });
+  map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
+  map.addControl(new kakao.maps.MapTypeControl(), kakao.maps.ControlPosition.TOPRIGHT);
+  drawAll();
+  buildLegend();
+}
+
+// GeoJSON [lng,lat] → kakao LatLng(lat,lng)
+function ring2path(ring){ return ring.map(function(c){ return new kakao.maps.LatLng(c[1], c[0]); }); }
+
+function drawAll(){
+  DATA.layers.forEach(function(L){
+    L.features.forEach(function(f){
+      var g = f.geometry, p = f.properties;
+      var rings = g.type === 'Polygon' ? [g.coordinates] : g.coordinates;  // MultiPolygon 대응
+      rings.forEach(function(polyCoords){
+        // 첫 링 = 외곽, 나머지 = 구멍(홀). 카카오 Polygon은 path 배열로 홀을 표현
+        var poly = new kakao.maps.Polygon({
+          map: map, path: polyCoords.map(ring2path),
+          strokeWeight: 1.5, strokeColor: p.color, strokeOpacity: .9,
+          fillColor: p.color, fillOpacity: .28
+        });
+        kakao.maps.event.addListener(poly, 'click', function(){ showInfo(p, poly, L); });
+        kakao.maps.event.addListener(poly, 'mouseover', function(){ if(poly!==selected) poly.setOptions({fillOpacity:.5}); });
+        kakao.maps.event.addListener(poly, 'mouseout',  function(){ if(poly!==selected) poly.setOptions({fillOpacity:.28}); });
+        var k = L.id + '|' + p.category;
+        (polys[k] = polys[k] || []).push(poly);
+      });
+    });
+  });
+}
+
+function showInfo(p, poly, L){
+  if(selected) selected.setOptions({fillOpacity:.28, strokeWeight:1.5});
+  selected = poly; poly.setOptions({fillOpacity:.6, strokeWeight:3});
+  var rows = [
+    ['레이어', L.title], ['구분', p.category], ['사업명', p.subtype], ['추진단계', p.stage],
+    ['시도', p.sido], ['자치구', p.sigungu], ['시군구코드', p.sgg_code],
+    ['면적', p.area_m2 ? p.area_m2.toLocaleString() + ' ㎡' : null],
+    ['구분코드', p.type_code], ['고시일', p.notice_date], ['기준일', p.base_date || L.base_date],
+    ['비고', p.note], ['관리번호', p.mgmt_no || p.present_sn]
+  ].filter(function(r){ return r[1]; })
+   .map(function(r){ return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>'; }).join('');
+  var el = document.getElementById('info');
+  el.innerHTML = '<b style="color:'+p.color+'">■</b> <b>'+p.name+'</b><table>'+rows+'</table>';
+  el.style.display = 'block';
+}
+
+function buildLegend(){
+  var meta = '', html = '';
+  DATA.layers.forEach(function(L, li){
+    meta += (li ? '<br>' : '') + '<b>' + L.title + '</b> · 기준일 ' + L.base_date + ' · ' + L.count + '개';
+    if(DATA.layers.length > 1) html += '<div class="grp">' + L.title + '</div>';
+    Object.keys(L.category_counts).forEach(function(c){
+      var k = L.id + '|' + c;
+      var color = (polys[k] && polys[k][0].getOptions ? polys[k][0].getOptions().fillColor : null) ||
+                  (L.features.find(function(f){ return f.properties.category === c; }) || {properties:{}}).properties.color || '#999';
+      html += '<label class="row"><input type="checkbox" checked data-key="'+k+'">' +
+              '<span class="sw" style="background:'+color+'55;border-color:'+color+'"></span>' +
+              c + '<span class="cnt">' + L.category_counts[c] + '</span></label>';
+    });
+  });
+  var src = DATA.layers.map(function(L){ return L.source; }).filter(Boolean).join(' / ');
+  document.getElementById('meta').innerHTML = meta + '<br><span style="color:#999">' + src + '</span>';
+  document.getElementById('rows').innerHTML = html;
+  document.querySelectorAll('#rows input').forEach(function(cb){
+    cb.addEventListener('change', function(){
+      (polys[cb.dataset.key] || []).forEach(function(poly){ poly.setMap(cb.checked ? map : null); });
+    });
+  });
+}
+</script>
+</body>
+</html>

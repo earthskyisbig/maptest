@@ -72,6 +72,21 @@
 - 5.2 다른 도메인에 응용하기
 - 5.3 체크리스트
 
+### Part 6. 실습 — 공공 SHP 파일을 카카오맵에 올리기 — [`06-SHP지도화.md`](06-SHP지도화.md)
+- 6.1 SHP 세트(.shp/.shx/.dbf/.prj)와 면 데이터가 SHP로 오는 이유
+- 6.2 공공 SHP 함정 3가지: 좌표계 5186→4326, cp949, A0~A9 필드명
+- 6.3 `scripts/shp_to_geojson.py` — 표준 GeoJSON 변환
+- 6.4 `scripts/build_shp_map.py` — 단일 HTML 카카오맵 (`capital_zone_map.html`)
+- 6.5 다른 VWorld 주제도(D027/D029 정비구역)에 재사용
+- 6.6 실습 2: 서울플랜+ 도시계획사업(UQ120) — EPSG:5174·코드표 매핑 (`seoul_redev_map.html`)
+- 6.7 실습 3 ★기준: VWorld 최신 정비구역(D029) + 재정비촉진지구(D314) 멀티레이어 (`vworld_zone_map.html`)
+
+### Part 7. 실습 — 서울 아파트 경매물건 → DuckDB → 카카오/브이월드 지도 — [`07-경매물건-DuckDB-지도.md`](07-경매물건-DuckDB-지도.md)
+- 7.1 법원경매 검색 API 직접 페이징 (`scripts/collect_auction_seoul.py`) — 총건수·마지막페이지·시도필터 함정
+- 7.2 정규화: TM128 좌표 변환·금액·면적·특수조건 검증 → DuckDB (`scripts/load_auction_duckdb.py`)
+- 7.3 서울플랜+ 구역 point-in-polygon 매칭 (`zone_name` 등)
+- 7.4 카카오맵(클러스터·스카이뷰·로드뷰) / 브이월드맵(Leaflet+WMTS) 선택형 지도 (`seoul_auction_map.html`)
+
 ---
 
 ## 강의 진행 방식
