@@ -25,3 +25,8 @@
 | 2026-09-02 | 경매 지도 도구 확장: 파란 마커, 주소·장소 검색, 장소 저장(별표 6색), 주변 시설 검색(12카테고리), 거리·면적·반경 측정 | scripts/auction_map_template.html·course/07·08 | 카카오맵 표준 도구 이식 |
 | 2026-09-02 | 경매 팝업 210px로 축소+스크롤, 거리·면적 측정을 드래그 그리기+더블클릭 마무리로 변경 (DOM mousemove→coordsFromContainerPoint) | scripts/auction_map_template.html | 사용성 개선 |
 | 2026-09-02 | 구역 폴리곤 클릭 팝업 수정(지도 click 전파 차단) + 호버 툴팁 + 구역 내 경매물건 목록 | scripts/auction_map_template.html | 구역 정보 확인 요청 |
+| 2026-09-04 | VWorld 3개 주제도(D014 수도권정비권역·D029 정비구역·D314 재정비촉진지구) 통합 지도 vworld_three_map.html + 2장 요약 슬라이드 course/slides_auction_map_2p.html | 루트·course | 강의용 |
+| 2026-09-04 | D316(정비예정구역·정비계획수립중, 105건) 추가 → 4레이어 지도 vworld_four_map.html; D316 프로필 제목·이름필드 수정 | scripts/shp_to_geojson.py·루트 | 강의용 |
+| 2026-09-04 | 공동주택 공시가격(D167 CSV 278만호) DuckDB 적재(load_apt_price.py) + 경매물건 PNU·호 매칭 → 팝업 공시가격 박스(최저가/공시가 비율) | scripts·data·course/08 | 주소 클릭 시 공시가격 표시 요청 |
+| 2026-09-04 | 경매 지도에 D316 정비예정구역·정비계획수립중(105) 레이어 추가 (build_auction_map --extra-zones) | scripts/build_auction_map.py | 구역 레이어 보강 |
+| 2026-09-04 | GIS건물통합정보(D010, 69.6만 동) DuckDB 적재(load_buildings.py) + 경매물건 PNU 매칭 → 팝업 건축물 박스(용도·구조·연식·층수·용적률·위반여부) + 경매 필지 건물 윤곽 레이어(709동) | scripts·data·course/08 | 건물 데이터 반영 요청 |

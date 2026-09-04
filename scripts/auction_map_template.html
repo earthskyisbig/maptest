@@ -85,6 +85,17 @@
   .popup td:first-child { color: #6b7280; white-space: nowrap; width: 54px; }
   .popup .price { font-size: 12.5px; font-weight: 700; color: #1d4ed8; }
   .popup .tag { display: inline-block; background: #fef3c7; color: #92400e; border-radius: 4px; padding: 0 4px; margin: 1px 2px 1px 0; font-size: 10.5px; }
+  .popup .bldbox { background: #fff7ed; border: 1px solid #fdba74; border-radius: 6px; padding: 5px 7px; margin-top: 6px; font-size: 11px; }
+  .popup .bldbox .ph { font-weight: 700; color: #9a3412; }
+  .popup .bldbox .ph small { font-weight: 400; color: #c2410c; }
+  .popup .bldbox .pu { margin-top: 2px; color: #7c2d12; }
+  .popup .pricebox { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 6px; padding: 5px 7px; margin-top: 6px; font-size: 11px; }
+  .popup .pricebox .ph { font-weight: 700; color: #065f46; }
+  .popup .pricebox .ph small { font-weight: 400; color: #047857; }
+  .popup .pricebox .pu { margin-top: 3px; color: #064e3b; }
+  .popup .pricebox .pu b { color: #047857; font-size: 12px; }
+  .popup table.pt { margin-top: 4px; }
+  .popup table.pt td { padding: 0 6px 0 0; color: #065f46; white-space: nowrap; width: auto; }
   .popup .zone { background: #f3e8ff; color: #6b21a8; border-radius: 6px; padding: 3px 6px; margin-top: 5px; font-size: 11px; }
   .popup .acts { display: flex; gap: 4px; margin-top: 6px; }
   .popup .acts button { flex: 1; padding: 4px 3px; border-radius: 6px; cursor: pointer; font-size: 11px; }
@@ -189,6 +200,7 @@
     <div class="row"><span class="dot gold"></span> 관심물건(저장됨)</div>
     <div class="row"><span style="color:#7c3aed;font-size:14px;line-height:12px">★</span> 저장한 장소(색 선택) · <span style="color:#ef4444">📍</span> 검색 결과</div>
     <div class="row" style="color:#6b7280">구역 폴리곤: 마우스 올리면 구역명, 클릭하면 상세·구역 내 경매물건</div>
+    <div class="row"><span class="sw" style="background:#14b8a644;border-color:#0f766e"></span> 경매물건 건물 윤곽 (확대 시 표시, GIS건물통합정보)</div>
     <div id="zoneLegend"></div>
     <div class="muted" id="legendMeta"></div>
   </div>
@@ -315,10 +327,40 @@ function popupHtml(p, withRv){
     row('특수조건', tags) +
     row('특이사항', esc(p.note)) +
     row('조회/관련', (p.view_count != null ? '조회 ' + p.view_count : '') + (p.related_items ? ' · 관련물건 ' + p.related_items : '')) +
-    '</table>' + zone +
+    '</table>' + bldHtml(p) + priceHtml(p) + zone +
     '<div class="acts"><button class="star' + (fav ? ' on' : '') + '" data-fav="' + p.id + '">' + (fav ? '★ 관심물건 해제' : '☆ 관심물건 저장') + '</button>' +
     (withRv ? '<button class="rv" data-rv="' + p._lat + ',' + p._lon + '">📷 로드뷰</button>' : '') + '</div>' +
     '</div></div>';
+}
+// 건축물 정보 (VWorld D010 GIS건물통합정보, PNU 매칭)
+function bldHtml(p){
+  if(!p.bld_use && !p.bld_name) return '';
+  var t = [];
+  if(p.bld_approval) t.push('사용승인 ' + p.bld_approval + (p.bld_age != null ? ' (' + p.bld_age + '년차)' : ''));
+  if(p.bld_floors) t.push(p.bld_floors);
+  if(p.bld_height_m) t.push('높이 ' + p.bld_height_m + 'm');
+  var t2 = [];
+  if(p.bld_total_area) t2.push('연면적 ' + Math.round(p.bld_total_area).toLocaleString() + '㎡');
+  if(p.bld_land_area) t2.push('대지 ' + Math.round(p.bld_land_area).toLocaleString() + '㎡');
+  if(p.bld_bcr) t2.push('건폐율 ' + Math.round(p.bld_bcr) + '%');
+  if(p.bld_far) t2.push('용적률 ' + Math.round(p.bld_far) + '%');
+  return '<div class="bldbox"><div class="ph">🏢 건축물 <small>' + esc(p.bld_use || '') + (p.bld_struct ? ' · ' + esc(p.bld_struct) : '') + (p.bld_count > 1 ? ' · 필지 내 ' + p.bld_count + '동' : '') + '</small></div>' +
+    (p.bld_name ? '<div class="pu"><b>' + esc(p.bld_name) + '</b></div>' : '') +
+    (t.length ? '<div class="pu">' + t.join(' · ') + '</div>' : '') + (t2.length ? '<div class="pu">' + t2.join(' · ') + '</div>' : '') +
+    (p.bld_violation ? '<div class="pu" style="color:#b91c1c;font-weight:700">⚠ 위반건축물 표기</div>' : '') + '</div>';
+}
+// 공동주택 공시가격 (VWorld D167, PNU+호 매칭)
+function priceHtml(p){
+  if(!p.price_complex) return '';
+  var h = '<div class="pricebox"><div class="ph">🏷 공시가격 <small>' + esc(p.price_base || '') + ' 기준 · ' + esc(p.price_complex) + (p.price_complex_type ? ' (' + esc(p.price_complex_type) + ')' : '') + '</small></div>';
+  if(p.price_unit){
+    h += '<div class="pu">이 호 <b>' + won(p.price_unit) + '</b>' + (p.price_unit_area ? ' <small>' + p.price_unit_area + '㎡</small>' : '') +
+         (p.price_ratio ? '<br><small>최저가는 공시가격의 <b>' + p.price_ratio + '%</b></small>' : '') + '</div>';
+  } else { h += '<div class="pu" style="color:#6b7280">해당 호 공시가격 없음 · 단지 ' + (p.price_complex_units || 0) + '호 요약</div>'; }
+  if(p.price_by_area && p.price_by_area.length){
+    h += '<table class="pt">' + p.price_by_area.slice(0, 4).map(function(a){ return '<tr><td>' + a.area + '㎡</td><td>' + a.units + '호</td><td>평균 ' + won(a.avg) + '</td></tr>'; }).join('') + '</table>';
+  }
+  return h + '</div>';
 }
 function tipHtml(p){
   return '<div class="tip' + (isFav(p.id) ? ' fav' : '') + '">' + (isFav(p.id) ? '★ ' : '') + '<b>' + esc(p.case_no) + '</b>' + (p.building_name ? ' ' + esc(p.building_name) : ' ' + esc(p.dong || '')) +
@@ -446,6 +488,14 @@ function buildKakao(){
       K.polys.push(poly);
     });
   });
+  K.blds = (DATA.buildings && DATA.buildings.features || []).map(function(f){
+    var g = f.geometry, rings = g.type === 'Polygon' ? [g.coordinates] : g.coordinates, out = [];
+    rings.forEach(function(pc){ out.push(new kakao.maps.Polygon({ path: pc.map(function(r){ return r.map(function(c){ return new kakao.maps.LatLng(c[1], c[0]); }); }),
+      strokeWeight: 2, strokeColor: '#0f766e', strokeOpacity: .95, fillColor: '#14b8a6', fillOpacity: .18, zIndex: 3 })); });
+    return out;
+  }).reduce(function(a, b){ return a.concat(b); }, []);
+  function showBlds(){ var on = K.map.getLevel() <= 5 && $('tgAuction').checked; K.blds.forEach(function(pg){ pg.setMap(on ? K.map : null); }); }
+  kakao.maps.event.addListener(K.map, 'zoom_changed', showBlds); showBlds();
   kakao.maps.event.addListener(K.map, 'click', function(e){
     if(K.zoneClick){ K.zoneClick = false; return; }   // 구역 폴리곤 클릭이 먼저 처리됨 → 팝업 유지
     if(TOOL.mode && TOOL.mode !== 'near') return toolClick(e.latLng);

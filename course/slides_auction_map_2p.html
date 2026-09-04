@@ -1,0 +1,280 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>서울 아파트 경매 지도 만들기 — 2장 요약</title>
+<!--
+  class_slide 템플릿 — 키보드/버튼으로 넘기는 강의 슬라이드 웹앱 뼈대.
+  사용법: (1) 아래 :root 토큰의 --accent / --accent2 를 주제 색으로 교체
+         (2) <div class="deck"> 안의 <section class="slide"> 들을 콘텐츠로 채움
+         (3) 슬라이드 타입(title/stat/cols/flow/code/table/note/checklist/close)을 조합
+         (4) 첫 슬라이드에만 class="slide active", 나머지는 class="slide"
+  네비/진행바/테마토글/스와이프/전체화면 JS는 그대로 두면 동작한다.
+-->
+<style>
+  :root{
+    --ink:#141821;--ink-soft:#414a59;--ink-faint:#6b7688;
+    --bg:#f4f6f8;--stage:#ffffff;--line:#e4e8ee;--line-soft:#eef1f5;
+    /* ▼▼ 주제 색으로 교체 (accent=주 강조, accent2=보조) ▼▼ */
+    --accent:#2f7df6;--accent-b:#4a90f8;--accent-wash:#e8f0fe;
+    --accent2:#7c3aed;--accent2-b:#8b5cf6;--accent2-wash:#f0eafe;
+    --amber:#d97b2e;
+    /* ▲▲ */
+    --term:#12161d;--term-ink:#dfe6ef;--term-mint:#7fb2ff;
+    --f-sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR","Malgun Gothic",sans-serif;
+    --f-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,"Cascadia Mono","Noto Sans KR",monospace;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --ink:#e9eef4;--ink-soft:#b0bac8;--ink-faint:#7d8899;
+    --bg:#090b0f;--stage:#12161d;--line:#28303c;--line-soft:#1c222b;
+    --accent:#7fb2ff;--accent-b:#6aa3fb;--accent-wash:#14203a;
+    --accent2:#a78bfa;--accent2-b:#9a7cf5;--accent2-wash:#231b3a;--amber:#e8a35c;
+    --term:#080a0e;
+  }}
+  :root[data-theme="light"]{--ink:#141821;--ink-soft:#414a59;--ink-faint:#6b7688;--bg:#f4f6f8;--stage:#fff;--line:#e4e8ee;--line-soft:#eef1f5;--accent:#2f7df6;--accent-b:#4a90f8;--accent-wash:#e8f0fe;--accent2:#7c3aed;--accent2-b:#8b5cf6;--accent2-wash:#f0eafe;--amber:#d97b2e;--term:#12161d;}
+  :root[data-theme="dark"]{--ink:#e9eef4;--ink-soft:#b0bac8;--ink-faint:#7d8899;--bg:#090b0f;--stage:#12161d;--line:#28303c;--line-soft:#1c222b;--accent:#7fb2ff;--accent-b:#6aa3fb;--accent-wash:#14203a;--accent2:#a78bfa;--accent2-b:#9a7cf5;--accent2-wash:#231b3a;--amber:#e8a35c;--term:#080a0e;}
+
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden}
+  body{background:var(--bg);color:var(--ink);font-family:var(--f-sans);-webkit-font-smoothing:antialiased}
+  code{font-family:var(--f-mono)}
+
+  .deck{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+  .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+    padding:min(8vh,72px) clamp(28px,7vw,110px);opacity:0;visibility:hidden;
+    transform:translateY(14px) scale(.995);transition:opacity .5s ease,transform .5s ease;max-width:1280px;margin:0 auto}
+  .slide.active{opacity:1;visibility:visible;transform:none}
+  .slide-inner{width:100%}
+
+  .kicker{font-family:var(--f-mono);font-size:clamp(11px,1.3vw,13px);letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent);font-weight:600;display:flex;align-items:center;gap:11px;margin-bottom:18px}
+  .kicker::before{content:"";width:30px;height:2px;background:var(--accent)}
+  .kicker.v{color:var(--accent2)}.kicker.v::before{background:var(--accent2)}
+  .kicker.a{color:var(--amber)}.kicker.a::before{background:var(--amber)}
+
+  h1.big{font-size:clamp(2.3rem,6.4vw,5rem);line-height:1.03;letter-spacing:-.03em;font-weight:850;margin:0;text-wrap:balance}
+  h2{font-size:clamp(1.7rem,4.2vw,3.1rem);line-height:1.08;letter-spacing:-.025em;font-weight:800;margin:0 0 .5em;text-wrap:balance}
+  .sub{font-size:clamp(1.05rem,2.3vw,1.5rem);color:var(--ink-soft);max-width:44ch;margin:.9em 0 0;line-height:1.5;text-wrap:pretty}
+  .sub b{color:var(--ink)}
+  .lead{font-size:clamp(1.05rem,2vw,1.35rem);color:var(--ink);max-width:40ch;line-height:1.5}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,44px);align-items:center;margin-top:8px}
+  .cols.tri{grid-template-columns:1fr 1fr 1fr}
+  ul.pts{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:14px}
+  ul.pts li{position:relative;padding-left:30px;font-size:clamp(1rem,1.9vw,1.35rem);color:var(--ink-soft);line-height:1.45}
+  ul.pts li b{color:var(--ink);font-weight:700}
+  ul.pts li::before{content:"";position:absolute;left:0;top:.5em;width:12px;height:12px;border-radius:4px;background:var(--accent-wash);border:2px solid var(--accent)}
+  ul.pts.v li::before{background:var(--accent2-wash);border-color:var(--accent2)}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:40px}
+  .stat{background:var(--stage);padding:clamp(18px,3vw,30px)}
+  .stat .n{font-size:clamp(1.9rem,4.6vw,3.2rem);font-weight:850;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1}
+  .stat.m .n{color:var(--accent)}.stat.v .n{color:var(--accent2)}
+  .stat .l{font-family:var(--f-mono);font-size:clamp(11px,1.3vw,13px);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-faint);margin-top:8px}
+
+  .card{background:var(--stage);border:1px solid var(--line);border-radius:16px;padding:clamp(18px,2.6vw,30px);box-shadow:0 10px 30px rgba(20,24,33,.05)}
+  .card h3{margin:0 0 6px;font-size:clamp(1.05rem,2vw,1.4rem);letter-spacing:-.01em}
+  .card p{margin:0;font-size:clamp(.92rem,1.6vw,1.1rem);color:var(--ink-soft)}
+  .tag{display:inline-block;font-family:var(--f-mono);font-size:12px;padding:4px 10px;border-radius:100px;border:1px solid var(--line);color:var(--ink-soft);margin-bottom:12px}
+  .tag.m{color:var(--accent);border-color:var(--accent)}.tag.v{color:var(--accent2);border-color:var(--accent2)}
+
+  table.t{width:100%;border-collapse:collapse;font-size:clamp(.9rem,1.7vw,1.15rem);margin-top:14px}
+  table.t th,table.t td{text-align:left;padding:11px 16px;border-bottom:1px solid var(--line-soft)}
+  table.t th{font-family:var(--f-mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-faint);font-weight:600}
+  table.t td{color:var(--ink-soft)}table.t td b{color:var(--ink)}table.t tr:last-child td{border-bottom:0}
+  table.t .ok{color:var(--accent);font-weight:700}table.t .no{color:#e05a5a;font-weight:700}
+
+  pre{background:var(--term);color:var(--term-ink);border-radius:14px;padding:clamp(16px,2.4vw,26px);margin:0;font-family:var(--f-mono);font-size:clamp(.8rem,1.5vw,1.05rem);line-height:1.6;overflow:auto}
+  pre .c{color:#8b95a6}pre .g{color:var(--term-mint)}pre .w{color:#fff}
+
+  .flow{display:flex;align-items:stretch;gap:14px;margin-top:26px;flex-wrap:wrap}
+  .node{flex:1;min-width:150px;background:var(--stage);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .node .h{font-family:var(--f-mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+  .node.m .h{color:var(--accent)}.node.v .h{color:var(--accent2)}.node.k .h{color:var(--amber)}
+  .node .b{font-size:clamp(.9rem,1.6vw,1.08rem);color:var(--ink-soft);line-height:1.4}.node .b b{color:var(--ink)}
+  .arrow{align-self:center;color:var(--ink-faint);font-size:26px;font-weight:300}
+
+  .note{border-left:4px solid var(--amber);background:var(--stage);border-radius:0 14px 14px 0;padding:16px 22px;margin-top:24px;font-size:clamp(.95rem,1.8vw,1.25rem);color:var(--ink)}
+  .note .h{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:4px;font-weight:600}
+  .note.m{border-color:var(--accent)}.note.m .h{color:var(--accent)}
+  .note.v{border-color:var(--accent2)}.note.v .h{color:var(--accent2)}
+  .big-num{font-family:var(--f-mono);font-size:clamp(3rem,10vw,7rem);font-weight:800;color:var(--line);line-height:1;letter-spacing:-.04em}
+
+  .bar{position:fixed;left:0;top:0;height:3px;background:var(--accent);z-index:40;transition:width .4s ease}
+  .ctrl{position:fixed;bottom:20px;right:24px;z-index:40;display:flex;align-items:center;gap:6px}
+  .ctrl button{width:42px;height:42px;border-radius:11px;border:1px solid var(--line);background:var(--stage);color:var(--ink);font-size:19px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(20,24,33,.08)}
+  .ctrl button:hover{border-color:var(--accent);color:var(--accent)}
+  .ctrl .count{font-family:var(--f-mono);font-size:13px;color:var(--ink-faint);padding:0 12px;font-variant-numeric:tabular-nums}
+  .ctrl .count b{color:var(--ink)}
+  .brand{position:fixed;bottom:22px;left:24px;z-index:40;font-family:var(--f-mono);font-size:12px;color:var(--ink-faint);letter-spacing:.04em}
+  .brand b{color:var(--accent)}
+  .tt{position:fixed;top:16px;right:24px;z-index:40;font-family:var(--f-mono);font-size:12px;border:1px solid var(--line);background:var(--stage);color:var(--ink-soft);border-radius:100px;padding:7px 13px;cursor:pointer}
+  .tt:hover{color:var(--ink)}
+  .hint{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:40;font-family:var(--f-mono);font-size:11.5px;color:var(--ink-faint)}
+  .hint kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 6px;color:var(--ink-soft);background:var(--stage)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  @media (max-width:760px){.cols,.cols.tri{grid-template-columns:1fr;gap:16px}.stats{grid-template-columns:repeat(2,1fr)}.flow{flex-direction:column}.arrow{transform:rotate(90deg)}.hint{display:none}.slide{padding:64px 24px}}
+  @media (prefers-reduced-motion:reduce){.slide{transition:none}.bar{transition:none}}
+
+  /* 발표자 노트: 왼쪽=핵심 메시지(data-keys), 오른쪽=발표 스크립트(data-note) */
+  .snote{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--stage);border-top:1px solid var(--line);
+    box-shadow:0 -10px 30px rgba(20,24,33,.12);padding:15px clamp(20px,5vw,60px) 16px;
+    transform:translateY(101%);transition:transform .3s ease;max-height:40vh;
+    display:grid;grid-template-columns:2fr 3fr;gap:clamp(20px,4vw,52px)}
+  body.notes-on .snote{transform:none}
+  body.notes-on .deck{padding-bottom:40vh}
+  body.notes-on .brand{opacity:0}
+  .snote .col{overflow:auto;max-height:33vh;min-width:0}
+  .snote .col.script{padding-right:175px}
+  .snote .nh{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    font-weight:600;display:flex;align-items:center;gap:8px;margin-bottom:9px}
+  .snote .col.note .nh{color:var(--accent)}
+  .snote .col.script .nh{color:var(--accent2)}
+  .snote .nh .pg{color:var(--ink-faint);font-weight:400}
+  .snote ul.keys{margin:0;padding:0;list-style:none;display:grid;gap:9px}
+  .snote ul.keys li{position:relative;padding-left:20px;font-size:clamp(.95rem,1.6vw,1.2rem);line-height:1.38;color:var(--ink);font-weight:650}
+  .snote ul.keys li::before{content:"";position:absolute;left:0;top:.48em;width:9px;height:9px;border-radius:3px;background:var(--accent)}
+  .snote .script-body{font-size:clamp(.9rem,1.5vw,1.08rem);line-height:1.6;color:var(--ink-soft);max-width:64ch}
+  .ctrl{z-index:60}
+  .ctrl button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-wash)}
+  @media (max-width:760px){.snote{grid-template-columns:1fr;gap:14px;max-height:46vh}body.notes-on .deck{padding-bottom:46vh}.snote .col.script{padding-right:0}}
+  @media (prefers-reduced-motion:reduce){.snote{transition:none}}
+</style>
+
+<div class="bar" id="bar"></div>
+<button class="tt" id="tt">◐ theme</button>
+
+<style>
+  .step{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.4vw,30px);margin-top:10px}
+  .step .card h3 .no{display:inline-flex;width:30px;height:30px;border-radius:9px;align-items:center;justify-content:center;color:#fff;font-size:15px;margin-right:9px;vertical-align:middle}
+  .step .card ul.pts{margin-top:12px;gap:9px}
+  .step .card ul.pts li{font-size:clamp(.92rem,1.55vw,1.12rem);padding-left:24px;line-height:1.4}
+  .step .card ul.pts li::before{width:9px;height:9px;top:.45em}
+  .say{background:var(--term);color:var(--term-ink);border-radius:10px;padding:10px 14px;font-size:clamp(.82rem,1.4vw,1rem);line-height:1.5;margin-top:10px;font-family:var(--f-sans)}
+  .say b{color:var(--term-mint)}
+  .say .q{color:#8b95a6;margin-right:6px}
+  .three{display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:clamp(14px,2vw,26px);margin-top:10px;align-items:stretch}
+  .three .card{display:flex;flex-direction:column}
+  .three .card p.small{font-size:clamp(.85rem,1.4vw,1.02rem);color:var(--ink-faint);margin:0 0 6px}
+  .three ul.pts{margin-top:10px;gap:8px}
+  .three ul.pts li{font-size:clamp(.9rem,1.5vw,1.08rem);padding-left:24px;line-height:1.4}
+  .three ul.pts li::before{width:9px;height:9px;top:.45em}
+  .note.tight{margin-top:16px;padding:12px 18px;font-size:clamp(.9rem,1.6vw,1.12rem)}
+  @media (max-width:760px){.step,.three{grid-template-columns:1fr}}
+</style>
+<div class="deck" id="deck">
+
+  <!-- 1/2 재료 준비 -->
+  <section class="slide active"
+    data-keys="지도는 재료 두 개로 만든다: 구역(면) + 경매물건(점)|구역은 공공 SHP 파일을 그대로 내려받으면 끝|경매는 에이전트가 수집·정규화해 DuckDB에 넣는다|카카오 JavaScript 키는 미리 발급·도메인 등록"
+    data-note="오늘 만들 결과물을 먼저 보여주세요(seoul_auction_map.html). 그 다음 '이 지도는 재료가 두 개뿐이다'로 시작합니다. 첫째, 정비사업 구역이라는 면 데이터는 서울열린데이터광장 또는 브이월드에서 SHP 압축파일을 그대로 내려받으면 됩니다. 압축을 풀거나 변환할 필요가 없습니다. 클로드가 다 합니다. 둘째, 경매물건이라는 점 데이터는 경매크롤링 에이전트에게 한 문장으로 시키면 수집하고 정규화해서 DuckDB에 넣어 줍니다. 여기서 강조할 점은 '수강생이 직접 코드를 짜는 일은 없다'는 것입니다. 마지막으로 준비물 하나. 카카오 개발자 사이트에서 JavaScript 키를 받아 두고, 사이트 도메인에 http://localhost:8000을 등록해 두면 지도가 바로 뜹니다. 이걸 빠뜨리면 회색 화면만 나오니 꼭 먼저 하라고 짚어 주세요.">
+    <div class="slide-inner">
+      <div class="kicker">STEP 1 · 2 — 재료 준비</div>
+      <h2>서울 아파트 경매 지도, 재료는 두 개</h2>
+      <div class="step">
+        <div class="card">
+          <h3><span class="no" style="background:var(--accent2)">1</span>정비사업 구역 <span style="color:var(--ink-faint);font-weight:500">(면 · SHP 파일)</span></h3>
+          <ul class="pts v">
+            <li><b>서울열린데이터광장</b>에서 "서울플랜+ 도시계획사업" 공간정보 SHP 최신본 다운로드</li>
+            <li>또는 <b>브이월드</b> → 주제도 검색창에 <b>'정비'</b> → <b>도시및주거환경정비 / 정비구역</b> 다운로드</li>
+            <li>받은 <b>zip 그대로</b> 두면 됨. 압축 해제·좌표 변환은 클로드가 함</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3><span class="no" style="background:var(--accent)">2</span>경매물건 <span style="color:var(--ink-faint);font-weight:500">(점 · DuckDB)</span></h3>
+          <div class="say"><span class="q">▶</span>서울(수도권) <b>아파트</b> 최근 경매물건을 크롤링해서 정규화하고 <b>DuckDB</b>에 저장해줘</div>
+          <ul class="pts">
+            <li>에이전트가 법원경매 사이트에서 전량 수집 → 물건번호·유찰·감정가·최저가·면적·매각기일·특이사항 정리</li>
+            <li>결과: <b>data/estate.duckdb</b> 한 파일. 나중에 같은 문장으로 다시 시키면 갱신</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note tight"><span class="h">준비물 하나 더 (빠뜨리면 지도가 안 뜸)</span>
+        <b>카카오 developers</b>에서 앱 만들기 → <b>JavaScript 키</b> 복사 → 플랫폼 &gt; Web 사이트 도메인에 <b>http://localhost:8000</b> 등록. 브이월드 배경지도도 쓰려면 <b>브이월드 인증키</b>까지 (선택).</div>
+    </div>
+  </section>
+
+  <!-- 2/2 클로드에게 시키기 -->
+  <section class="slide"
+    data-keys="하네스 에이전트를 먼저 만들고 재료 두 개를 준다|화면 요구사항은 색·정보·필터·도구 네 가지로 말한다|결과를 보며 한 번에 하나씩 고친다|경매는 같은 문장으로 주기적으로 갱신"
+    data-note="이제 클로드에게 시키는 단계입니다. 셋째, 하네스 명령으로 부동산 맵서비스 에이전트 팀을 만들고, 재료 두 개의 위치를 알려주며 '카카오맵 위에 레이어로 올려라'라고 합니다. 넷째, 화면 요구사항은 네 가지로 나눠 말하면 빠지는 게 없습니다. 색상, 보여줄 경매 정보의 범위, 필터, 지도 도구. 화면의 문장은 실제로 제가 쓴 프롬프트를 그대로 옮긴 것입니다. 다섯째는 제가 추가한 단계인데, 반드시 브라우저에서 열어 확인하고, 마음에 안 드는 것은 한 번에 하나씩 고쳐 달라고 하세요. 처음부터 완벽한 요구사항을 쓰려고 하면 오히려 오래 걸립니다. 저도 팝업 크기, 마커 색, 구역 클릭처럼 하나씩 고쳤습니다. 마지막으로 경매물건은 매일 바뀌니 '다시 수집해서 지도 갱신해줘' 한 문장이면 끝난다는 것을 강조해 마무리합니다.">
+    <div class="slide-inner">
+      <div class="kicker v">STEP 3 · 4 · 5 — 클로드에게 시키기</div>
+      <h2>하네스 → 요구사항 → 확인·갱신</h2>
+      <div class="three">
+        <div class="card">
+          <div class="tag v">③ 하네스 에이전트</div>
+          <p class="small">에이전트 팀을 만들고 재료를 준다</p>
+          <div class="say"><span class="q">▶</span><b>/harness</b> 이 워크스페이스는 부동산 맵서비스다. 경매물건·정비구역을 한 지도 위 레이어로 보여준다</div>
+          <div class="say"><span class="q">▶</span>서울플랜 구역 파일과 DuckDB 경매물건으로 <b>카카오맵 위에 레이어</b>를 구성해줘</div>
+        </div>
+        <div class="card">
+          <div class="tag m">④ 화면 요구사항 (4가지로 말하기)</div>
+          <ul class="pts">
+            <li><b>색상</b> — 마커 파랑, 관심물건은 금색, 구역은 사업유형별 색</li>
+            <li><b>정보 범위</b> — 물건번호·유찰·감정가·최저가·면적·매각기일·특이사항. 용도·전화번호는 빼기</li>
+            <li><b>필터</b> — 구 · 유찰 · 면적 · 감정가 · 최저가 · 매각기일</li>
+            <li><b>도구</b> — 스카이뷰·로드뷰·클러스터, 주소검색·장소저장·주변·거리/면적/반경 재기</li>
+          </ul>
+          <div class="say"><span class="q">▶</span>마커는 파란색, 팝업은 절반 크기로 줄이고 스크롤, 관심물건은 저장하면 마커 색이 바뀌게…</div>
+        </div>
+        <div class="card">
+          <div class="tag">⑤ 확인 · 갱신 <span style="color:var(--amber)">(추가)</span></div>
+          <p class="small">열어 보고, 하나씩 고치고, 주기적으로 갱신</p>
+          <ul class="pts">
+            <li>브라우저에서 열고 🔑에 카카오 키 입력 → 마커 클릭·구역 클릭·필터 동작 확인</li>
+            <li>안 맞으면 <b>한 번에 하나씩</b> "○○ 고쳐줘" (예: 구역 누르면 정보 보여줘)</li>
+            <li>경매는 <b>"다시 수집해서 지도 갱신해줘"</b> 한 문장. 구역은 새 SHP 받아 교체</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note tight m"><span class="h">요령</span>
+        요구사항을 처음부터 완벽하게 쓰려 하지 말고 <b>결과를 보며 한 번에 하나씩</b> 고친다.</div>
+    </div>
+  </section>
+
+</div>
+
+<div class="brand"><b>◆</b> 부동산 맵서비스 — 서울 아파트 경매 지도 만들기 (2장 요약)</div>
+<div class="hint"><kbd>←</kbd> <kbd>→</kbd> 방향키 · <kbd>F</kbd> 전체화면 · <kbd>N</kbd> 발표자 노트</div>
+<div class="ctrl">
+  <button id="notes" aria-label="발표자 노트" title="발표자 노트 (N)">🗒</button>
+  <button id="prev" aria-label="이전">‹</button>
+  <span class="count"><b id="cur">1</b> / <span id="total">0</span></span>
+  <button id="next" aria-label="다음">›</button>
+</div>
+
+<aside class="snote" id="snote" aria-live="polite">
+  <div class="col note"><div class="nh">핵심 메시지 <span class="pg" id="npg"></span></div><ul class="keys" id="nkeys"></ul></div>
+  <div class="col script"><div class="nh">발표 스크립트</div><div class="script-body" id="nscript"></div></div>
+</aside>
+
+<script>
+  (function(){
+    var slides=[].slice.call(document.querySelectorAll('.slide'));
+    var i=0,n=slides.length;
+    var bar=document.getElementById('bar'),cur=document.getElementById('cur');
+    var nkeys=document.getElementById('nkeys'),nscript=document.getElementById('nscript'),npg=document.getElementById('npg');
+    document.getElementById('total').textContent=n;
+    function go(x){i=Math.max(0,Math.min(n-1,x));slides.forEach(function(s,k){s.classList.toggle('active',k===i);});bar.style.width=((i+1)/n*100)+'%';cur.textContent=i+1;
+      var keys=(slides[i].getAttribute('data-keys')||'').split('|').map(function(s){return s.trim();}).filter(Boolean);
+      nkeys.innerHTML='';keys.forEach(function(k){var li=document.createElement('li');li.textContent=k;nkeys.appendChild(li);});
+      nscript.textContent=slides[i].getAttribute('data-note')||'(스크립트 없음)';npg.textContent=(i+1)+' / '+n;}
+    var notesBtn=document.getElementById('notes');
+    function toggleNotes(){var on=document.body.classList.toggle('notes-on');notesBtn.classList.toggle('on',on);}
+    notesBtn.onclick=toggleNotes;
+    document.getElementById('next').onclick=function(){go(i+1);};
+    document.getElementById('prev').onclick=function(){go(i-1);};
+    document.addEventListener('keydown',function(e){
+      if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();go(i+1);}
+      else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(i-1);}
+      else if(e.key==='Home'){go(0);}else if(e.key==='End'){go(n-1);}
+      else if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement){document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();}else{document.exitFullscreen&&document.exitFullscreen();}}
+      else if(e.key==='n'||e.key==='N'){e.preventDefault();toggleNotes();}
+    });
+    var x0=null;
+    document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+    document.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>50){go(i+(dx<0?1:-1));}x0=null;},{passive:true});
+    var root=document.documentElement,tt=document.getElementById('tt');
+    tt.onclick=function(){var c=root.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');root.setAttribute('data-theme',c==='dark'?'light':'dark');};
+    go(0);
+  })();
+</script>

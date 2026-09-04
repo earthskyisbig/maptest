@@ -160,6 +160,90 @@ def normalize(it: dict, key: str, cache: dict) -> dict:
     }
 
 
+def make_pnu(it: dict):
+    """법정동코드(10) + 산구분(1: 일반 1, 산 2) + 본번(4) + 부번(4) = PNU 19자리"""
+    bjd = str(it.get("srchHjguRdCd") or "")
+    lot = str(it.get("daepyoLotno") or "")
+    m = re.match(r"(산)?\s*(\d+)(?:-(\d+))?", lot)
+    if len(bjd) != 10 or not m:
+        return None
+    return bjd + ("2" if m.group(1) else "1") + m.group(2).zfill(4) + (m.group(3) or "0").zfill(4)
+
+
+def attach_prices(rows: list, raw_items: list, con) -> int:
+    """공동주택 공시가격(apt_price)을 PNU + 호명으로 붙인다. 호 매칭 실패 시 단지 요약만."""
+    if not con.execute("SELECT count(*) FROM information_schema.tables WHERE table_name='apt_price'").fetchone()[0]:
+        return 0
+    hit = 0
+    for r, it in zip(rows, raw_items):
+        r["pnu"] = make_pnu(it)
+        for k in ("price_unit", "price_unit_area", "price_complex", "price_complex_type", "price_complex_units", "price_by_area", "price_base", "price_ratio"):
+            r[k] = None
+        if not r["pnu"]:
+            continue
+        cx = con.execute("""SELECT complex_name, housing_type, count(*), any_value(base_year || '.' || base_month)
+                            FROM apt_price WHERE pnu=? GROUP BY 1,2 ORDER BY 3 DESC LIMIT 1""", [r["pnu"]]).fetchone()
+        if not cx:
+            continue
+        r["price_complex"], r["price_complex_type"], r["price_complex_units"], r["price_base"] = cx[0], cx[1], cx[2], cx[3]
+        r["price_by_area"] = [{"area": a, "units": u, "avg": int(p)} for a, u, p in con.execute(
+            """SELECT round(area_m2,2), count(*), avg(price) FROM apt_price WHERE pnu=? GROUP BY 1 ORDER BY 2 DESC LIMIT 6""", [r["pnu"]]).fetchall()]
+        bl = str(it.get("buldList") or "")
+        m_unit = re.search(r"(\d+)호", bl)
+        m_dong = re.search(r"(\d+)동", bl)
+        if m_unit:
+            cands = con.execute("SELECT dong, area_m2, price FROM apt_price WHERE pnu=? AND unit=?", [r["pnu"], m_unit.group(1)]).fetchall()
+            if m_dong:  # 동이 있으면 동 일치만 (숫자 비교: '112' == '제112동' 등)
+                cands = [c for c in cands if re.sub(r"\D", "", str(c[0] or "")) == m_dong.group(1)] or cands
+            if r["area_m2"] and len(cands) > 1:  # 여전히 여럿이면 전용면적이 가장 가까운 것
+                cands.sort(key=lambda c: abs((c[1] or 0) - r["area_m2"]))
+            if cands and (not r["area_m2"] or abs((cands[0][1] or 0) - r["area_m2"]) < 3):
+                r["price_unit_area"], r["price_unit"] = cands[0][1], cands[0][2]
+                if r["min_bid"] and cands[0][2]:
+                    r["price_ratio"] = round(r["min_bid"] / cands[0][2] * 100, 1)
+        hit += 1
+    return hit
+
+
+def attach_buildings(rows: list, raw_items: list, con) -> int:
+    """GIS건물통합정보(buildings)를 PNU로 붙인다. 같은 필지에 여러 동이면 연면적이 가장 큰 동 + 동 수."""
+    if not con.execute("SELECT count(*) FROM information_schema.tables WHERE table_name='buildings'").fetchone()[0]:
+        return 0
+    hit = 0
+    for r, it in zip(rows, raw_items):
+        for k in ("bld_name", "bld_use", "bld_struct", "bld_approval", "bld_age", "bld_floors", "bld_height_m",
+                  "bld_total_area", "bld_land_area", "bld_bcr", "bld_far", "bld_violation", "bld_count"):
+            r[k] = None
+        if not r.get("pnu"):
+            continue
+        rows_b = con.execute("""SELECT bld_name, dong_name, use_name, struct_name, approval_date, floors_above, floors_below, height_m,
+                                       total_floor_area_m2, land_area_m2, bcr_pct, far_pct, violation
+                                FROM buildings WHERE pnu=? ORDER BY total_floor_area_m2 DESC NULLS LAST""", [r["pnu"]]).fetchall()
+        if not rows_b:
+            continue
+        b0 = rows_b[0]
+        m_dong = re.search(r"(\d+)동", str(it.get("buldList") or ""))   # 경매 물건의 동(예: 112동)과 같은 동을 우선
+        if m_dong:
+            same = [x for x in rows_b if re.sub(r"\D", "", str(x[1] or x[0] or "")) == m_dong.group(1)]
+            if same:
+                b0 = same[0]
+        r["bld_count"] = len(rows_b)
+        parts = [x for x in (b0[0], b0[1]) if x]
+        if len(parts) == 2 and parts[1] in parts[0]:
+            parts = parts[:1]
+        r["bld_name"] = " ".join(parts) or None
+        r["bld_use"], r["bld_struct"], r["bld_approval"] = b0[2], b0[3], b0[4]
+        if b0[4] and str(b0[4])[:4].isdigit():
+            r["bld_age"] = datetime.now().year - int(str(b0[4])[:4])
+        if b0[5] is not None:
+            r["bld_floors"] = f"지상 {int(b0[5])}층" + (f" / 지하 {int(b0[6])}층" if b0[6] else "")
+        r["bld_height_m"], r["bld_total_area"], r["bld_land_area"] = b0[7], b0[8], b0[9]
+        r["bld_bcr"], r["bld_far"] = b0[10], b0[11]
+        r["bld_violation"] = (b0[12] == "Y")
+        hit += 1
+    return hit
+
+
 def attach_zones(rows: list, zones_fc: dict):
     geoms, props = [], []
     for f in zones_fc["features"]:
@@ -203,6 +287,8 @@ def main():
     # ── DuckDB ──
     DB.parent.mkdir(exist_ok=True)
     con = duckdb.connect(str(DB))
+    priced = attach_prices(rows, raw["items"], con)   # 공시가격(apt_price 테이블이 있을 때만)
+    blds = attach_buildings(rows, raw["items"], con)                # 건축물 정보(buildings 테이블이 있을 때만)
     con.execute("CREATE OR REPLACE TABLE auction_apt_seoul AS SELECT * FROM read_json_auto(?)",
                 [_tmp_json(rows, "rows")])
     con.execute("CREATE OR REPLACE TABLE seoulplan_zones AS SELECT * FROM read_json_auto(?)",
@@ -230,14 +316,14 @@ def main():
     fc = {"type": "FeatureCollection",
           "meta": {"layer": "auction", "title": "서울 아파트 경매물건",
                    "source": raw["meta"]["source"], "collected_at": collected_at,
-                   "bid_window": raw["meta"]["bid_window"], "count": len(feats),
+                   "bid_window": raw["meta"]["bid_window"], "count": len(feats), "priced": priced,
                    "geocode_failed": sum(r["geocode_failed"] for r in rows), "in_zone": in_zone,
                    "region_counts": raw["meta"]["by_sigungu"]},
           "features": feats}
     OUT_GEOJSON.write_text(json.dumps(fc, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
 
     print(f"DuckDB {DB}: auction_apt_seoul {n_db}행, seoulplan_zones {len(zones_fc['features'])}행")
-    print(f"좌표 실패 {fc['meta']['geocode_failed']}건, 정비구역 안 물건 {in_zone}건")
+    print(f"좌표 실패 {fc['meta']['geocode_failed']}건, 정비구역 안 물건 {in_zone}건, 공시가격 매칭 {priced}건 (호 단위 {sum(1 for r in rows if r.get('price_unit'))}건), 건축물 매칭 {blds}건")
     print("구별:", ", ".join(f"{s}:{n}(구역내 {z})" for s, n, _, z in summary))
     print(f"GeoJSON: {OUT_GEOJSON}")
 

@@ -60,8 +60,8 @@ PROFILES = {
         "colors": {"재정비촉진지구": "#c0392b", "재정비촉진지구기타": "#e59866"},
     },
     "D316": {
-        "layer": "zone_restrict", "title": "행위제한구역",
-        "colors": {},
+        "layer": "zone_planned", "title": "정비예정구역·정비계획 수립중", "name_fields": ("name_raw", "zone_name"),  # A9는 기간·문의 문구
+        "colors": {"정비예정구역": "#0ea5e9", "정비계획을 수립 중인 지역": "#14b8a6"},
     },
 }
 FALLBACK_PALETTE = ["#8e44ad", "#e67e22", "#2980b9", "#c0392b", "#16a085", "#7f8c8d", "#d35400", "#2c3e50"]
