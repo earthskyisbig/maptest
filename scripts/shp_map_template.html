@@ -11,8 +11,20 @@
 
   .panel { position: absolute; z-index: 10; background: rgba(255,255,255,.96); border-radius: 12px;
            box-shadow: 0 4px 18px rgba(0,0,0,.15); padding: 14px 16px; font-size: 13px; color: #222; }
-  #legend { top: 16px; left: 16px; min-width: 230px; max-width: 340px; }
-  #legend h1 { font-size: 15px; margin: 0 0 4px; }
+  #legend { top: 16px; left: 16px; min-width: 230px; max-width: 320px; max-height: calc(100% - 60px); display: flex; flex-direction: column; padding: 10px 12px; }
+  #legend .lhead { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  #legend .lhead h1 { margin: 0; }
+  #legend .fold { border: 0; background: #eef2f7; border-radius: 6px; cursor: pointer; padding: 2px 8px; font-size: 12px; flex: none; }
+  #legend .scroll { overflow-y: auto; min-height: 0; padding-right: 4px; scrollbar-width: thin; }
+  #legend.collapsed .scroll, #legend.collapsed .meta, #legend.collapsed .hint { display: none; }
+  #legend details.src { margin: 4px 0 6px; font-size: 11px; color: #888; }
+  #legend details.src summary { cursor: pointer; color: #666; }
+  .grp { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+  .grp .cnt { color: #999; font-weight: 400; font-size: 11px; }
+  .grp .chev { color: #999; font-size: 11px; margin-left: 6px; }
+  .grp.off + .rows { display: none; }
+  .rows { display: block; }
+  #legend h1 { font-size: 14px; margin: 0 0 4px; line-height: 1.3; }
   #legend .meta { color: #666; font-size: 11.5px; margin-bottom: 10px; line-height: 1.5; word-break: break-all; }
   .row { display: flex; align-items: center; gap: 8px; padding: 5px 0; cursor: pointer; user-select: none; }
   .row input { margin: 0; }
@@ -41,10 +53,10 @@
 <div id="nomap">카카오 JavaScript 앱키를 우측 상단에 입력하면<br>지도가 나타납니다.</div>
 
 <div id="legend" class="panel">
-  <h1>__TITLE__</h1>
+  <div class="lhead"><h1>__TITLE__</h1><button class="fold" id="legendFold" title="범례 접기/펼치기">▲ 접기</button></div>
   <div class="meta" id="meta"></div>
-  <div id="rows"></div>
-  <div class="hint">체크박스로 구역을 켜고 끕니다.<br>폴리곤을 클릭하면 상세 정보가 좌하단에 나옵니다.</div>
+  <div class="scroll"><div id="rows"></div></div>
+  <div class="hint">그룹 이름을 클릭하면 접히고, 체크박스로 켜고 끕니다. 폴리곤 클릭 → 좌하단 상세.</div>
 </div>
 
 <div id="keybox" class="panel">
@@ -135,8 +147,8 @@ function showInfo(p, poly, L){
 function buildLegend(){
   var meta = '', html = '';
   DATA.layers.forEach(function(L, li){
-    meta += (li ? '<br>' : '') + '<b>' + L.title + '</b> · 기준일 ' + L.base_date + ' · ' + L.count + '개';
-    if(DATA.layers.length > 1) html += '<div class="grp">' + L.title + '</div>';
+    meta += (li ? '<br>' : '') + '<b>' + L.title + '</b> ' + L.count + '개 <span style="color:#aaa">(' + L.base_date + ')</span>';
+    if(DATA.layers.length > 1) html += '<div class="grp" data-layer="' + L.id + '"><span>' + L.title + ' <span class="cnt">' + L.count + '</span></span><span><input type="checkbox" checked data-all="' + L.id + '" title="레이어 전체 켜기/끄기" onclick="event.stopPropagation()"> <span class="chev">▾</span></span></div><div class="rows">';
     Object.keys(L.category_counts).forEach(function(c){
       var k = L.id + '|' + c;
       var color = (polys[k] && polys[k][0].getOptions ? polys[k][0].getOptions().fillColor : null) ||
@@ -145,15 +157,26 @@ function buildLegend(){
               '<span class="sw" style="background:'+color+'55;border-color:'+color+'"></span>' +
               c + '<span class="cnt">' + L.category_counts[c] + '</span></label>';
     });
+    if(DATA.layers.length > 1) html += '</div>';
   });
-  var src = DATA.layers.map(function(L){ return L.source; }).filter(Boolean).join(' / ');
-  document.getElementById('meta').innerHTML = meta + '<br><span style="color:#999">' + src + '</span>';
+  var src = DATA.layers.map(function(L){ return L.source; }).filter(Boolean).join('<br>');
+  document.getElementById('meta').innerHTML = meta + '<details class="src"><summary>출처 보기</summary>' + src + '</details>';
   document.getElementById('rows').innerHTML = html;
-  document.querySelectorAll('#rows input').forEach(function(cb){
+  document.querySelectorAll('#rows input[data-key]').forEach(function(cb){
     cb.addEventListener('change', function(){
       (polys[cb.dataset.key] || []).forEach(function(poly){ poly.setMap(cb.checked ? map : null); });
     });
   });
+  // 그룹 헤더: 클릭하면 접기, 체크박스는 레이어 전체 on/off
+  document.querySelectorAll('#rows .grp').forEach(function(g){
+    g.addEventListener('click', function(e){ if(e.target.tagName === 'INPUT') return; g.classList.toggle('off'); g.querySelector('.chev').textContent = g.classList.contains('off') ? '▸' : '▾'; });
+  });
+  document.querySelectorAll('#rows input[data-all]').forEach(function(all){
+    all.addEventListener('change', function(){
+      document.querySelectorAll('#rows input[data-key^="' + all.dataset.all + '|"]').forEach(function(cb){ if(cb.checked !== all.checked){ cb.checked = all.checked; cb.dispatchEvent(new Event('change')); } });
+    });
+  });
+  document.getElementById('legendFold').onclick = function(){ var L = document.getElementById('legend'); L.classList.toggle('collapsed'); this.textContent = L.classList.contains('collapsed') ? '▼ 펼치기' : '▲ 접기'; };
 }
 </script>
 </body>

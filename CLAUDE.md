@@ -30,3 +30,8 @@
 | 2026-09-04 | 공동주택 공시가격(D167 CSV 278만호) DuckDB 적재(load_apt_price.py) + 경매물건 PNU·호 매칭 → 팝업 공시가격 박스(최저가/공시가 비율) | scripts·data·course/08 | 주소 클릭 시 공시가격 표시 요청 |
 | 2026-09-04 | 경매 지도에 D316 정비예정구역·정비계획수립중(105) 레이어 추가 (build_auction_map --extra-zones) | scripts/build_auction_map.py | 구역 레이어 보강 |
 | 2026-09-04 | GIS건물통합정보(D010, 69.6만 동) DuckDB 적재(load_buildings.py) + 경매물건 PNU 매칭 → 팝업 건축물 박스(용도·구조·연식·층수·용적률·위반여부) + 경매 필지 건물 윤곽 레이어(709동) | scripts·data·course/08 | 건물 데이터 반영 요청 |
+| 2026-09-07 | VWorld D060 산업단지·D315 공공주택지구 프로필 + shp_to_geojson --sido 필터, UPIS C_UQ152 철도망 추출기(upis_to_geojson.py) → vworld_seven_map.html(7레이어), 경매 지도 구역 레이어 확장(4,641). D350 개발제한구역은 0건(빈 파일) | scripts·_workspace·루트·course/08 | 철도·공공주택·산단·GB 레이어 요청 |
+| 2026-09-07 | 범례 UI 개선: 스크롤·접기 버튼, 레이어 그룹 접기/전체 on-off(shp 템플릿), 구역·출처 details 접기(경매 템플릿) | scripts/shp_map_template.html·auction_map_template.html | 범례가 길어 지도가 가려지는 문제 |
+| 2026-09-07 | 경매 지도 구역 레이어 선택: 레이어(권역·서울플랜+·예정구역·공공주택·산단·철도)별 전체 on/off + 구분별 체크, 선택 상태 localStorage 저장, 기본은 서울플랜+만 표시 (build_auction_map 기본 extra-zones 5종) | scripts/auction_map_template.html·build_auction_map.py | 경매지도에서 권역·구역·지구 선택 요청 |
+| 2026-09-08 | 경매 수집 범위 확장: 아파트+다세대(연립·빌라 포함) 60일, 949건(다세대 865·아파트 84) → DuckDB·지도 갱신. 용도별 마커 색(아파트 파랑·다세대 주황)·용도 필터·범례 추가 | scripts/collect_auction_seoul.py·load_auction_duckdb.py·auction_map_template.html | 2개월 내 서울 아파트·다세대 경매 조사 요청 |
+| 2026-09-08 | load_buildings.py 메모리 절약 재작성: 속성은 도형 없이 1만 행 배치·DuckDB memory_limit 400MB, 도형은 경매 필지 PNU만 OGR where로 추출(--footprints-only). 건물 윤곽 1,188동·건축물 매칭 720건 | scripts/load_buildings.py | 69.6만 동 재적재가 OOM으로 반복 실패 |

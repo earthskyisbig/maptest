@@ -38,7 +38,12 @@ DB = ROOT / "data" / "estate.duckdb"
 OUT_GEOJSON = ROOT / "_workspace" / "layer_auction_seoul_apt.geojson"
 CACHE = ROOT / "_workspace" / "geocode_cache.json"
 
-MINT = "#1abc9c"
+USAGE_STYLE = {"아파트": ("아파트", "#2f7df6"), "다세대": ("다세대", "#f97316")}   # 마커 색: 아파트 파랑, 다세대 주황
+def usage_style(usage: str):
+    for key, v in USAGE_STYLE.items():
+        if key in (usage or ""):
+            return v
+    return ("기타", "#64748b")
 TM128 = CRS.from_proj4(
     "+proj=tmerc +lat_0=38 +lon_0=128 +k=0.9999 +x_0=400000 +y_0=600000 +ellps=bessel "
     "+towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43 +units=m +no_defs")
@@ -308,13 +313,14 @@ def main():
     # ── GeoJSON (표준 스키마) ──
     feats = []
     for r in rows:
+        cat, color = usage_style(r.get("usage"))
         props = {"layer": "auction", "id": r["id"], "name": f"{r['case_no']}({r['item_no']})",
-                 "category": "아파트", "color": MINT, **{k: v for k, v in r.items() if k not in ("lon", "lat")}}
+                 "category": cat, "color": color, **{k: v for k, v in r.items() if k not in ("lon", "lat")}}
         feats.append({"type": "Feature",
                       "geometry": {"type": "Point", "coordinates": [r["lon"], r["lat"]]} if r["lon"] is not None else None,
                       "properties": {k: v for k, v in props.items() if v not in (None, "", [])}})
     fc = {"type": "FeatureCollection",
-          "meta": {"layer": "auction", "title": "서울 아파트 경매물건",
+          "meta": {"layer": "auction", "title": "서울 아파트·다세대 경매물건", "usage_counts": raw["meta"].get("by_usage"),
                    "source": raw["meta"]["source"], "collected_at": collected_at,
                    "bid_window": raw["meta"]["bid_window"], "count": len(feats), "priced": priced,
                    "geocode_failed": sum(r["geocode_failed"] for r in rows), "in_zone": in_zone,

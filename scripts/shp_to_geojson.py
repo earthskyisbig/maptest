@@ -11,7 +11,7 @@
   3. 필드명: A0~A9로 익명화 → 의미 있는 이름으로 바꿔 준다
 
 사용법
-  python scripts/shp_to_geojson.py <zip 또는 shp 경로> [출력 geojson 경로]
+  python scripts/shp_to_geojson.py <zip 또는 shp 경로> [출력 geojson 경로] [--sido=11,41,28]
 
 예)
   python scripts/shp_to_geojson.py "C:/Users/me/Downloads/AL_D029_00_20260809.zip"
@@ -59,6 +59,19 @@ PROFILES = {
         "layer": "zone_promo", "title": "재정비촉진지구", "name_fields": ("name_raw", "zone_name"),  # A9는 비고성 문구
         "colors": {"재정비촉진지구": "#c0392b", "재정비촉진지구기타": "#e59866"},
     },
+    "D060": {
+        "layer": "zone_industrial", "title": "산업단지", "name_fields": ("name_raw", "zone_name"),
+        "colors": {"국가산업단지": "#6d28d9", "일반산업단지": "#9333ea", "도시첨단산업단지": "#c026d3", "농공단지": "#a16207",
+                   "지방산업단지": "#7e22ce", "재생사업지구": "#be185d"},
+    },
+    "D315": {
+        "layer": "zone_pubhousing", "title": "공공주택지구", "name_fields": ("name_raw", "zone_name"),
+        "colors": {"공공주택지구": "#0f766e", "도심 공공주택 복합지구": "#0d9488"},
+    },
+    "D350": {
+        "layer": "zone_greenbelt", "title": "개발제한구역",
+        "colors": {"개발제한구역": "#15803d"},
+    },
     "D316": {
         "layer": "zone_planned", "title": "정비예정구역·정비계획 수립중", "name_fields": ("name_raw", "zone_name"),  # A9는 기간·문의 문구
         "colors": {"정비예정구역": "#0ea5e9", "정비계획을 수립 중인 지역": "#14b8a6"},
@@ -104,7 +117,7 @@ def detect_profile(shp: Path) -> tuple[str, dict]:
     return code, prof
 
 
-def convert(shp: Path, out: Path | None) -> tuple[dict, Path]:
+def convert(shp: Path, out: Path | None, sido_filter: tuple = ()) -> tuple[dict, Path]:
     code, prof = detect_profile(shp)
     layer = prof["layer"]
     root = Path(__file__).resolve().parent.parent
@@ -114,6 +127,8 @@ def convert(shp: Path, out: Path | None) -> tuple[dict, Path]:
     src_crs, n_src = str(gdf.crs), len(gdf)
     gdf = gdf.to_crs(epsg=4326)                              # 함정 1: 재투영
     gdf = gdf.rename(columns={k: v for k, v in FIELDS.items() if k in gdf.columns})  # 함정 3: 필드명
+    if sido_filter and "sgg_code" in gdf.columns:
+        gdf = gdf[gdf["sgg_code"].astype(str).str.startswith(sido_filter)]
     tol = SIMPLIFY_DEG.get(layer, DEFAULT_SIMPLIFY)
     gdf["geometry"] = gdf.geometry.buffer(0).simplify(tol, preserve_topology=True)
     gdf = gdf[~gdf.geometry.is_empty]
@@ -162,7 +177,7 @@ def convert(shp: Path, out: Path | None) -> tuple[dict, Path]:
             "source_crs": src_crs,
             "collected_at": datetime.now().astimezone().isoformat(timespec="seconds"),
             "base_date": base_date,
-            "count": len(features), "count_source": n_src,
+            "count": len(features), "count_source": n_src, "sido_filter": ",".join(sido_filter) or "전국",
             "category_counts": dict(sorted(cat_counts.items(), key=lambda kv: -kv[1])),
             "sido_counts": dict(sorted(sido_counts.items(), key=lambda kv: -kv[1])),
         },
@@ -178,9 +193,12 @@ def main():
         print(__doc__)
         sys.exit(1)
     root = Path(__file__).resolve().parent.parent
-    shp = find_shp(Path(sys.argv[1]), root / "raw")
-    out = Path(sys.argv[2]) if len(sys.argv) > 2 else None
-    meta, out = convert(shp, out)
+    args = [x for x in sys.argv[1:] if not x.startswith("--sido")]
+    sido = tuple(x.split("=", 1)[1].split(",") for x in sys.argv[1:] if x.startswith("--sido="))
+    sido = tuple(sido[0]) if sido else ()
+    shp = find_shp(Path(args[0]), root / "raw")
+    out = Path(args[1]) if len(args) > 1 else None
+    meta, out = convert(shp, out, sido)
     print(json.dumps(meta, ensure_ascii=False, indent=2))
     print(f"\n저장: {out}  ({out.stat().st_size/1024/1024:.1f} MB)")
 

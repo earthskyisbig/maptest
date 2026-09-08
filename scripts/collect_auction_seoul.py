@@ -123,7 +123,7 @@ def crawl_court(session, name: str, code: str, days: int) -> list:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--days", type=int, default=60, help="매각기일 범위: 오늘 ~ +N일")
-    ap.add_argument("--usage", default="아파트", help="용도명 포함 필터 (dspslUsgNm)")
+    ap.add_argument("--usage", default="아파트", help="용도명 포함 필터, 쉼표로 여러 개 (예: 아파트,다세대)")
     ap.add_argument("-o", "--out", default=None)
     a = ap.parse_args()
     root = Path(__file__).resolve().parent.parent
@@ -144,9 +144,10 @@ def main():
         seen.add(k); uniq.append(it)
 
     # 사후 필터: 서울 소재 + 용도명 (함정 3)
+    usages = [u.strip() for u in a.usage.split(",") if u.strip()]
     picked = [it for it in uniq
               if (it.get("hjguSido") or "").startswith("서울")
-              and a.usage in (it.get("dspslUsgNm") or "")]
+              and any(u in (it.get("dspslUsgNm") or "") for u in usages)]
 
     meta = {
         "source": "법원경매정보 searchControllerMain.on (서울 5개 법원, 건물)",
@@ -155,6 +156,7 @@ def main():
         "count_all_building": len(uniq),
         "count_selected": len(picked),
         "usage_filter": a.usage,
+        "by_usage": dict(sorted(((u, sum(1 for i in picked if i.get("dspslUsgNm") == u)) for u in {i.get("dspslUsgNm") for i in picked}), key=lambda kv: -kv[1])),
         "by_sigungu": dict(sorted(
             ((g, sum(1 for i in picked if i.get("hjguSigu") == g)) for g in {i.get("hjguSigu") for i in picked}),
             key=lambda kv: -kv[1])),

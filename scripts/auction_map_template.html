@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>서울 아파트 경매물건 지도</title>
+<title>서울 아파트·다세대 경매물건 지도</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.Default.min.css">
@@ -45,7 +45,21 @@
   #rvhint { position: absolute; left: 10px; top: 10px; background: rgba(0,0,0,.6); color: #fff; padding: 6px 10px; border-radius: 6px; font-size: 12px; z-index: 6; }
   #rvclose { position: absolute; right: 10px; top: 10px; z-index: 6; background: #fff; border: 0; border-radius: 6px; padding: 5px 9px; cursor: pointer; }
 
-  #legend { position: absolute; left: 12px; bottom: 26px; z-index: 4; background: rgba(255,255,255,.95); border-radius: 10px; box-shadow: 0 4px 16px rgba(0,0,0,.15); padding: 10px 12px; font-size: 12px; max-width: 260px; }
+  #legend { position: absolute; left: 12px; bottom: 26px; z-index: 4; background: rgba(255,255,255,.95); border-radius: 10px; box-shadow: 0 4px 16px rgba(0,0,0,.15); padding: 8px 12px; font-size: 12px; max-width: 270px; max-height: calc(100% - 60px); display: flex; flex-direction: column; }
+  #legend .lhead { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; font-weight: 700; }
+  #legend .fold { border: 0; background: #eef2f7; border-radius: 6px; cursor: pointer; padding: 1px 7px; font-size: 11px; }
+  #legend .scroll { overflow-y: auto; min-height: 0; scrollbar-width: thin; }
+  #legend.collapsed .scroll { display: none; }
+  #legend details { margin-top: 4px; }
+  #legend details summary { cursor: pointer; color: #374151; font-weight: 600; padding: 2px 0; }
+  #legend details summary small { color: #9ca3af; font-weight: 400; }
+  .zg { margin-top: 6px; border-top: 1px solid #eef2f7; padding-top: 5px; }
+  .zg .zh { display: flex; align-items: center; gap: 6px; font-weight: 600; color: #374151; cursor: pointer; user-select: none; }
+  .zg .zh .cnt { color: #9ca3af; font-weight: 400; font-size: 11px; }
+  .zg .zh .chev { margin-left: auto; color: #9ca3af; font-size: 11px; }
+  .zg.off .zrows { display: none; }
+  .zg .row { padding-left: 18px; }
+  .zg .row input { accent-color: #1d4ed8; }
   #legend .row { display: flex; align-items: center; gap: 7px; padding: 2px 0; }
   #legend .dot { width: 12px; height: 12px; border-radius: 50%; background: #2f7df6; border: 2px solid #fff; box-shadow: 0 0 0 1px #1d4ed8; }
   #legend .dot.gold { background: #f59e0b; box-shadow: 0 0 0 1px #b45309; }
@@ -158,13 +172,13 @@
 <div id="app">
 <header>
   <div class="bar">
-    <h1>서울 아파트 경매물건 지도 <small id="subtitle"></small></h1>
+    <h1>서울 아파트·다세대 경매물건 지도 <small id="subtitle"></small></h1>
     <div class="grp"><label>지도</label>
       <div class="seg" id="engine"><button data-v="kakao" class="on">카카오맵</button><button data-v="vworld">브이월드맵</button></div>
     </div>
     <div class="grp"><label>배경</label><div class="seg" id="basemap"></div></div>
     <label class="tog"><input type="checkbox" id="tgAuction" checked> 경매물건</label>
-    <label class="tog"><input type="checkbox" id="tgZones"> 서울플랜+ 구역</label>
+    <label class="tog"><input type="checkbox" id="tgZones" checked> 구역 레이어 <small style="color:#94a3b8">(범례에서 선택)</small></label>
     <button class="btn" id="btnRv" title="카카오맵에서만 동작">📷 로드뷰</button>
     <div class="grp"><input type="text" id="q" placeholder="주소·장소 검색 (Enter)"><button class="btn" id="btnSearch">🔍</button></div>
     <button class="btn" id="btnNear" title="지도를 클릭한 지점 주변 시설 검색">📍 주변</button>
@@ -176,6 +190,7 @@
     <span id="stat"></span>
   </div>
   <div class="bar filters" id="filters">
+    <div class="grp"><label>용도</label><label class="tog"><input type="checkbox" class="fUsage" value="아파트" checked> 아파트</label><label class="tog"><input type="checkbox" class="fUsage" value="다세대" checked> 다세대</label></div>
     <div class="grp"><label>구</label><select id="fGu"><option value="">전체</option></select></div>
     <div class="grp"><label>유찰</label><input type="number" id="fFailMin" min="0" placeholder="0"><span class="tilde">~</span><input type="number" id="fFailMax" min="0" placeholder="∞"><label>회</label></div>
     <div class="grp"><label>면적</label><input type="number" id="fAreaMin" min="0" placeholder="0"><span class="tilde">~</span><input type="number" id="fAreaMax" min="0" placeholder="∞"><label>㎡</label></div>
@@ -196,13 +211,17 @@
     <div id="roadview"></div>
   </div>
   <div id="legend">
-    <div class="row"><span class="dot"></span> 경매물건(아파트, 파랑) · 숫자는 클러스터 건수</div>
+    <div class="lhead"><span>범례</span><button class="fold" id="legendFold">▲ 접기</button></div>
+    <div class="scroll">
+    <div class="row"><span class="dot"></span> 아파트 경매물건 <span id="lgApt" style="color:#888"></span></div>
+    <div class="row"><span class="dot" style="background:#f97316;box-shadow:0 0 0 1px #c2410c"></span> 다세대 경매물건 <span id="lgVilla" style="color:#888"></span> · 숫자는 클러스터 건수</div>
     <div class="row"><span class="dot gold"></span> 관심물건(저장됨)</div>
     <div class="row"><span style="color:#7c3aed;font-size:14px;line-height:12px">★</span> 저장한 장소(색 선택) · <span style="color:#ef4444">📍</span> 검색 결과</div>
     <div class="row" style="color:#6b7280">구역 폴리곤: 마우스 올리면 구역명, 클릭하면 상세·구역 내 경매물건</div>
     <div class="row"><span class="sw" style="background:#14b8a644;border-color:#0f766e"></span> 경매물건 건물 윤곽 (확대 시 표시, GIS건물통합정보)</div>
-    <div id="zoneLegend"></div>
-    <div class="muted" id="legendMeta"></div>
+    <details open><summary>구역 레이어 <small id="zoneLegendCnt"></small></summary><div id="zoneLegend"></div></details>
+    <details><summary>출처</summary><div class="muted" id="legendMeta"></div></details>
+    </div>
   </div>
   <div id="keys" hidden>
     <h3><span>API 키</span><button id="kClose" title="접기">▲ 접기</button></h3>
@@ -312,7 +331,7 @@ function popupHtml(p, withRv){
   var tags = (p.special_conditions || '').split(', ').filter(Boolean).map(function(t){ return '<span class="tag">' + esc(t) + '</span>'; }).join('');
   var zone = p.zone_name ? '<div class="zone">🏗 <b>' + esc(p.zone_name) + '</b> · ' + esc(p.zone_category || '') +
       (p.zone_subtype ? ' / ' + esc(p.zone_subtype) : '') + (p.zone_stage ? ' · ' + esc(p.zone_stage) : '') + '</div>' : '';
-  return '<div class="popup"><div class="hd' + (fav ? ' fav' : '') + '"><span>' + (fav ? '★ ' : '') + esc(p.case_no) + ' <small>물건 ' + esc(p.item_no) + '</small></span><button class="x" data-close>✕</button></div>' +
+  return '<div class="popup"><div class="hd' + (fav ? ' fav' : '') + '"><span>' + (fav ? '★ ' : '') + esc(p.case_no) + ' <small>물건 ' + esc(p.item_no) + ' · ' + esc(p.category) + '</small></span><button class="x" data-close>✕</button></div>' +
     '<div class="bd"><table>' +
     row('법원', esc(p.court) + (p.dept ? ' · ' + esc(p.dept) : '')) +
     row('중복사건', esc(p.dup_case_no)) +
@@ -375,8 +394,10 @@ function filtered(){
   var gu = $('fGu').value, fmin = num('fFailMin'), fmax = num('fFailMax'), amin = num('fAreaMin'), amax = num('fAreaMax');
   var pmin = num('fApprMin'), pmax = num('fApprMax'), bmin = num('fBidMin'), bmax = num('fBidMax');
   var dmin = $('fDateMin').value, dmax = $('fDateMax').value, zo = $('fZoneOnly').checked, fo = $('fFavOnly').checked;
+  var usages = Array.prototype.map.call(document.querySelectorAll('.fUsage:checked'), function(c){ return c.value; });
   return ITEMS.filter(function(p){
     if(gu && p.sigungu !== gu) return false;
+    if(usages.length && usages.indexOf(p.category) < 0) return false;
     var fc = p.fail_count || 0; if(fmin != null && fc < fmin) return false; if(fmax != null && fc > fmax) return false;
     if(amin != null && !(p.area_m2 >= amin)) return false; if(amax != null && !(p.area_m2 <= amax)) return false;
     if(pmin != null && !(p.appraisal >= pmin * 1e8)) return false; if(pmax != null && !(p.appraisal <= pmax * 1e8)) return false;
@@ -393,19 +414,45 @@ function updateStat(list){
     ' · 매각기일 ' + (m.bid_window || []).join('~') + (m.geocode_failed ? ' · 좌표없음 ' + m.geocode_failed : '');
 }
 $('subtitle').textContent = '기준 지도: 서울플랜+ 도시계획사업 ' + ZONES.length + '구역 · 경매 ' + ITEMS.length + '건';
+$('lgApt').textContent = ITEMS.filter(function(p){ return p.category === '아파트'; }).length + '건'; $('lgVilla').textContent = ITEMS.filter(function(p){ return p.category === '다세대'; }).length + '건';
 ['fGu','fFailMin','fFailMax','fAreaMin','fAreaMax','fApprMin','fApprMax','fBidMin','fBidMax','fDateMin','fDateMax','fZoneOnly','fFavOnly'].forEach(function(id){ $(id).addEventListener('change', refresh); $(id).addEventListener('input', debounce(refresh, 250)); });
+document.querySelectorAll('.fUsage').forEach(function(c){ c.addEventListener('change', refresh); });
 $('tgAuction').addEventListener('change', refresh); $('tgZones').addEventListener('change', refresh);
-$('fReset').onclick = function(){ ['fFailMin','fFailMax','fAreaMin','fAreaMax','fApprMin','fApprMax','fBidMin','fBidMax','fDateMin','fDateMax'].forEach(function(id){ $(id).value = ''; }); $('fGu').value = ''; $('fZoneOnly').checked = false; $('fFavOnly').checked = false; refresh(); };
+$('fReset').onclick = function(){ document.querySelectorAll('.fUsage').forEach(function(c){ c.checked = true; }); ['fFailMin','fFailMax','fAreaMin','fAreaMax','fApprMin','fApprMax','fBidMin','fBidMax','fDateMin','fDateMax'].forEach(function(id){ $(id).value = ''; }); $('fGu').value = ''; $('fZoneOnly').checked = false; $('fFavOnly').checked = false; refresh(); };
 $('btnFilter').onclick = function(){ var f = $('filters'); f.hidden = !f.hidden; localStorage.setItem('filters_hidden', f.hidden ? '1' : '0'); setTimeout(relayoutAll, 30); };
 if(localStorage.getItem('filters_hidden') === '1') $('filters').hidden = true;
 function debounce(fn, ms){ var t; return function(){ clearTimeout(t); t = setTimeout(fn, ms); }; }
 function relayoutAll(){ if(K.ready){ var c = K.map.getCenter(); K.map.relayout(); K.map.setCenter(c); } if(Lf.ready) Lf.map.invalidateSize(); }
 
-// 구역 범례
-(function(){ var cats = {}; ZONES.forEach(function(f){ var p = f.properties; if(!cats[p.category]) cats[p.category] = {c: p.color, n: 0}; cats[p.category].n++; });
-  $('zoneLegend').innerHTML = Object.keys(cats).map(function(k){ return '<div class="row"><span class="sw" style="background:' + cats[k].c + '44;border-color:' + cats[k].c + '"></span>' + k + ' <small style="color:#888">' + cats[k].n + '</small></div>'; }).join('');
+// 구역 범례: 그룹(레이어) → 구분 체크박스. 기본은 서울플랜+ 만 켜짐
+var ZKEY = function(p){ return (p.group || '구역') + '|' + p.category; };
+var ZGROUPS = {};
+ZONES.forEach(function(f){ var p = f.properties, g = p.group || '구역'; var G = ZGROUPS[g] = ZGROUPS[g] || { n: 0, cats: {} }; G.n++; var c = G.cats[p.category] = G.cats[p.category] || { color: p.color, n: 0 }; c.n++; });
+var ZDEFAULT_ON = { '서울 도시계획사업(서울플랜+)': true };
+var zoneOn = {};
+try { zoneOn = JSON.parse(localStorage.getItem('zone_on') || '{}'); } catch(e){ zoneOn = {}; }
+function zoneVisible(key){ if(key in zoneOn) return !!zoneOn[key]; return !!ZDEFAULT_ON[key.split('|')[0]]; }
+(function(){
+  $('zoneLegendCnt').textContent = Object.keys(ZGROUPS).length + '레이어 · ' + ZONES.length + '구역';
+  $('zoneLegend').innerHTML = Object.keys(ZGROUPS).map(function(g){ var G = ZGROUPS[g];
+    var allOn = Object.keys(G.cats).every(function(c){ return zoneVisible(g + '|' + c); });
+    return '<div class="zg' + (allOn ? '' : '') + '" data-group="' + esc(g) + '"><div class="zh"><input type="checkbox" data-zall="' + esc(g) + '"' + (allOn ? ' checked' : '') + ' title="레이어 전체 켜기/끄기"><span>' + esc(g) + '</span><span class="cnt">' + G.n + '</span><span class="chev">▾</span></div><div class="zrows">' +
+      Object.keys(G.cats).map(function(c){ var k = g + '|' + c; return '<label class="row"><input type="checkbox" data-zkey="' + esc(k) + '"' + (zoneVisible(k) ? ' checked' : '') + '><span class="sw" style="background:' + G.cats[c].color + '44;border-color:' + G.cats[c].color + '"></span>' + esc(c) + ' <small style="color:#888">' + G.cats[c].n + '</small></label>'; }).join('') + '</div></div>'; }).join('');
   $('legendMeta').innerHTML = '경매: ' + esc(DATA.auction.meta.source) + '<br>구역: ' + esc(DATA.zones.meta.source) + ' (기준 ' + esc(DATA.zones.meta.base_date) + ')';
+  $('zoneLegend').addEventListener('change', function(e){
+    var t = e.target;
+    if(t.dataset.zkey){ zoneOn[t.dataset.zkey] = t.checked; }
+    else if(t.dataset.zall){ var g = t.dataset.zall; Object.keys(ZGROUPS[g].cats).forEach(function(c){ zoneOn[g + '|' + c] = t.checked; }); $('zoneLegend').querySelectorAll('input[data-zkey^="' + g.replace(/"/g, '\\"') + '|"]').forEach(function(cb){ cb.checked = t.checked; }); }
+    else return;
+    // 그룹 체크박스 상태 동기화
+    $('zoneLegend').querySelectorAll('.zg').forEach(function(zg){ var g = zg.dataset.group; var all = Object.keys(ZGROUPS[g].cats).every(function(c){ return zoneVisible(g + '|' + c); }); zg.querySelector('[data-zall]').checked = all; });
+    try { localStorage.setItem('zone_on', JSON.stringify(zoneOn)); } catch(err){}
+    refresh();
+  });
+  $('zoneLegend').addEventListener('click', function(e){ var zh = e.target.closest('.zh'); if(!zh || e.target.tagName === 'INPUT') return; var zg = zh.parentElement; zg.classList.toggle('off'); zh.querySelector('.chev').textContent = zg.classList.contains('off') ? '▸' : '▾'; });
 })();
+
+$('legendFold').onclick = function(){ var L = $('legend'); L.classList.toggle('collapsed'); this.textContent = L.classList.contains('collapsed') ? '▼ 펼치기' : '▲ 접기'; };
 
 // ═══════════════════ 엔진 전환 ═══════════════════
 var ENGINE = localStorage.getItem('map_engine') || 'kakao';
@@ -431,9 +478,10 @@ function setEngine(e){
 }
 function applyBase(){ if(ENGINE === 'kakao') kakaoBase(); else leafletBase(); }
 function refresh(){ if(ENGINE === 'kakao') kakaoRefresh(); else leafletRefresh(); }
+function itemColor(p){ return isFav(p.id) ? GOLD : (p.color || MINT); }
 function restyleMarker(id){
-  if(K.ready){ var m = K.markers.find(function(m){ return m._p.id === id; }); if(m) m.setImage(markerImage(isFav(id) ? GOLD : MINT, false)); if(K.popup && K.popupId === id) kakaoPopup(BYID[id], K.popup.getPosition()); }
-  if(Lf.ready){ var lm = Lf.markers.find(function(m){ return m._p.id === id; }); if(lm){ lm.setIcon(lfIcon(isFav(id))); if(lm.isPopupOpen()) lm.setPopupContent(popupHtml(BYID[id], false)); } }
+  if(K.ready){ var m = K.markers.find(function(m){ return m._p.id === id; }); if(m) m.setImage(markerImage(itemColor(BYID[id]), false)); if(K.popup && K.popupId === id) kakaoPopup(BYID[id], K.popup.getPosition()); }
+  if(Lf.ready){ var lm = Lf.markers.find(function(m){ return m._p.id === id; }); if(lm){ lm.setIcon(lfIcon(isFav(id), BYID[id].color)); if(lm.isPopupOpen()) lm.setPopupContent(popupHtml(BYID[id], false)); } }
 }
 
 // ═══════════════════ 카카오맵 ═══════════════════
@@ -452,7 +500,7 @@ function initKakao(){
 function markerImage(color, hover){
   var key = color + (hover ? 'h' : '');
   if(K.imgs[key]) return K.imgs[key];
-  var size = hover ? 36 : 26, r = hover ? 12 : 9, ring = color === GOLD ? '#b45309' : '#1d4ed8';
+  var size = hover ? 36 : 26, r = hover ? 12 : 9, ring = color === GOLD ? '#b45309' : (color === '#f97316' ? '#c2410c' : '#1d4ed8');
   var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + size + '" height="' + size + '">' +
     (hover ? '<circle cx="' + size/2 + '" cy="' + size/2 + '" r="' + (size/2 - 1) + '" fill="' + color + '" fill-opacity=".28"/>' : '') +
     '<circle cx="' + size/2 + '" cy="' + size/2 + '" r="' + r + '" fill="' + color + '" stroke="#fff" stroke-width="3"/>' +
@@ -469,11 +517,11 @@ function buildKakao(){
              { width: '56px', height: '56px', background: 'rgba(29,78,216,.92)', color: '#fff', textAlign: 'center', lineHeight: '56px', borderRadius: '28px', fontWeight: '700', border: '3px solid rgba(255,255,255,.9)' }],
     calculator: [10, 50] });
   K.markers = ITEMS.map(function(p){
-    var m = new kakao.maps.Marker({ position: new kakao.maps.LatLng(p._lat, p._lon), image: markerImage(isFav(p.id) ? GOLD : MINT, false), title: '' });
+    var m = new kakao.maps.Marker({ position: new kakao.maps.LatLng(p._lat, p._lon), image: markerImage(itemColor(p), false), title: '' });
     m._p = p;
     kakao.maps.event.addListener(m, 'click', function(){ kakaoPopup(p, m.getPosition()); });
-    kakao.maps.event.addListener(m, 'mouseover', function(){ m.setImage(markerImage(isFav(p.id) ? GOLD : MINT, true)); m.setZIndex(50); showTip(p, m.getPosition()); });
-    kakao.maps.event.addListener(m, 'mouseout', function(){ m.setImage(markerImage(isFav(p.id) ? GOLD : MINT, false)); m.setZIndex(0); hideTip(); });
+    kakao.maps.event.addListener(m, 'mouseover', function(){ m.setImage(markerImage(itemColor(p), true)); m.setZIndex(50); showTip(p, m.getPosition()); });
+    kakao.maps.event.addListener(m, 'mouseout', function(){ m.setImage(markerImage(itemColor(p), false)); m.setZIndex(0); hideTip(); });
     return m;
   });
   ZONES.forEach(function(f){
@@ -485,6 +533,7 @@ function buildKakao(){
       kakao.maps.event.addListener(poly, 'mouseover', function(e){ poly.setOptions({ fillOpacity: .45, strokeWeight: 2.5 }); showTipHtml('<div class="tip"><b style="color:' + p.color + '">■</b> <b>' + esc(p.name) + '</b><br>' + esc(p.category) + (p.subtype ? ' · ' + esc(p.subtype) : '') + (p.stage ? '<br><span style="color:#94a3b8">' + esc(p.stage) + '</span>' : '') + '</div>', e.latLng); });
       kakao.maps.event.addListener(poly, 'mousemove', function(e){ if(K.tip) K.tip.setPosition(e.latLng); });
       kakao.maps.event.addListener(poly, 'mouseout', function(){ poly.setOptions({ fillOpacity: .22, strokeWeight: 1.2 }); hideTip(); });
+      poly._zkey = ZKEY(p);
       K.polys.push(poly);
     });
   });
@@ -533,7 +582,7 @@ function kakaoRefresh(){
   K.clusterer.clear();
   if(on){ var set = {}; list.forEach(function(p){ set[p.id] = 1; }); K.clusterer.addMarkers(K.markers.filter(function(m){ return set[m._p.id]; })); }
   var z = $('tgZones').checked;
-  K.polys.forEach(function(poly){ poly.setMap(z ? K.map : null); });
+  K.polys.forEach(function(poly){ var on = z && zoneVisible(poly._zkey); if((poly.getMap() != null) !== on) poly.setMap(on ? K.map : null); });
   updateStat(list);
 }
 function overlayEl(html){
@@ -600,9 +649,9 @@ function closeRoadview(){
 // ═══════════════════ 브이월드맵 (Leaflet + VWorld WMTS) ═══════════════════
 var Lf = { map: null, base: null, hybrid: null, cluster: null, markers: null, zones: null, ready: false, icons: {} };
 function vworldUrl(layer){ var ext = layer === 'Satellite' ? 'jpeg' : 'png'; return 'https://api.vworld.kr/req/wmts/1.0.0/' + VWORLD_KEY + '/' + layer + '/{z}/{y}/{x}.' + ext; }
-function lfIcon(fav){
-  var k = fav ? 'g' : 'm';
-  if(!Lf.icons[k]) Lf.icons[k] = L.divIcon({ className: '', iconSize: [26, 26], iconAnchor: [13, 13], popupAnchor: [0, -12], tooltipAnchor: [0, -14], html: '<div class="lmk' + (fav ? ' gold' : '') + '"></div>' });
+function lfIcon(fav, color){
+  var col = fav ? GOLD : (color || MINT), k = col;
+  if(!Lf.icons[k]) Lf.icons[k] = L.divIcon({ className: '', iconSize: [26, 26], iconAnchor: [13, 13], popupAnchor: [0, -12], tooltipAnchor: [0, -14], html: '<div class="lmk' + (fav ? ' gold' : '') + '" style="background:' + col + '"></div>' });
   return Lf.icons[k];
 }
 function initLeaflet(){
@@ -617,11 +666,12 @@ function initLeaflet(){
     iconCreateFunction: function(c){ var n = c.getChildCount(), s = n < 10 ? 38 : n < 50 ? 46 : 56;
       return L.divIcon({ html: '<div class="mint-cluster" style="width:' + s + 'px;height:' + s + 'px">' + n + '</div>', className: '', iconSize: [s, s] }); } });
   Lf.markers = ITEMS.map(function(p){
-    var m = L.marker([p._lat, p._lon], { icon: lfIcon(isFav(p.id)) }); m._p = p;
+    var m = L.marker([p._lat, p._lon], { icon: lfIcon(isFav(p.id), p.color) }); m._p = p;
     m.bindPopup(function(){ return popupHtml(p, false); }, { maxWidth: 230, minWidth: 210 });
     m.bindTooltip(function(){ return tipHtml(p); }, { direction: 'top', className: 'tipwrap', opacity: 1 });
     return m;
   });
+  Lf.zoneGroups = {};
   Lf.zones = L.geoJSON(DATA.zones, { style: function(f){ return { color: f.properties.color, weight: 1.2, fillColor: f.properties.color, fillOpacity: .22 }; },
     onEachFeature: function(f, l){ var p = f.properties;
       l.on('mouseover', function(){ l.setStyle({ fillOpacity: .42 }); }); l.on('mouseout', function(){ l.setStyle({ fillOpacity: .22 }); });
@@ -650,7 +700,9 @@ function leafletRefresh(){
   if(on){ var set = {}; list.forEach(function(p){ set[p.id] = 1; }); Lf.cluster.addLayers(Lf.markers.filter(function(m){ return set[m._p.id]; })); }
   if(!Lf.map.hasLayer(Lf.cluster)) Lf.cluster.addTo(Lf.map);
   var z = $('tgZones').checked;
-  if(z && !Lf.map.hasLayer(Lf.zones)) Lf.zones.addTo(Lf.map); if(!z && Lf.map.hasLayer(Lf.zones)) Lf.map.removeLayer(Lf.zones);
+  if(!Lf.zoneFilterInit){ Lf.zoneFilterInit = true; Lf.zoneLayers = Lf.zones.getLayers(); Lf.zoneHolder = L.layerGroup().addTo(Lf.map); }
+  Lf.zoneHolder.clearLayers();
+  if(z) Lf.zoneLayers.forEach(function(l){ if(zoneVisible(ZKEY(l.feature.properties))) Lf.zoneHolder.addLayer(l); });
   updateStat(list);
 }
 
