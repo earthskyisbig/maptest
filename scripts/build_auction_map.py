@@ -16,6 +16,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 ap = argparse.ArgumentParser()
 ap.add_argument("-o", "--out", default=str(ROOT / "seoul_auction_map.html"))
+ap.add_argument("--title", default=None,
+                help="지도 제목. 생략 시 경매 레이어 meta 로 자동 생성(예: 수도권 경매물건 지도)")
 ap.add_argument("--auction", default=str(ROOT / "_workspace" / "layer_auction_seoul_apt.geojson"))
 ap.add_argument("--zones", default=str(ROOT / "_workspace" / "layer_zone_redev_seoulplan.geojson"))
 ap.add_argument("--extra-zones", nargs="*", default=[str(ROOT / "_workspace" / f) for f in (
@@ -53,5 +55,15 @@ buildings = json.loads(bld_path.read_text(encoding="utf-8")) if bld_path.exists(
 data = json.dumps({"auction": auction, "zones": zones, "buildings": buildings}, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 tpl = (ROOT / "scripts" / "auction_map_template.html").read_text(encoding="utf-8")
 out = Path(a.out)
-out.write_text(tpl.replace("__DATA__", data), encoding="utf-8")
+# 제목: 서울 전용 문구가 하드코딩돼 있어 지역이 바뀌면 헤더가 어긋난다 → 인자/메타로 치환
+if a.title:
+    title = a.title
+else:
+    sidos = list((auction.get("meta", {}).get("by_sido") or {}).keys())
+    where = "수도권" if len(sidos) > 1 else (sidos[0] if sidos else "")
+    title = ("%s 경매물건 지도" % where).strip()
+html = tpl.replace("__DATA__", data)
+html = html.replace("<title>서울 아파트·다세대 경매물건 지도</title>", "<title>%s</title>" % title)
+html = html.replace("<h1>서울 아파트·다세대 경매물건 지도 ", "<h1>%s " % title)
+out.write_text(html, encoding="utf-8")
 print(f"저장: {out}  ({out.stat().st_size/1024/1024:.1f} MB, 경매 {auction['meta']['count']}건, 구역 {len(zones['features'])}개, 건물 윤곽 {len(buildings['features'])}동)")

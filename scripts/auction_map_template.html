@@ -190,7 +190,7 @@
     <span id="stat"></span>
   </div>
   <div class="bar filters" id="filters">
-    <div class="grp"><label>용도</label><label class="tog"><input type="checkbox" class="fUsage" value="아파트" checked> 아파트</label><label class="tog"><input type="checkbox" class="fUsage" value="다세대" checked> 다세대</label></div>
+    <div class="grp" id="usageBox"><label>용도</label></div>
     <div class="grp"><label>구</label><select id="fGu"><option value="">전체</option></select></div>
     <div class="grp"><label>유찰</label><input type="number" id="fFailMin" min="0" placeholder="0"><span class="tilde">~</span><input type="number" id="fFailMax" min="0" placeholder="∞"><label>회</label></div>
     <div class="grp"><label>면적</label><input type="number" id="fAreaMin" min="0" placeholder="0"><span class="tilde">~</span><input type="number" id="fAreaMax" min="0" placeholder="∞"><label>㎡</label></div>
@@ -213,8 +213,8 @@
   <div id="legend">
     <div class="lhead"><span>범례</span><button class="fold" id="legendFold">▲ 접기</button></div>
     <div class="scroll">
-    <div class="row"><span class="dot"></span> 아파트 경매물건 <span id="lgApt" style="color:#888"></span></div>
-    <div class="row"><span class="dot" style="background:#f97316;box-shadow:0 0 0 1px #c2410c"></span> 다세대 경매물건 <span id="lgVilla" style="color:#888"></span> · 숫자는 클러스터 건수</div>
+    <div id="lgUsage"></div>
+    <div class="row" style="color:#6b7280;font-size:11px">숫자는 클러스터 건수</div>
     <div class="row"><span class="dot gold"></span> 관심물건(저장됨)</div>
     <div class="row"><span style="color:#7c3aed;font-size:14px;line-height:12px">★</span> 저장한 장소(색 선택) · <span style="color:#ef4444">📍</span> 검색 결과</div>
     <div class="row" style="color:#6b7280">구역 폴리곤: 마우스 올리면 구역명, 클릭하면 상세·구역 내 경매물건</div>
@@ -414,7 +414,19 @@ function updateStat(list){
     ' · 매각기일 ' + (m.bid_window || []).join('~') + (m.geocode_failed ? ' · 좌표없음 ' + m.geocode_failed : '');
 }
 $('subtitle').textContent = '기준 지도: 서울플랜+ 도시계획사업 ' + ZONES.length + '구역 · 경매 ' + ITEMS.length + '건';
-$('lgApt').textContent = ITEMS.filter(function(p){ return p.category === '아파트'; }).length + '건'; $('lgVilla').textContent = ITEMS.filter(function(p){ return p.category === '다세대'; }).length + '건';
+// 용도 필터·범례는 데이터의 실제 category 로 자동 생성한다.
+// (서울 전용 아파트/다세대 2종 하드코딩이었으나 수도권은 7종이라 필터가 안 걸렸다)
+var UCOUNT = {}, UCOLOR = {};
+ITEMS.forEach(function(p){ UCOUNT[p.category] = (UCOUNT[p.category] || 0) + 1; if(p.color) UCOLOR[p.category] = p.color; });
+var UCATS = Object.keys(UCOUNT).sort(function(a, b){ return UCOUNT[b] - UCOUNT[a]; });
+$('usageBox').innerHTML = '<label>용도</label>' + UCATS.map(function(c){
+  return '<label class="tog"><input type="checkbox" class="fUsage" value="' + esc(c) + '" checked> ' + esc(c) + '</label>';
+}).join('');
+$('lgUsage').innerHTML = UCATS.map(function(c){
+  return '<div class="row"><span class="dot" style="background:' + (UCOLOR[c] || '#9e9e9e') +
+         ';box-shadow:0 0 0 1px rgba(0,0,0,.25)"></span> ' + esc(c) + ' <span style="color:#888">' +
+         UCOUNT[c].toLocaleString() + '건</span></div>';
+}).join('');
 ['fGu','fFailMin','fFailMax','fAreaMin','fAreaMax','fApprMin','fApprMax','fBidMin','fBidMax','fDateMin','fDateMax','fZoneOnly','fFavOnly'].forEach(function(id){ $(id).addEventListener('change', refresh); $(id).addEventListener('input', debounce(refresh, 250)); });
 document.querySelectorAll('.fUsage').forEach(function(c){ c.addEventListener('change', refresh); });
 $('tgAuction').addEventListener('change', refresh); $('tgZones').addEventListener('change', refresh);
