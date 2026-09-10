@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>신속통합기획 후보지 구역 그리기</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; font-family: "Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif; font-size: 13px; color: #1f2937; }
+  #app { display: flex; flex-direction: column; height: 100%; }
+  header { background: #0f172a; color: #e2e8f0; border-bottom: 2px solid #dc2626; display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; padding: 7px 14px; }
+  header h1 { font-size: 15px; margin: 0 10px 0 0; color: #fff; }
+  header h1 small { color: #94a3b8; font-weight: 400; margin-left: 8px; font-size: 11.5px; }
+  .btn { background: #1e293b; color: #e2e8f0; border: 1px solid #334155; border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 12.5px; white-space: nowrap; }
+  .btn.on { background: #dc2626; color: #fff; border-color: #dc2626; }
+  .btn.ghost { background: transparent; color: #94a3b8; }
+  .btn.warn { border-color: #f59e0b; color: #fbbf24; }
+  .seg { display: inline-flex; border: 1px solid #334155; border-radius: 6px; overflow: hidden; }
+  .seg button { background: #1e293b; color: #94a3b8; border: 0; padding: 5px 10px; cursor: pointer; font-size: 12.5px; }
+  .seg button.on { background: #dc2626; color: #fff; font-weight: 600; }
+  #stat { margin-left: auto; color: #94a3b8; font-size: 12px; }
+  #stage { flex: 1; display: flex; min-height: 0; position: relative; }
+  #side { width: 360px; background: #fff; border-right: 1px solid #e5e7eb; display: flex; flex-direction: column; min-height: 0; }
+  #list { overflow-y: auto; border-bottom: 1px solid #e5e7eb; max-height: 38%; scrollbar-width: thin; }
+  #list .site { display: flex; gap: 8px; align-items: center; padding: 6px 10px; cursor: pointer; border-bottom: 1px solid #f1f5f9; }
+  #list .site:hover { background: #fef2f2; }
+  #list .site.on { background: #fee2e2; }
+  #list .site .nm { flex: 1; min-width: 0; }
+  #list .site .nm b { display: block; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #list .site .nm small { color: #6b7280; }
+  #list .site .pct { font-size: 11px; color: #6b7280; min-width: 46px; text-align: right; }
+  #list .site .pct.ok { color: #15803d; font-weight: 700; }
+  #detail { padding: 10px; overflow-y: auto; flex: 1; min-height: 0; scrollbar-width: thin; }
+  #detail h2 { font-size: 14px; margin: 0 0 4px; }
+  #detail .meta { color: #6b7280; font-size: 12px; line-height: 1.6; }
+  #detail img { width: 100%; border: 1px solid #e5e7eb; border-radius: 6px; margin-top: 8px; cursor: zoom-in; }
+  .bar { height: 10px; background: #f1f5f9; border-radius: 5px; overflow: hidden; margin: 6px 0 2px; }
+  .bar i { display: block; height: 100%; background: #dc2626; }
+  .bar i.ok { background: #16a34a; }
+  .row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .row .btn { background: #f8fafc; color: #1f2937; border-color: #cbd5e1; }
+  .row .btn.on { background: #dc2626; color: #fff; border-color: #dc2626; }
+  .hint { background: #fff7ed; border: 1px solid #fed7aa; color: #7c2d12; border-radius: 6px; padding: 7px 9px; font-size: 12px; margin-top: 8px; line-height: 1.5; }
+  #kakao { flex: 1; position: relative; }
+  #kakao.tool { cursor: crosshair; }
+  #toolhint { position: absolute; left: 50%; top: 12px; transform: translateX(-50%); z-index: 6; background: rgba(15,23,42,.9); color: #fff; padding: 7px 14px; border-radius: 8px; font-size: 12.5px; pointer-events: none; }
+  #toolhint[hidden], #keys[hidden], #light[hidden] { display: none !important; }
+  #keys { position: absolute; right: 14px; top: 10px; z-index: 7; background: #fff; border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,.2); padding: 12px 14px; width: 420px; }
+  #keys input { width: 100%; padding: 6px 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin: 4px 0 8px; font-size: 12.5px; }
+  #keys .small { color: #6b7280; font-size: 11.5px; line-height: 1.5; }
+  #light { position: fixed; inset: 0; background: rgba(0,0,0,.8); z-index: 50; display: flex; align-items: center; justify-content: center; cursor: zoom-out; }
+  #light img { max-width: 96vw; max-height: 96vh; }
+  .tip { background: rgba(15,23,42,.9); color: #fff; padding: 3px 7px; border-radius: 5px; font-size: 11.5px; white-space: nowrap; pointer-events: none; }
+  .legend { position: absolute; left: 12px; bottom: 26px; z-index: 4; background: rgba(255,255,255,.95); border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,.15); padding: 6px 10px; font-size: 11.5px; line-height: 1.7; }
+  .legend .sw { display: inline-block; width: 12px; height: 12px; border: 1.5px solid; margin-right: 5px; vertical-align: -2px; }
+</style>
+</head>
+<body>
+<div id="app">
+<header>
+  <h1>신속통합기획 후보지 구역 그리기 <small id="subtitle"></small></h1>
+  <div class="seg" id="mode" title="그리기 방식"><button data-m="parcel" class="on">▦ 필지 클릭</button><button data-m="free">✎ 직접 그리기</button><button data-m="pan">✋ 이동만</button></div>
+  <label class="btn ghost"><input type="checkbox" id="tgRef" checked> 서울플랜+ 기존 신통구역 표시</label>
+  <button class="btn" id="btnExport" title="그린 구역을 GeoJSON 파일로 저장(다운로드) + 클립보드 복사">⬇ GeoJSON 내보내기</button>
+  <label class="btn" title="내보낸 GeoJSON을 다시 불러오기">⬆ 불러오기<input type="file" id="fileIn" accept=".geojson,.json" hidden></label>
+  <button class="btn ghost" id="btnKeys" title="API 키 설정">🔑</button>
+  <span id="stat"></span>
+</header>
+<div id="stage">
+  <div id="side">
+    <div id="list"></div>
+    <div id="detail"><div class="hint">왼쪽 목록에서 후보지를 고르세요.</div></div>
+  </div>
+  <div id="kakao"></div>
+  <div id="toolhint" hidden></div>
+  <div class="legend"><span class="sw" style="border-color:#94a3b8;background:#94a3b833"></span>필지(연속지적도) &nbsp; <span class="sw" style="border-color:#dc2626;background:#dc262666"></span>선택한 필지·그린 구역 &nbsp; <span class="sw" style="border-color:#2563eb;background:#2563eb22"></span>서울플랜+ 기존 신통구역</div>
+  <div id="keys" hidden>
+    <b>API 키</b> <span id="kStat" style="color:#6b7280;font-size:12px;margin-left:6px"></span>
+    <div style="margin-top:8px">카카오 JavaScript 키 <input type="text" id="kKakao" placeholder="카카오 developers → 앱 키 → JavaScript 키"></div>
+    <div>VWorld 인증키 <input type="text" id="kVworld" placeholder="vworld.kr → 오픈API → 인증키 (필지 클릭 모드에 필요)"></div>
+    <div class="small">키는 이 브라우저의 localStorage에만 저장되며 경매 지도(seoul_auction_map.html)와 같은 키를 공유합니다. VWorld 키가 없으면 "직접 그리기" 모드로 경계를 클릭해 그릴 수 있습니다.</div>
+    <div style="margin-top:8px;text-align:right"><button class="btn" id="kSave" style="background:#dc2626;border-color:#dc2626">저장</button> <button class="btn" id="kClose">닫기</button></div>
+  </div>
+  <div id="light" hidden><img id="lightImg" alt=""></div>
+</div>
+</div>
+<script>
+var DATA = __DATA__;
+var SITES = DATA.sites, REF = DATA.ref || [];
+var $ = function(id){ return document.getElementById(id); };
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function fmt(n){ return Math.round(n).toLocaleString(); }
+$('subtitle').textContent = SITES.length + '곳 · ' + DATA.meta.source + ' (' + DATA.meta.collected_at + ' 수집)';
+
+// ─── 키 ───
+var KAKAO_KEY = localStorage.getItem('kakao_app_key') || '', VWORLD_KEY = localStorage.getItem('vworld_key') || '';
+function keyStat(){ $('kStat').innerHTML = '카카오 ' + (KAKAO_KEY ? '<b>저장됨</b>' : '<span style="color:#b91c1c">미설정</span>') + ' · VWorld ' + (VWORLD_KEY ? '<b>저장됨</b>' : '<span style="color:#b91c1c">미설정</span>'); }
+keyStat();
+$('btnKeys').onclick = function(){ $('keys').hidden = !$('keys').hidden; };
+$('kClose').onclick = function(){ $('keys').hidden = true; };
+$('kSave').onclick = function(){
+  var a = $('kKakao').value.trim(), b = $('kVworld').value.trim(), reload = false;
+  if(a && a !== KAKAO_KEY){ localStorage.setItem('kakao_app_key', a); reload = true; }
+  if(b && b !== VWORLD_KEY){ localStorage.setItem('vworld_key', b); VWORLD_KEY = b; }
+  $('kKakao').value = ''; $('kVworld').value = ''; keyStat(); $('keys').hidden = true;
+  if(reload) location.reload(); else if(K.ready) fetchParcels();
+};
+if(!KAKAO_KEY) $('keys').hidden = false;
+
+// ─── 편집 상태 (localStorage) ───
+// EDITS[site_id] = { parcels: { pnu: { jibun, ring: [[lng,lat]...], area } }, free: [ { ring: [[lng,lat]...], area } ] }
+var EDITS = {};
+try { EDITS = JSON.parse(localStorage.getItem('sintong_edits') || '{}'); } catch(e){ EDITS = {}; }
+function saveEdits(){ localStorage.setItem('sintong_edits', JSON.stringify(EDITS)); }
+function ed(id){ var e = EDITS[id] = EDITS[id] || { parcels: {}, free: [] }; e.parcels = e.parcels || {}; e.free = e.free || []; return e; }
+function drawnArea(id){ var e = EDITS[id]; if(!e) return 0; var s = 0; Object.keys(e.parcels).forEach(function(k){ s += e.parcels[k].area || 0; }); e.free.forEach(function(f){ s += f.area || 0; }); return s; }
+function siteCount(id){ var e = EDITS[id]; return e ? Object.keys(e.parcels).length + e.free.length : 0; }
+
+var CUR = null, MODE = 'parcel';
+var K = { ready: false, map: null, parcels: {}, selPolys: {}, freePolys: [], refPolys: [], tip: null, draw: null, geocoder: null, fetching: false };
+
+// ─── 목록 ───
+function renderList(){
+  $('list').innerHTML = SITES.map(function(s, i){ var a = drawnArea(s.site_id), pct = s.area_m2 ? a / s.area_m2 * 100 : 0;
+    return '<div class="site' + (CUR === i ? ' on' : '') + '" data-i="' + i + '"><div class="nm"><b>' + esc(s.title) + '</b><small>' + esc(s.gu || '') + ' · ' + fmt(s.area_m2) + '㎡ · ' + esc(s.section) + '</small></div><div class="pct' + (pct >= 85 && pct <= 115 ? ' ok' : '') + '">' + (a ? fmt(pct) + '%' : '-') + '</div></div>'; }).join('');
+  var done = SITES.filter(function(s){ return drawnArea(s.site_id) > 0; }).length;
+  $('stat').innerHTML = '그린 구역 <b style="color:#f87171">' + done + '</b> / ' + SITES.length;
+}
+$('list').addEventListener('click', function(e){ var el = e.target.closest('.site'); if(el) selectSite(+el.dataset.i); });
+
+function selectSite(i, noMove){
+  CUR = i; var s = SITES[i]; renderList(); renderDetail();
+  if(K.ready && !noMove) locate(s);
+  redrawSel();
+}
+function renderDetail(){
+  if(CUR == null) return; var s = SITES[CUR], a = drawnArea(s.site_id), pct = s.area_m2 ? a / s.area_m2 * 100 : 0, ok = pct >= 85 && pct <= 115;
+  $('detail').innerHTML = '<h2>' + esc(s.title) + '</h2><div class="meta">' + esc(s.section) + (s.gu ? ' · ' + esc(s.gu) : '') + '<br>구역면적 <b>' + fmt(s.area_m2) + '㎡</b> (' + fmt(s.area_m2 / 3.3058) + '평)' + (s.zoning ? '<br>용도지역 ' + esc(s.zoning) : '') + '</div>' +
+    '<div class="bar"><i class="' + (ok ? 'ok' : '') + '" style="width:' + Math.min(100, pct) + '%"></i></div><div class="meta">그린 면적 <b>' + fmt(a) + '㎡</b> · 목표의 <b>' + fmt(pct) + '%</b> · 필지 ' + Object.keys(ed(s.site_id).parcels).length + '개 · 직접 그린 면 ' + ed(s.site_id).free.length + '개' + (ok ? ' <span style="color:#15803d">✔ 면적 근접</span>' : '') + '</div>' +
+    '<div class="row"><button class="btn" id="dLocate">📍 위치로 이동</button><button class="btn" id="dUndo" title="마지막 직접 그린 면 삭제">↶ 면 하나 취소</button><button class="btn" id="dClear" style="color:#991b1b">🗑 이 구역 지우기</button></div>' +
+    '<div class="hint"><b>따라 그리기</b><br>① 아래 위치도(빨간 선)를 보고 ② 지도에서 같은 필지를 클릭(다시 클릭하면 해제) ③ 면적 게이지가 100% 근처가 되면 끝. 큰 도로·공원은 보통 구역에서 빠집니다. 필지 클릭은 지도를 충분히 확대해야(축척 50m 이하) 필지가 뜹니다.<br>VWorld 키가 없으면 <b>직접 그리기</b>: 경계를 따라 클릭, 더블클릭으로 마감.</div>' +
+    '<img src="' + esc(s.img_local || s.img) + '" onerror="this.onerror=null;this.src=\'' + esc(s.img) + '\'" alt="위치도" title="클릭하면 크게 봅니다">';
+  $('dLocate').onclick = function(){ locate(s); };
+  $('dUndo').onclick = function(){ var e = ed(s.site_id); if(e.free.length){ e.free.pop(); saveEdits(); redrawSel(); renderList(); renderDetail(); } };
+  $('dClear').onclick = function(){ if(!siteCount(s.site_id)) return; EDITS[s.site_id] = { parcels: {}, free: [] }; saveEdits(); redrawSel(); renderList(); renderDetail(); };
+  $('detail').querySelector('img').onclick = function(){ $('lightImg').src = this.src; $('light').hidden = false; };
+}
+$('light').onclick = function(){ $('light').hidden = true; };
+
+// ─── 카카오맵 ───
+function initKakao(){
+  if(!KAKAO_KEY) return;
+  var s = document.createElement('script');
+  s.src = 'https://dapi.kakao.com/v2/maps/sdk.js?appkey=' + KAKAO_KEY + '&autoload=false&libraries=services';
+  s.onload = function(){ kakao.maps.load(buildKakao); };
+  s.onerror = function(){ $('keys').hidden = false; };
+  document.head.appendChild(s);
+}
+function buildKakao(){
+  K.map = new kakao.maps.Map($('kakao'), { center: new kakao.maps.LatLng(37.5665, 126.978), level: 8 });
+  K.map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
+  K.map.addControl(new kakao.maps.MapTypeControl(), kakao.maps.ControlPosition.TOPRIGHT);
+  K.geocoder = new kakao.maps.services.Geocoder(); K.places = new kakao.maps.services.Places();
+  K.ready = true;
+  // 참고: 서울플랜+ 기존 신통구역
+  REF.forEach(function(f){ var g = f.geometry, rings = g.type === 'Polygon' ? [g.coordinates] : g.coordinates;
+    rings.forEach(function(pc){ var poly = new kakao.maps.Polygon({ path: pc.map(function(r){ return r.map(function(c){ return new kakao.maps.LatLng(c[1], c[0]); }); }),
+      strokeWeight: 1.5, strokeColor: '#2563eb', strokeOpacity: .9, fillColor: '#2563eb', fillOpacity: .1, zIndex: 1 });
+      kakao.maps.event.addListener(poly, 'mouseover', function(e){ showTip('<div class="tip">서울플랜+ · ' + esc(f.properties.name) + '<br>' + esc(f.properties.stage || '') + '</div>', e.latLng); });
+      kakao.maps.event.addListener(poly, 'mouseout', hideTip);
+      poly.setMap($('tgRef').checked ? K.map : null); K.refPolys.push(poly); }); });
+  $('tgRef').onchange = function(){ K.refPolys.forEach(function(p){ p.setMap($('tgRef').checked ? K.map : null); }); };
+  kakao.maps.event.addListener(K.map, 'idle', function(){ if(MODE === 'parcel') fetchParcels(); });
+  kakao.maps.event.addListener(K.map, 'click', function(e){ if(MODE === 'free' && CUR != null) freeClick(e.latLng); });
+  kakao.maps.event.addListener(K.map, 'dblclick', function(){ if(MODE === 'free') freeFinish(); });
+  kakao.maps.event.addListener(K.map, 'mousemove', function(e){ if(K.draw) freeMove(e.latLng); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') freeCancel(); });
+  redrawSel();
+  if(CUR != null) locate(SITES[CUR]);
+}
+function showTip(html, pos){ hideTip(); var el = document.createElement('div'); el.innerHTML = html; K.tip = new kakao.maps.CustomOverlay({ content: el, position: pos, yAnchor: 1.4, zIndex: 30 }); K.tip.setMap(K.map); }
+function hideTip(){ if(K.tip){ K.tip.setMap(null); K.tip = null; } }
+
+// 대표지번으로 이동. 대표지번이 실제 필지가 아닐 수 있어(산번지·행정동 표기) 후보 주소를 차례로 시도한다
+function locate(s){
+  var gu = s.gu ? s.gu + ' ' : '', j = s.jibun, jd = j.replace(/([가-힣]+?)\d+동/, '$1동'), bon = j.replace(/-\d+$/, '');   // 신월1동 229 → 신월동 229 / 부번 제거
+  var cands = []; [j, jd, j.replace(/(\S+동|\S+가)\s+/, '$1 산 '), bon, bon + '-1'].forEach(function(x){ var q = '서울 ' + gu + x; if(cands.indexOf(q) < 0) cands.push(q); });
+  var dong = j.split(' ')[0];
+  (function next(i){
+    if(i >= cands.length){   // 키워드 → 동 중심으로 물러남
+      K.places.keywordSearch('서울 ' + gu + j, function(r, st){ if(st === kakao.maps.services.Status.OK && r.length){ go(+r[0].y, +r[0].x, 3); return; }
+        K.geocoder.addressSearch('서울 ' + gu + dong.replace(/([가-힣]+?)\d+동/, '$1동'), function(r2, st2){ if(st2 === kakao.maps.services.Status.OK && r2.length){ go(+r2[0].y, +r2[0].x, 5); hint('대표지번을 못 찾아 ' + dong + ' 중심으로 이동했습니다. 위치도를 보고 찾아가세요', 4000); } else hint('위치를 찾지 못했습니다: ' + j, 3000); }); });
+      return; }
+    K.geocoder.addressSearch(cands[i], function(res, st){ if(st === kakao.maps.services.Status.OK && res.length) go(+res[0].y, +res[0].x, 3); else next(i + 1); });
+  })(0);
+  function go(lat, lng, lv){ K.map.setLevel(lv); K.map.setCenter(new kakao.maps.LatLng(lat, lng)); if(lv <= 3 && !ed(s.site_id).center){ ed(s.site_id).center = [lng, lat]; saveEdits(); } }
+}
+function hint(msg, ms){ $('toolhint').textContent = msg; $('toolhint').hidden = false; if(ms){ clearTimeout(hint.t); hint.t = setTimeout(function(){ $('toolhint').hidden = true; }, ms); } }
+
+// ─── 모드 ───
+$('mode').addEventListener('click', function(e){ var b = e.target.closest('button'); if(!b) return; setMode(b.dataset.m); });
+function setMode(m){
+  freeCancel(); MODE = m;
+  $('mode').querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b.dataset.m === m); });
+  $('kakao').classList.toggle('tool', m !== 'pan');
+  if(m === 'parcel'){ if(!VWORLD_KEY){ hint('필지 클릭 모드에는 VWorld 인증키가 필요합니다 (🔑). 없으면 "직접 그리기"를 쓰세요.', 4000); $('keys').hidden = false; } else if(K.ready) fetchParcels(); }
+  else { Object.keys(K.parcels).forEach(function(k){ K.parcels[k].poly.setMap(null); }); }
+  if(m === 'free') hint('경계를 따라 클릭 → 더블클릭으로 마감 (ESC 취소)');
+  else if(m === 'pan') $('toolhint').hidden = true;
+}
+
+// ─── 필지 (VWorld 연속지적도 LP_PA_CBND_BUBUN, JSONP) ───
+var JSONP_N = 0;
+function jsonp(url, cb, onerr){
+  var name = '__vw' + (++JSONP_N), s = document.createElement('script');
+  window[name] = function(d){ delete window[name]; s.remove(); cb(d); };
+  s.onerror = function(){ delete window[name]; s.remove(); onerr && onerr(); };
+  s.src = url + '&callback=' + name; document.head.appendChild(s);
+}
+function parcelStyle(poly, sel){ poly.setOptions(sel ? { strokeColor: '#dc2626', strokeWeight: 2, fillColor: '#dc2626', fillOpacity: .4 } : { strokeColor: '#64748b', strokeWeight: 1, fillColor: '#94a3b8', fillOpacity: .04 }); }
+function fetchParcels(page){
+  if(!K.ready || !VWORLD_KEY || MODE !== 'parcel') return;
+  if(K.map.getLevel() > 3){ hint('필지를 보려면 더 확대하세요 (축척 50m 이하)'); Object.keys(K.parcels).forEach(function(k){ K.parcels[k].poly.setMap(null); }); return; }
+  if(!page){ if(K.fetching) return; page = 1; }
+  K.fetching = true; $('toolhint').hidden = true;
+  var b = K.map.getBounds(), sw = b.getSouthWest(), ne = b.getNorthEast();
+  var url = 'https://api.vworld.kr/req/data?service=data&version=2.0&request=GetFeature&format=json&errorformat=json&size=1000&page=' + page +
+    '&data=LP_PA_CBND_BUBUN&geomFilter=BOX(' + sw.getLng() + ',' + sw.getLat() + ',' + ne.getLng() + ',' + ne.getLat() + ')&crs=EPSG:4326&key=' + VWORLD_KEY + '&domain=' + encodeURIComponent(location.origin);
+  jsonp(url, function(d){
+    var r = d && d.response;
+    if(!r || r.status !== 'OK'){ K.fetching = false; var msg = r && r.error ? (r.error.text || r.error.code) : '응답 없음'; if(!(r && r.status === 'NOT_FOUND')) hint('VWorld 필지 조회 실패: ' + msg + ' (키·도메인 등록 확인)', 5000); return; }
+    var feats = r.result.featureCollection.features || [];
+    feats.forEach(addParcel);
+    var pg = r.page || {}; var total = +pg.total || 1, cur = +pg.current || page;
+    if(cur < total && cur < 6){ fetchParcels(cur + 1); } else { K.fetching = false; pruneParcels(); }
+  }, function(){ K.fetching = false; hint('VWorld 요청 실패 (네트워크 또는 키)', 4000); });
+}
+function addParcel(f){
+  var pnu = f.properties.pnu; if(!pnu) return;
+  var P = K.parcels[pnu];
+  if(!P){
+    var g = f.geometry, rings = g.type === 'Polygon' ? [g.coordinates] : g.coordinates;   // 다중 폴리곤 필지는 첫 외곽만 (드묾)
+    var ring = rings[0][0].map(function(c){ return [+c[0], +c[1]]; });
+    var poly = new kakao.maps.Polygon({ path: ring.map(function(c){ return new kakao.maps.LatLng(c[1], c[0]); }), strokeOpacity: .9, zIndex: 5 });
+    P = K.parcels[pnu] = { pnu: pnu, jibun: f.properties.jibun || '', ring: ring, area: Math.round(poly.getArea()), poly: poly };
+    kakao.maps.event.addListener(poly, 'click', function(){ if(MODE === 'parcel') toggleParcel(P); });
+    kakao.maps.event.addListener(poly, 'mouseover', function(e){ if(MODE === 'parcel'){ poly.setOptions({ fillOpacity: .25 }); showTip('<div class="tip">' + esc(P.jibun) + ' · ' + fmt(P.area) + '㎡<br><span style="color:#94a3b8">' + P.pnu + '</span></div>', e.latLng); } });
+    kakao.maps.event.addListener(poly, 'mousemove', function(e){ if(K.tip) K.tip.setPosition(e.latLng); });
+    kakao.maps.event.addListener(poly, 'mouseout', function(){ parcelStyle(poly, isSel(P.pnu)); hideTip(); });
+  }
+  parcelStyle(P.poly, isSel(pnu)); P.poly.setMap(K.map);
+}
+function isSel(pnu){ return CUR != null && !!ed(SITES[CUR].site_id).parcels[pnu]; }
+function toggleParcel(P){
+  if(CUR == null){ hint('먼저 왼쪽에서 후보지를 고르세요', 2000); return; }
+  var e = ed(SITES[CUR].site_id);
+  if(e.parcels[P.pnu]) delete e.parcels[P.pnu]; else e.parcels[P.pnu] = { jibun: P.jibun, ring: P.ring, area: P.area };
+  saveEdits(); parcelStyle(P.poly, isSel(P.pnu)); redrawSel(); renderList(); renderDetail();
+}
+function pruneParcels(){   // 화면 밖 미선택 필지는 메모리에서 정리 (지도가 느려지지 않게)
+  var keys = Object.keys(K.parcels); if(keys.length < 4000) return;
+  var b = K.map.getBounds();
+  keys.forEach(function(k){ var P = K.parcels[k]; if(isSel(k)) return; if(!b.contain(new kakao.maps.LatLng(P.ring[0][1], P.ring[0][0]))){ P.poly.setMap(null); delete K.parcels[k]; } });
+}
+
+// ─── 선택 결과 표시 (다른 후보지의 필지는 지도에 안 그림. 현재 후보지만 빨강) ───
+function redrawSel(){
+  if(!K.ready) return;
+  Object.keys(K.selPolys).forEach(function(k){ K.selPolys[k].setMap(null); }); K.selPolys = {};
+  K.freePolys.forEach(function(p){ p.setMap(null); }); K.freePolys = [];
+  Object.keys(K.parcels).forEach(function(k){ parcelStyle(K.parcels[k].poly, isSel(k)); });
+  if(CUR == null) return;
+  var e = ed(SITES[CUR].site_id);
+  Object.keys(e.parcels).forEach(function(pnu){ if(K.parcels[pnu] && K.parcels[pnu].poly.getMap()) return;   // 화면에 필지 폴리곤이 있으면 그것을 빨갛게 쓴다
+    var p = new kakao.maps.Polygon({ path: e.parcels[pnu].ring.map(function(c){ return new kakao.maps.LatLng(c[1], c[0]); }), strokeColor: '#dc2626', strokeWeight: 2, fillColor: '#dc2626', fillOpacity: .4, zIndex: 4 });
+    kakao.maps.event.addListener(p, 'click', function(){ if(MODE === 'parcel'){ delete e.parcels[pnu]; saveEdits(); redrawSel(); renderList(); renderDetail(); } });
+    p.setMap(K.map); K.selPolys[pnu] = p; });
+  e.free.forEach(function(f, i){ var p = new kakao.maps.Polygon({ path: f.ring.map(function(c){ return new kakao.maps.LatLng(c[1], c[0]); }), strokeColor: '#dc2626', strokeWeight: 2, strokeStyle: 'shortdash', fillColor: '#dc2626', fillOpacity: .3, zIndex: 4 });
+    kakao.maps.event.addListener(p, 'click', function(){ if(MODE === 'free' && !K.draw && confirm('이 면을 삭제할까요?')){ e.free.splice(i, 1); saveEdits(); redrawSel(); renderList(); renderDetail(); } });
+    p.setMap(K.map); K.freePolys.push(p); });
+}
+
+// ─── 직접 그리기 ───
+function freeClick(latlng){
+  if(!K.draw){ K.draw = { pts: [], line: new kakao.maps.Polyline({ path: [], strokeWeight: 2, strokeColor: '#dc2626', strokeStyle: 'shortdash' }), poly: new kakao.maps.Polygon({ path: [], strokeWeight: 0, fillColor: '#dc2626', fillOpacity: .2 }) }; K.draw.line.setMap(K.map); K.draw.poly.setMap(K.map); }
+  var pts = K.draw.pts; if(pts.length && pts[pts.length - 1].equals(latlng)) return;   // 더블클릭의 두 번째 클릭 무시
+  pts.push(latlng); K.draw.line.setPath(pts); K.draw.poly.setPath(pts);
+  hint(pts.length + '점 · 더블클릭으로 마감 (ESC 취소)');
+}
+function freeMove(latlng){ var pts = K.draw.pts.concat([latlng]); K.draw.line.setPath(pts); K.draw.poly.setPath(pts); if(pts.length >= 3) hint(K.draw.pts.length + '점 · ' + fmt(K.draw.poly.getArea()) + '㎡ · 더블클릭으로 마감'); }
+function freeFinish(){
+  if(!K.draw) return; var pts = K.draw.pts;
+  if(pts.length >= 3){ var poly = new kakao.maps.Polygon({ path: pts }); var ring = pts.map(function(p){ return [p.getLng(), p.getLat()]; }); ring.push(ring[0]);
+    ed(SITES[CUR].site_id).free.push({ ring: ring, area: Math.round(poly.getArea()) }); saveEdits(); }
+  freeCancel(); redrawSel(); renderList(); renderDetail(); hint('경계를 따라 클릭 → 더블클릭으로 마감 (ESC 취소)');
+}
+function freeCancel(){ if(K.draw){ K.draw.line.setMap(null); K.draw.poly.setMap(null); K.draw = null; } }
+
+// ─── 내보내기 / 불러오기 ───
+function toGeoJSON(){
+  var feats = [];
+  SITES.forEach(function(s){ var e = EDITS[s.site_id]; if(!e) return; var polys = [];
+    Object.keys(e.parcels).forEach(function(k){ polys.push([e.parcels[k].ring]); }); e.free.forEach(function(f){ polys.push([f.ring]); });
+    var props = { site_id: s.site_id, title: s.title, gu: s.gu, jibun: s.jibun, section: s.section, year: s.year, zoning: s.zoning, target_area_m2: s.area_m2, drawn_area_m2: drawnArea(s.site_id),
+      pnus: Object.keys(e.parcels), n_free: e.free.length, img: s.img, edited_at: new Date().toISOString() };
+    if(polys.length) feats.push({ type: 'Feature', properties: props, geometry: { type: 'MultiPolygon', coordinates: polys } });
+    else if(e.center || s.lon) feats.push({ type: 'Feature', properties: props, geometry: { type: 'Point', coordinates: e.center || [s.lon, s.lat] } });   // 아직 안 그린 곳: 대표 위치만
+  });
+  return { type: 'FeatureCollection', meta: { source: DATA.meta.source, tool: 'sintong_zone_editor', exported_at: new Date().toISOString(), count: feats.length }, features: feats };
+}
+$('btnExport').onclick = function(){
+  var gj = toGeoJSON(); var nPoly = gj.features.filter(function(f){ return f.geometry.type !== 'Point'; }).length; if(!nPoly){ hint('그린 구역이 없습니다', 2000); return; }
+  var txt = JSON.stringify(gj);
+  var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([txt], { type: 'application/geo+json' })); a.download = 'sintong_2026_edits.geojson'; document.body.appendChild(a); a.click(); a.remove();
+  if(navigator.clipboard) navigator.clipboard.writeText(txt);
+  hint(nPoly + '곳 그림(+대표위치 ' + (gj.features.length - nPoly) + '곳) 내보냄 → 다운로드 폴더의 sintong_2026_edits.geojson. 그 다음 python scripts/merge_sintong_edits.py', 6000);
+};
+$('fileIn').onchange = function(){
+  var f = this.files[0]; if(!f) return; var rd = new FileReader();
+  rd.onload = function(){ try { var gj = JSON.parse(rd.result); var n = 0;
+      gj.features.forEach(function(ft){ var id = ft.properties.site_id; if(!id || ft.geometry.type === 'Point') return; var e = EDITS[id] = { parcels: {}, free: [] };
+        var polys = ft.geometry.type === 'Polygon' ? [ft.geometry.coordinates] : ft.geometry.coordinates, pnus = ft.properties.pnus || [];
+        polys.forEach(function(pc, i){ var ring = pc[0], poly = new kakao.maps.Polygon({ path: ring.map(function(c){ return new kakao.maps.LatLng(c[1], c[0]); }) }), area = Math.round(poly.getArea());
+          if(i < pnus.length) e.parcels[pnus[i]] = { jibun: '', ring: ring, area: area }; else e.free.push({ ring: ring, area: area }); }); n++; });
+      saveEdits(); renderList(); renderDetail(); redrawSel(); hint(n + '곳 불러옴', 2500); } catch(err){ hint('불러오기 실패: ' + err, 3000); } };
+  rd.readAsText(f); this.value = '';
+};
+
+renderList(); setMode('parcel'); initKakao();
+</script>
+</body>
+</html>

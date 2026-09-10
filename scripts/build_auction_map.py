@@ -20,8 +20,8 @@ ap.add_argument("--auction", default=str(ROOT / "_workspace" / "layer_auction_se
 ap.add_argument("--zones", default=str(ROOT / "_workspace" / "layer_zone_redev_seoulplan.geojson"))
 ap.add_argument("--extra-zones", nargs="*", default=[str(ROOT / "_workspace" / f) for f in (
                     "layer_zone_capital.geojson", "layer_zone_planned.geojson", "layer_zone_pubhousing_vworld.geojson",
-                    "layer_zone_industrial_capital.geojson", "layer_rail.geojson")],
-                help="추가 구역 레이어 GeoJSON (예: VWorld D316 정비예정구역). 없으면 건너뜀")
+                    "layer_zone_industrial_capital.geojson", "layer_rail.geojson", "layer_zone_sintong.geojson")],
+                help="추가 구역 레이어 GeoJSON (예: VWorld D316 정비예정구역, 신통 후보지 layer_zone_sintong). 없으면 건너뜀")
 a = ap.parse_args()
 
 auction = json.loads(Path(a.auction).read_text(encoding="utf-8"))

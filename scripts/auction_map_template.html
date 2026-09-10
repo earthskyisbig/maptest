@@ -428,7 +428,7 @@ function relayoutAll(){ if(K.ready){ var c = K.map.getCenter(); K.map.relayout()
 var ZKEY = function(p){ return (p.group || '구역') + '|' + p.category; };
 var ZGROUPS = {};
 ZONES.forEach(function(f){ var p = f.properties, g = p.group || '구역'; var G = ZGROUPS[g] = ZGROUPS[g] || { n: 0, cats: {} }; G.n++; var c = G.cats[p.category] = G.cats[p.category] || { color: p.color, n: 0 }; c.n++; });
-var ZDEFAULT_ON = { '서울 도시계획사업(서울플랜+)': true };
+var ZDEFAULT_ON = { '서울 도시계획사업(서울플랜+)': true, '신속통합기획 후보지(정보몽땅)': true };
 var zoneOn = {};
 try { zoneOn = JSON.parse(localStorage.getItem('zone_on') || '{}'); } catch(e){ zoneOn = {}; }
 function zoneVisible(key){ if(key in zoneOn) return !!zoneOn[key]; return !!ZDEFAULT_ON[key.split('|')[0]]; }
