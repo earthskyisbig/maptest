@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>재개발·재건축 전문 중개사무소 지도</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; font-family: "Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif; font-size: 13px; color: #1f2937; }
+  #app { display: flex; flex-direction: column; height: 100%; }
+  header { background: #0f172a; color: #e2e8f0; border-bottom: 2px solid #f59e0b; display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; padding: 8px 14px; }
+  header h1 { font-size: 15px; margin: 0 10px 0 0; color: #fff; }
+  header h1 small { color: #94a3b8; font-weight: 400; margin-left: 8px; font-size: 11.5px; }
+  .btn { background: #1e293b; color: #e2e8f0; border: 1px solid #334155; border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 12.5px; white-space: nowrap; }
+  .btn.ghost { background: transparent; color: #94a3b8; }
+  #stat { margin-left: auto; color: #94a3b8; font-size: 12px; }
+  #stage { flex: 1; display: flex; min-height: 0; position: relative; }
+  #side { width: 340px; background: #fff; border-right: 1px solid #e5e7eb; overflow-y: auto; scrollbar-width: thin; }
+  #side .item { padding: 10px 12px; border-bottom: 1px solid #f1f5f9; cursor: pointer; }
+  #side .item:hover { background: #fffbeb; }
+  #side .item.on { background: #fef3c7; }
+  #side .item .zone { font-weight: 700; font-size: 12.5px; display: flex; align-items: center; gap: 6px; }
+  #side .item .zone .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+  #side .item .office { color: #374151; margin-top: 2px; }
+  #side .item .member { color: #9ca3af; font-size: 11.5px; margin-top: 1px; }
+  #side .item .phone { color: #b45309; font-size: 11.5px; margin-top: 2px; font-weight: 600; }
+  #side .item .geo { font-size: 11px; margin-top: 3px; }
+  #side .item .geo.ok { color: #15803d; }
+  #side .item .geo.ng { color: #b91c1c; }
+  #kakao { flex: 1; position: relative; }
+  .kpop { background: #fff; border-radius: 10px; box-shadow: 0 8px 28px rgba(0,0,0,.25); width: 300px; overflow: hidden; font-size: 12.5px; }
+  .kpop .hd { padding: 9px 12px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+  .kpop .hd .x { background: rgba(255,255,255,.3); border: 0; border-radius: 5px; color: #fff; cursor: pointer; width: 20px; height: 20px; }
+  .kpop .bd { padding: 10px 12px; }
+  .kpop table { width: 100%; border-collapse: collapse; }
+  .kpop td { padding: 3px 0; vertical-align: top; white-space: normal; }
+  .kpop td:first-child { color: #6b7280; width: 56px; flex: none; }
+  .kpop .spec { margin-top: 6px; padding-top: 6px; border-top: 1px solid #f1f5f9; }
+  .kpop .spec li { margin: 2px 0; }
+  .kpop a.tel { color: #b45309; font-weight: 700; text-decoration: none; }
+  .kpop a.tel:hover { text-decoration: underline; }
+  .label { background: rgba(15,23,42,.92); color: #fff; padding: 4px 9px; border-radius: 7px; font-size: 12px; font-weight: 700; white-space: nowrap; pointer-events: none; box-shadow: 0 2px 6px rgba(0,0,0,.25); }
+  .label .ph { font-weight: 400; color: #fde68a; margin-left: 5px; font-size: 11px; }
+  #keys { position: absolute; right: 14px; top: 10px; z-index: 7; background: #fff; border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,.2); padding: 12px 14px; width: 400px; }
+  #keys input { width: 100%; padding: 6px 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin: 4px 0 8px; font-size: 12.5px; }
+  #keys .small { color: #6b7280; font-size: 11.5px; line-height: 1.5; }
+  #keys[hidden] { display: none !important; }
+  #toolhint { position: absolute; left: 50%; top: 12px; transform: translateX(-50%); z-index: 6; background: rgba(15,23,42,.9); color: #fff; padding: 7px 14px; border-radius: 8px; font-size: 12.5px; pointer-events: none; }
+  #toolhint[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div id="app">
+<header>
+  <h1>재개발·재건축 전문 중개사무소 지도 <small id="subtitle"></small></h1>
+  <button class="btn" id="btnFit">🔍 전체 보기</button>
+  <button class="btn ghost" id="btnKeys" title="API 키 설정">🔑</button>
+  <span id="stat"></span>
+</header>
+<div id="stage">
+  <div id="side"></div>
+  <div id="kakao"></div>
+  <div id="toolhint" hidden></div>
+  <div id="keys" hidden>
+    <b>API 키</b> <span id="kStat" style="color:#6b7280;font-size:12px;margin-left:6px"></span>
+    <div style="margin-top:8px">카카오 JavaScript 키 <input type="text" id="kKakao" placeholder="카카오 developers → 앱 키 → JavaScript 키"></div>
+    <div class="small">키는 이 브라우저의 localStorage에만 저장되며 이 프로젝트의 다른 지도(seoul_auction_map.html 등)와 같은 키를 공유합니다.</div>
+    <div style="margin-top:8px;text-align:right"><button class="btn" id="kSave" style="background:#f59e0b;border-color:#f59e0b;color:#1f1300">저장</button> <button class="btn" id="kClose">닫기</button></div>
+  </div>
+</div>
+</div>
+<script>
+var DATA = {"meta":{"title":"재개발·재건축 지역 전문 공인중개사무소","note":"커뮤니티에 공유된 지역별 전문 중개사무소 연락처 목록 (수기 입력)","count":11},"offices":[{"id":"seongsu","zone":"성수전략정비구역","member":"10기 · 올리브 · 이정미","office":"이부동산","address":"성덕정길 134-1","address_geo":"서울 성동구 성덕정길 134-1","phone":["010-4915-4997"],"specialty":["성수전략정비구역","성수 준공업지역","자양동 신통구역"]},{"id":"hannam","zone":"한남뉴타운","member":"18기 · to to","office":"정다운부동산","address":"서울시 용산구 장문로 87-1","address_geo":"서울 용산구 장문로 87-1","phone":["010-5512-0479"],"specialty":["한남뉴타운 전문"]},{"id":"noryangjin1","zone":"노량진뉴타운","member":"11기 · 09고모 · 박명숙","office":"하늘채 공인중개사 사무소","address":"서울 동작구 장승배기로 155(노량진동)","address_geo":"서울 동작구 장승배기로 155","note":"동작구청 정문에서 장승배기방향 100m 거리","phone":["010-5352-4889"],"specialty":["노량진뉴타운","노량진 1,2,3,4,5,6,7,8구역 재개발"]},{"id":"noryangjin2","zone":"노량진뉴타운","member":"20기 · 무리수 · 김윤아","office":"내가찾던부동산공인중개사사무소","address":"서울특별시 동작구 장승배기로 131,1층","address_geo":"서울 동작구 장승배기로 131","phone":["02-816-5700","010-7752-9837"],"specialty":["노량진 뉴타운 내 (1구역 이주예정으로 동작구내 이전준비중)"]},{"id":"bukahyeon","zone":"북아현뉴타운","member":"11기 · 권분내기 · 권오명","office":"권오명부동산","address":"신촌로35길10, 402엠동 219호 (북아현동,이편한세상신촌)","address_geo":"서울 서대문구 신촌로35길 10","phone":["010-6271-0133"],"specialty":["이편한세상신촌·신촌푸르지오·힐스테이트신촌 아파트단지","북아현2구역재개발","북아현3구역재개발"]},{"id":"sindang","zone":"신당동 일대 재개발","member":"3기 · upperworld · 정종하","office":"부동산플러스","address":"서울 중구 다산로 33다길 15 1층 (신당10구역 내)","address_geo":"서울 중구 다산로33다길 15","phone":["010-4155-9331"],"specialty":["신당 10구역재개발","신당 13구역재개발","신당역 주변 오피스텔 및 주변 초기 재개발 구역 등"]},{"id":"jayang4","zone":"자양4동 신속통합기획 선정구역","member":"17기 · 자양동신사 · 김영아","office":"한강롯데부동산","address":"서울시 광진구 뚝섬로24길3(자양동)","address_geo":"서울 광진구 뚝섬로24길 3","phone":["010-6432-5539"],"specialty":["자양4동 신속통합구역 내 위치"]},{"id":"jeonnong","zone":"동대문구 청량리·전농동 일대","member":"6기 · 다양 · 안희준","office":"공감 공인중개사사무소","office_tel":"02-2213-8757","address":"서울특별시 동대문구 사가정로 65,근린생활시설1 104호(전농동,래미안크레시티)","address_geo":"서울 동대문구 사가정로 65","phone":["010-4894-3923"],"specialty":["동대문구 재개발(청량리, 전농·용두 재개발)","전농동 아파트"]},{"id":"ulsan","zone":"울산광역시","member":"1기 · 달나라로고 · 박세령","office":"라엘에스중앙","address":"울산광역시 남구 신남로 36","address_geo":"울산 남구 신남로 36","phone":["010-4574-0567"],"specialty":["라엘에스(남구B08재개발)","문수로 금호어울림","남구·중구 분양권 및 재개발"]},{"id":"busan","zone":"부산광역시","member":"13기 · 옹이 · 송차복","office":"마음편한부동산","address":"부산시 부산진구 중앙대로668, 2층 214호(에이원프라자)","address_geo":"부산 부산진구 중앙대로 668","phone":["010-5575-8899"],"specialty":["부산전역 재개발"]},{"id":"godeok","zone":"고덕동·상일동 일대 아파트","member":"7기 · 호이호호 · 신수미","office":"강동탑아이파크 공인중개사사무소","office_tel":"02-426-4455","address":"서울특별시 강동구 동남로79길26 고덕 아이파크 APT상가동 110호","address_geo":"서울 강동구 동남로79길 26","phone":["010-2232-4555"],"specialty":["강동구 고덕·상일 일대 아파트"]}]};
+var OFFICES = DATA.offices;
+var $ = function(id){ return document.getElementById(id); };
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+$('subtitle').textContent = OFFICES.length + '곳 · ' + DATA.meta.note;
+
+// 구역별 색 (뚜렷하게 구분되는 팔레트)
+var PALETTE = ['#dc2626', '#ea580c', '#d97706', '#65a30d', '#059669', '#0891b2', '#2563eb', '#7c3aed', '#c026d3', '#e11d48', '#0f766e'];
+var ZONES = Array.from(new Set(OFFICES.map(function(o){ return o.zone; })));
+var ZCOLOR = {}; ZONES.forEach(function(z, i){ ZCOLOR[z] = PALETTE[i % PALETTE.length]; });
+
+// ─── 키 ───
+var KAKAO_KEY = localStorage.getItem('kakao_app_key') || '';
+function keyStat(){ $('kStat').innerHTML = '카카오 ' + (KAKAO_KEY ? '<b>저장됨</b>' : '<span style="color:#b91c1c">미설정</span>'); }
+keyStat();
+$('btnKeys').onclick = function(){ $('keys').hidden = !$('keys').hidden; };
+$('kClose').onclick = function(){ $('keys').hidden = true; };
+$('kSave').onclick = function(){
+  var a = $('kKakao').value.trim();
+  if(a && a !== KAKAO_KEY){ localStorage.setItem('kakao_app_key', a); location.reload(); }
+  else $('keys').hidden = true;
+};
+if(!KAKAO_KEY) $('keys').hidden = false;
+
+// ─── 사이드 목록 ───
+function renderList(){
+  $('side').innerHTML = OFFICES.map(function(o, i){
+    var g = o._geo;
+    return '<div class="item" data-i="' + i + '"><div class="zone"><span class="dot" style="background:' + ZCOLOR[o.zone] + '"></span>' + esc(o.zone) + '</div>' +
+      '<div class="office">' + esc(o.office) + '</div><div class="member">' + esc(o.member) + '</div>' +
+      '<div class="phone">☎ ' + esc(o.phone.join(' / ')) + '</div>' +
+      '<div class="geo ' + (g ? 'ok' : 'ng') + '">' + (g ? '📍 위치 확인됨' : '⏳ 위치 확인 중…') + '</div></div>';
+  }).join('');
+}
+renderList();
+$('side').addEventListener('click', function(e){ var el = e.target.closest('.item'); if(el) focusOffice(+el.dataset.i); });
+function focusOffice(i){
+  $('side').querySelectorAll('.item').forEach(function(el, k){ el.classList.toggle('on', k === i); });
+  var o = OFFICES[i]; if(!K.ready || !o._geo) return;
+  K.map.setLevel(4); K.map.setCenter(new kakao.maps.LatLng(o._geo.lat, o._geo.lng));
+  openPopup(o);
+}
+
+// ─── 카카오맵 ───
+var K = { ready: false, map: null, markers: [], labels: [], popup: null };
+function initKakao(){
+  if(!KAKAO_KEY) return;
+  var s = document.createElement('script');
+  s.src = 'https://dapi.kakao.com/v2/maps/sdk.js?appkey=' + KAKAO_KEY + '&autoload=false&libraries=services';
+  s.onload = function(){ kakao.maps.load(build); };
+  s.onerror = function(){ $('keys').hidden = false; };
+  document.head.appendChild(s);
+}
+function build(){
+  K.map = new kakao.maps.Map($('kakao'), { center: new kakao.maps.LatLng(37.5665, 126.978), level: 13 });
+  K.map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
+  K.geocoder = new kakao.maps.services.Geocoder(); K.places = new kakao.maps.services.Places();
+  K.ready = true;
+  kakao.maps.event.addListener(K.map, 'click', closePopup);
+  $('btnFit').onclick = fitAll;
+  geocodeAll();
+}
+
+// 주소 후보를 순서대로 시도 — 도로명 정확 매칭 실패 시 유사 매칭·키워드 순으로 물러난다
+function geocodeOne(o, done){
+  var candidates = [o.address_geo];
+  var m = o.address_geo.match(/^(\S+)\s+(\S+구)?\s*(.+)$/);
+  if(m && m[3]) candidates.push((m[1] + ' ' + m[3]).trim());   // 구 생략 재시도
+  (function next(i){
+    if(i >= candidates.length){
+      K.places.keywordSearch(o.office + ' ' + o.address_geo, function(r, st){
+        if(st === kakao.maps.services.Status.OK && r.length) done({ lat: +r[0].y, lng: +r[0].x, via: 'keyword' });
+        else done(null);
+      });
+      return;
+    }
+    K.geocoder.addressSearch(candidates[i], function(res, st){
+      if(st === kakao.maps.services.Status.OK && res.length) done({ lat: +res[0].y, lng: +res[0].x, via: 'address' });
+      else next(i + 1);
+    });
+  })(0);
+}
+var GEO_CACHE = {};
+try { GEO_CACHE = JSON.parse(localStorage.getItem('agent_offices_geocode') || '{}'); } catch(e){ GEO_CACHE = {}; }
+function geocodeAll(){
+  var i = 0;
+  (function next(){
+    if(i >= OFFICES.length){ renderList(); drawMarkers(); fitAll(); $('stat').textContent = OFFICES.filter(function(o){ return o._geo; }).length + ' / ' + OFFICES.length + '곳 위치 확인'; return; }
+    var o = OFFICES[i];
+    if(GEO_CACHE[o.id]){ o._geo = GEO_CACHE[o.id]; i++; renderList(); next(); return; }
+    geocodeOne(o, function(g){ o._geo = g; if(g) GEO_CACHE[o.id] = g; localStorage.setItem('agent_offices_geocode', JSON.stringify(GEO_CACHE)); i++; renderList(); next(); });
+  })();
+}
+
+function drawMarkers(){
+  K.markers.forEach(function(m){ m.setMap(null); }); K.labels.forEach(function(l){ l.setMap(null); });
+  K.markers = []; K.labels = [];
+  OFFICES.forEach(function(o){
+    if(!o._geo) return;
+    var pos = new kakao.maps.LatLng(o._geo.lat, o._geo.lng), color = ZCOLOR[o.zone];
+    var img = new kakao.maps.MarkerImage(pinDataUrl(color), new kakao.maps.Size(34, 44), { offset: new kakao.maps.Point(17, 44) });
+    var marker = new kakao.maps.Marker({ position: pos, image: img, zIndex: 10 });
+    marker.setMap(K.map);
+    kakao.maps.event.addListener(marker, 'click', function(){ openPopup(o); });
+    K.markers.push(marker);
+    var label = new kakao.maps.CustomOverlay({ position: pos, yAnchor: 2.35, zIndex: 9,
+      content: '<div class="label">' + esc(o.office) + '<span class="ph">' + esc(o.phone[0]) + '</span></div>' });
+    label.setMap(K.map); K.labels.push(label);
+  });
+}
+function pinDataUrl(color){
+  var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="34" height="44"><path d="M17 43C17 43 32 26.5 32 16.5C32 7.94 25.06 1 17 1C8.94 1 2 7.94 2 16.5C2 26.5 17 43 17 43Z" fill="' + color + '" stroke="#fff" stroke-width="2.5"/><circle cx="17" cy="16" r="6.5" fill="#fff"/></svg>';
+  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+}
+function fitAll(){
+  var pts = OFFICES.filter(function(o){ return o._geo; }).map(function(o){ return new kakao.maps.LatLng(o._geo.lat, o._geo.lng); });
+  if(!pts.length) return;
+  var bounds = new kakao.maps.LatLngBounds(); pts.forEach(function(p){ bounds.extend(p); });
+  K.map.setBounds(bounds, 60);
+}
+function closePopup(){ if(K.popup){ K.popup.setMap(null); K.popup = null; } }
+function openPopup(o){
+  closePopup(); if(!o._geo) return;
+  var phones = o.phone.map(function(p){ return '<a class="tel" href="tel:' + p.replace(/[^0-9]/g, '') + '">' + esc(p) + '</a>'; }).join(' / ');
+  var html = '<div class="kpop"><div class="hd" style="background:' + ZCOLOR[o.zone] + ';color:#fff"><span>🏢 ' + esc(o.office) + '</span><button class="x" data-close>✕</button></div><div class="bd"><table>' +
+    '<tr><td>구역</td><td>' + esc(o.zone) + '</td></tr>' +
+    '<tr><td>담당</td><td>' + esc(o.member) + '</td></tr>' +
+    '<tr><td>주소</td><td>' + esc(o.address) + (o.note ? '<br><small style="color:#9ca3af">' + esc(o.note) + '</small>' : '') + '</td></tr>' +
+    '<tr><td>전화</td><td>' + phones + (o.office_tel ? '<br><small style="color:#6b7280">사무실 ' + esc(o.office_tel) + '</small>' : '') + '</td></tr>' +
+    '</table><ul class="spec">' + o.specialty.map(function(s){ return '<li>' + esc(s) + '</li>'; }).join('') + '</ul></div></div>';
+  var el = document.createElement('div'); el.innerHTML = html;
+  ['mousedown','mouseup','click','dblclick','touchstart','touchend','wheel'].forEach(function(t){ el.addEventListener(t, function(e){ e.stopPropagation(); kakao.maps.event.preventMap(); }); });
+  el.querySelector('[data-close]').addEventListener('click', closePopup);
+  K.popup = new kakao.maps.CustomOverlay({ content: el, position: new kakao.maps.LatLng(o._geo.lat, o._geo.lng), yAnchor: 1.5, zIndex: 30 });
+  K.popup.setMap(K.map);
+}
+
+initKakao();
+</script>
+</body>
+</html>
